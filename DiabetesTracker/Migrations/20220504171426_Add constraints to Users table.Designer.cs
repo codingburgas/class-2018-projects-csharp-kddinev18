@@ -4,14 +4,16 @@ using DiabetesTracker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DiabetesTracker.Migrations
 {
     [DbContext(typeof(DiabetesTrackerDbContext))]
-    partial class DiabetesTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220504171426_Add constraints to Users table")]
+    partial class AddconstraintstoUserstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
