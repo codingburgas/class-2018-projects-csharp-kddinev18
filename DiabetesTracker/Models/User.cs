@@ -25,5 +25,6 @@ namespace DiabetesTracker.Models
         public bool AccountStatus { get; set; }
 
         public ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();
+        public ICollection<Post> Posts { get; set; } = new List<Post>();
     }
 }
