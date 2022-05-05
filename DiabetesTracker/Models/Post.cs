@@ -20,5 +20,7 @@ namespace DiabetesTracker.Models
         public byte[] Image { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime PublishedOn { get; set; }
+
+        public ICollection<PostTag> PostTags { get; set; }
     }
 }

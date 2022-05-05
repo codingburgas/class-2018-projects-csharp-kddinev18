@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DiabetesTracker.Models
 {
-    public class Tag
+    public class PostTag
     {
-        [Key]
+        public int PostId { get; set; }
+        public virtual Post Post { get; set; }
         public int TagId { get; set; }
-        [Column(TypeName = "nvarchar(64)")]
-        public string TagName { get; set; }
-
-        public ICollection<PostTag> PostTags { get; set; }
-
+        public virtual Tag Tag { get; set; }
     }
 }
