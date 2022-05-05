@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -29,14 +30,24 @@ namespace DiabetesTracker.Models
 
 
 
+        private static int? _logedUserId;
         private static string Hash(string data)
         {
             return BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(data))).ToUpper().Replace("-", "");
         }
+        private static string GetSalt()
+        {
+            byte[] salt = new byte[64];
+            using (var random = new RNGCryptoServiceProvider())
+            {
+                random.GetNonZeroBytes(salt);
+            }
+            return BitConverter.ToString(salt).ToUpper().Replace("-", "");
+        }
         public static void Register(DiabetesTrackerDbContext dbContext, string userName, string email, string password)
         {
-            int salt = new Random().Next(10000, 99999);
-            string hashPassword = Hash(password + salt.ToString());
+            string salt = GetSalt();
+            string hashPassword = Hash(password + salt);
 
             foreach (User user in dbContext.Users)
                 if (user.Email == email || user.UserName == userName)
@@ -47,10 +58,23 @@ namespace DiabetesTracker.Models
                 UserName = userName,
                 Password = hashPassword,
                 Email = email,
-                Salt = salt.ToString()
+                Salt = salt
             });
 
             dbContext.SaveChanges();
+        }
+        public static void LogIn(DiabetesTrackerDbContext dbContext, string username, string password)
+        {
+            List<User> users = dbContext.Users
+                .Where(u => u.UserName == username)
+                .ToList();
+
+            if (users.Count == 0)
+                throw new ArgumentException("Your password or username is incorrect");
+
+            foreach (User user in users)
+                if (Hash(password + user.Salt.ToString()) == user.Password)
+                    _logedUserId = user.UserId;
         }
     }
 }
