@@ -249,7 +249,7 @@ namespace DiabetesTracker.Models
 
                 entity.Property(e => e.Salt)
                     .IsRequired()
-                    .HasMaxLength(64);
+                    .HasMaxLength(16);
 
                 entity.Property(e => e.UserName)
                     .IsRequired()

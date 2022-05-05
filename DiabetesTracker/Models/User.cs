@@ -31,18 +31,26 @@ namespace DiabetesTracker.Models
 
 
         private static int? _logedUserId;
+        public static int GetCurrentUser()
+        {
+            if (_logedUserId.HasValue)
+                return _logedUserId.Value;
+            else
+                throw new ArgumentException("You first have to be logged");
+        }
         private static string Hash(string data)
         {
             return BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(data))).ToUpper().Replace("-", "");
         }
         private static string GetSalt()
         {
-            byte[] salt = new byte[64];
-            using (var random = new RNGCryptoServiceProvider())
+            StringBuilder salt = new StringBuilder();
+            Random random = new Random();
+            for (int i = 0; i < 16; i++)
             {
-                random.GetNonZeroBytes(salt);
+                salt.Append(Convert.ToChar(random.Next(0, 26) + 65));
             }
-            return BitConverter.ToString(salt).ToUpper().Replace("-", "");
+            return salt.ToString();
         }
         public static void Register(DiabetesTrackerDbContext dbContext, string userName, string email, string password)
         {
@@ -75,13 +83,6 @@ namespace DiabetesTracker.Models
             foreach (User user in users)
                 if (Hash(password + user.Salt.ToString()) == user.Password)
                     _logedUserId = user.UserId;
-        }
-        public static int GetCurrentUser()
-        {
-            if (_logedUserId.HasValue)
-                return _logedUserId.Value;
-            else
-                throw new ArgumentException("You first have to be logged");
         }
     }
 }
