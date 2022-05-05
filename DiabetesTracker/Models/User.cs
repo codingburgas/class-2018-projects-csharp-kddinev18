@@ -38,7 +38,19 @@ namespace DiabetesTracker.Models
             int salt = new Random().Next(10000, 99999);
             string hashPassword = Hash(password + salt.ToString());
 
-            
+            foreach (User user in dbContext.Users)
+                if (user.Email == email || user.UserName == userName)
+                    throw new ArgumentException("There is already a user with that email or username");
+
+            dbContext.Users.Add(new User()
+            {
+                UserName = userName,
+                Password = hashPassword,
+                Email = email,
+                Salt = salt.ToString()
+            });
+
+            dbContext.SaveChanges();
         }
     }
 }
