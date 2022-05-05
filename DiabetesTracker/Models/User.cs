@@ -76,5 +76,12 @@ namespace DiabetesTracker.Models
                 if (Hash(password + user.Salt.ToString()) == user.Password)
                     _logedUserId = user.UserId;
         }
+        public static int GetCurrentUser()
+        {
+            if (_logedUserId.HasValue)
+                return _logedUserId.Value;
+            else
+                throw new ArgumentException("You first have to be logged");
+        }
     }
 }
