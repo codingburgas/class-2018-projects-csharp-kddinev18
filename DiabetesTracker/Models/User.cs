@@ -28,5 +28,6 @@ namespace DiabetesTracker.Models
         public ICollection<Post> Posts { get; set; } = new List<Post>();
         public virtual ICollection<Blog> Blogs { get; set; } = new List<Blog>();
         public virtual ICollection<Menu> Menus { get; set; } = new List<Menu>();
+        public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
     }
 }
