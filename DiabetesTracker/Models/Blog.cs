@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+
+#nullable disable
 
 namespace DiabetesTracker.Models
 {
     public class Blog
     {
-        [Key]
         public int BlogId { get; set; }
         public int UserId { get; set; }
-        public virtual User User { get; set; }
-        [Column(TypeName = "nvarchar(128)")]
         public string Name { get; set; }
-        [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
 
+        public virtual User User { get; set; }
+        public virtual ICollection<BlogPost> BlogPosts { get; set; } = new List<BlogPost>();
+        public virtual ICollection<FollowingBlog> FollowingBlogs { get; set; } = new List<FollowingBlog>();
     }
 }
