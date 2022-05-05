@@ -23,5 +23,7 @@ namespace DiabetesTracker.Models
         public DateTime DateRegistered { get; set; }
         public bool IsAdmin { get; set; }
         public bool AccountStatus { get; set; }
+
+        public ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();
     }
 }

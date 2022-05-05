@@ -10,6 +10,7 @@ namespace DiabetesTracker.Models
     public class DiabetesTrackerDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
