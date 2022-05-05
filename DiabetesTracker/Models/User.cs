@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 #nullable disable
 
@@ -25,5 +27,18 @@ namespace DiabetesTracker.Models
         public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
         public virtual ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();
 
+
+
+        private static string Hash(string data)
+        {
+            return BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(data))).ToUpper().Replace("-", "");
+        }
+        public static void Register(DiabetesTrackerDbContext dbContext, string userName, string email, string password)
+        {
+            int salt = new Random().Next(10000, 99999);
+            string hashPassword = Hash(password + salt.ToString());
+
+            
+        }
     }
 }
