@@ -11,10 +11,10 @@ namespace DiabetesTracker.Models
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public DateTime DateRegisterd { get; set; }
-        public bool IsAdmin { get; set; }
-        public bool AccountStatus { get; set; }
         public string Salt { get; set; }
+        public DateTime DateRegisterd { get; set; } = DateTime.Now;
+        public bool IsAdmin { get; set; } = false;
+        public bool AccountStatus { get; set; } = true;
 
         public virtual ICollection<Blog> Blogs { get; set; } = new List<Blog>();
         public virtual ICollection<Favourite> Favourites { get; set; } = new List<Favourite>();
@@ -24,5 +24,6 @@ namespace DiabetesTracker.Models
         public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
         public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
         public virtual ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();
+
     }
 }
