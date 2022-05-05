@@ -26,5 +26,6 @@ namespace DiabetesTracker.Models
 
         public ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();
         public ICollection<Post> Posts { get; set; } = new List<Post>();
+        public virtual ICollection<Blog> Blogs { get; set; } = new List<Blog>();
     }
 }
