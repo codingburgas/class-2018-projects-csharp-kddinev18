@@ -15,6 +15,7 @@ namespace DiabetesTracker.Models
         public DbSet<Tag> Tags { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Menu> Menus { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
