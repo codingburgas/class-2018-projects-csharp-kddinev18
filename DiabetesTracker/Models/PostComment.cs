@@ -15,5 +15,18 @@ namespace DiabetesTracker.Models
 
         public virtual Post Post { get; set; }
         public virtual User User { get; set; }
+
+        public static void Comment(DiabetesTrackerDbContext dbContext, Post post, string comment)
+        {
+            dbContext.PostComments.Add(new PostComment() 
+            {
+                UserId = User.GetCurrentUser(),
+                PostId = post.PostId,
+                Comment = comment,
+                CommentedOn = DateTime.Now,
+            });
+
+            dbContext.SaveChanges();
+        }
     }
 }
