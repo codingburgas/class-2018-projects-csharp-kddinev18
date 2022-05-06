@@ -35,6 +35,10 @@ namespace DiabetesTracker.Models
         {
             return _logedUserId.Value;
         }
+        public static User GetCurrentUser(DiabetesTrackerDbContext dbContext)
+        {
+            return dbContext.Users.Where(user => user.UserId == GetCurrentUser()).FirstOrDefault();
+        }
         private static string Hash(string data)
         {
             return BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(data))).ToUpper().Replace("-", "");
@@ -73,7 +77,6 @@ namespace DiabetesTracker.Models
 
             return lastUser;
         }
-
         public static void ConfigureUserProfile(DiabetesTrackerDbContext dbContext, User user, char gender, string about, string country, string city)
         {
             dbContext.UserProfiles.Add(new UserProfile()
@@ -88,7 +91,6 @@ namespace DiabetesTracker.Models
 
             dbContext.SaveChanges();
         }
-
         public static void LogIn(DiabetesTrackerDbContext dbContext, string username, string password)
         {
             List<User> users = dbContext.Users
