@@ -48,9 +48,7 @@ namespace DiabetesTracker.Models
             StringBuilder salt = new StringBuilder();
             Random random = new Random();
             for (int i = 0; i < 16; i++)
-            {
                 salt.Append(Convert.ToChar(random.Next(0, 26) + 65));
-            }
             return salt.ToString();
         }
         public static User Register(DiabetesTrackerDbContext dbContext, string userName, string email, string password)
@@ -58,24 +56,24 @@ namespace DiabetesTracker.Models
             string salt = GetSalt();
             string hashPassword = Hash(password + salt);
 
-            foreach (User user in dbContext.Users)
-                if (user.Email == email || user.UserName == userName)
+            foreach (User existingUser in dbContext.Users)
+                if (existingUser.Email == email || existingUser.UserName == userName)
                     throw new ArgumentException("There is already a user with that email or username");
 
-            dbContext.Users.Add(new User()
+            User newUser = new User()
             {
                 UserName = userName,
                 Password = hashPassword,
                 Email = email,
                 Salt = salt
-            });
+            };
+
+            dbContext.Users.Add(newUser);
             dbContext.SaveChanges();
 
-            User lastUser = dbContext.Users.GroupBy(user => user.UserId).Last().ToList().First();
+            _logedUserId = newUser.UserId;
 
-            _logedUserId = lastUser.UserId;
-
-            return lastUser;
+            return newUser;
         }
         public static void LogIn(DiabetesTrackerDbContext dbContext, string username, string password)
         {

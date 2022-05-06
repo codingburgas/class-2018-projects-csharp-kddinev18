@@ -15,14 +15,15 @@ namespace DiabetesTracker.Models
 
         public static Tag AddTag(DiabetesTrackerDbContext dbContext, string tagName)
         {
-            dbContext.Tags.Add(new Tag() 
-            { 
+            Tag newTag = new Tag() 
+            {
                 TagName = tagName
-            });
+            };
+            dbContext.Tags.Add(newTag);
 
             dbContext.SaveChanges();
 
-            return dbContext.Tags.OrderBy(tag => tag.TagId).Last();
+            return newTag;
         }
     }
 }
