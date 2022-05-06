@@ -13,6 +13,8 @@ namespace DiabetesTracker.Models
         public string Content { get; set; }
         public ImageSource Image { get; set; }
         public DateTime PublishedOn { get; set; }
+        public int LikeCount { get; set; }
+        public int CommentCount { get; set; }
 
         public virtual User User { get; set; }
         public virtual ICollection<BlogPost> BlogPosts { get; set; } = new List<BlogPost>();

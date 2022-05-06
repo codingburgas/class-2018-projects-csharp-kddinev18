@@ -22,7 +22,6 @@ namespace DiabetesTracker.Models
                 Name = name,
                 CreatedOn = DateTime.Now
             };
-
             dbContext.Menus.Add(newMenu);
 
             foreach (Recipe recipe in recipes)
