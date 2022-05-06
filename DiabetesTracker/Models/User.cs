@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -87,6 +88,11 @@ namespace DiabetesTracker.Models
             foreach (User user in users)
                 if (Hash(password + user.Salt.ToString()) == user.Password)
                     _logedUserId = user.UserId;
+        }
+
+        public static ICollection<Post> GetFavouritePosts(DiabetesTrackerDbContext dbContext)
+        {
+            return dbContext.FavouritePosts.Where(favouritePost => favouritePost.UserId == GetCurrentUser()).Include(favouritePost => favouritePost.Post).Select(favouritePost => favouritePost.Post).ToList();
         }
     }
 }
