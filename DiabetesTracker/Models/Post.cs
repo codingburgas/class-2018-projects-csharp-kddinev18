@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Media;
+using System.Linq;
 #nullable disable
 
 namespace DiabetesTracker.Models
@@ -25,15 +26,20 @@ namespace DiabetesTracker.Models
             dbContext.Posts.Add(new Post() 
             { 
                 Content = content,
-                User = User.GetCurrentUser(),
+                UserId = User.GetCurrentUser(),
                 Image = image,
                 PublishedOn = DateTime.Now
             });
-            Post post = dbContext.Posts.GroupBy(post=>post.PostId);
+
+            Post post = dbContext.Posts.GroupBy(post=>post.PostId).Last().ToList()[0];
             foreach (Tag tag in tags)
 	        {
-                PostTag.AddPostTag(dbContext, )
+                PostTag.AddPostTag(dbContext, post, tag);
 	        }
+
+            dbContext.SaveChanges();
+
+            return post;
         }
     }
 }
