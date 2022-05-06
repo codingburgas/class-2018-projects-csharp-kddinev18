@@ -9,7 +9,7 @@ namespace DiabetesTracker.Models
     {
         public int UserProfileId { get; set; }
         public int UserId { get; set; }
-        public char Gender { get; set; } = string.Empty;
+        public char Gender { get; set; }
         public string About { get; set; } = string.Empty;
         public DateTime DateUpdated { get; set; } = DateTime.Now;
         public string Country { get; set; } = string.Empty;

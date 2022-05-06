@@ -71,7 +71,7 @@ namespace DiabetesTracker.Models
             });
             dbContext.SaveChanges();
 
-            User lastUser = dbContext.Users.GroupBy(user => user.UserId).Last();
+            User lastUser = dbContext.Users.GroupBy(user => user.UserId).Last().ToList().First();
 
             _logedUserId = lastUser.UserId;
 
