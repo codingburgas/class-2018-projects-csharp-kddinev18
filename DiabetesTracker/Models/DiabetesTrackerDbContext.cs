@@ -75,13 +75,13 @@ namespace DiabetesTracker.Models
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.FollowingBlogs)
-                    .HasForeignKey(d => d.FollowedOn)
+                    .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FollowingBlogs.UserId");
 
                 entity.HasOne(d => d.Blog)
                     .WithMany(p => p.FollowingBlogs)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.BlogId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FollowingBlogs.BlogId");
             });

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,6 +32,10 @@ namespace DiabetesTracker.Models
             dbContext.SaveChanges();
 
             return newBlog;
+        }
+        public static ICollection<Post> GetAllPosts(DiabetesTrackerDbContext dbContext, Blog Blog)
+        {
+            return dbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == Blog.BlogId).Select(blog => blog.Posts).First().ToList();
         }
     }
 }
