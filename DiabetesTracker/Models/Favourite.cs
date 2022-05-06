@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DiabetesTracker.Models
 {
-    public class Favourite
+    public class FavouritePost
     {
         public int UserId { get; set; }
         public int PostId { get; set; }
@@ -13,5 +13,15 @@ namespace DiabetesTracker.Models
 
         public virtual Post Post { get; set; }
         public virtual User User { get; set; }
+
+        public static void Favourite(DiabetesTrackerDbContext dbContext, Post post)
+        {
+            dbContext.FavouritePosts.Add(new FavouritePost()
+            {
+                UserId = User.GetCurrentUser(),
+                PostId = post.PostId,
+                SavedOn = DateTime.Now,
+            });
+        }
     }
 }

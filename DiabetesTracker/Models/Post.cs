@@ -19,7 +19,7 @@ namespace DiabetesTracker.Models
 
         public virtual User User { get; set; }
         public virtual Blog Blogs { get; set; }
-        public virtual ICollection<Favourite> Favourites { get; set; } = new List<Favourite>();
+        public virtual ICollection<FavouritePost> FavouritePosts { get; set; } = new List<FavouritePost>();
         public virtual ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
         public virtual ICollection<PostLike> PostLikes { get; set; } = new List<PostLike>();
         public virtual ICollection<PostTag> PostTags { get; set; } = new List<PostTag>();

@@ -12,7 +12,7 @@ namespace DiabetesTracker.Models
         public DiabetesTrackerDbContext(DbContextOptions<DiabetesTrackerDbContext> options) : base(options) {}
 
         public virtual DbSet<Blog> Blogs { get; set; }
-        public virtual DbSet<Favourite> Favourites { get; set; }
+        public virtual DbSet<FavouritePost> FavouritePosts { get; set; }
         public virtual DbSet<FollowingBlog> FollowingBlogs { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<MenuRecipe> MenuRecipes { get; set; }
@@ -50,20 +50,20 @@ namespace DiabetesTracker.Models
                     .HasConstraintName("FK_Blogs.UserId");
             });
 
-            modelBuilder.Entity<Favourite>(entity =>
+            modelBuilder.Entity<FavouritePost>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.PostId });
 
                 entity.Property(e => e.SavedOn).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Post)
-                    .WithMany(p => p.Favourites)
+                    .WithMany(p => p.FavouritePosts)
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Favourites.PostId");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Favourites)
+                    .WithMany(p => p.FavouritePosts)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Favourites.UserId");
@@ -73,13 +73,13 @@ namespace DiabetesTracker.Models
             {
                 entity.HasKey(e => new { e.BlogId, e.UserId });
 
-                entity.HasOne(d => d.FollowedOnNavigation)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.FollowingBlogs)
                     .HasForeignKey(d => d.FollowedOn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FollowingBlogs.UserId");
 
-                entity.HasOne(d => d.User)
+                entity.HasOne(d => d.Blog)
                     .WithMany(p => p.FollowingBlogs)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
