@@ -19,18 +19,18 @@ namespace DiabetesTracker.Models
 
         public static Blog CreateBlog(DiabetesTrackerDbContext dbContext, string name)
         {
-            Blog blog = new Blog() 
+            Blog newBlog = new Blog() 
             {
                 UserId = User.GetCurrentUser(),
                 Name = name,
                 CreatedOn = DateTime.Now
             };
 
-            dbContext.Blogs.Add(blog);
+            dbContext.Blogs.Add(newBlog);
 
             dbContext.SaveChanges();
 
-            return blog;
+            return newBlog;
         }
     }
 }

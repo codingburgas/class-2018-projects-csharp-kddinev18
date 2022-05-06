@@ -19,18 +19,18 @@ namespace DiabetesTracker.Models
 
         public static Recipe CreateRecipe(DiabetesTrackerDbContext dbContext, string name, string content)
         {
-            Recipe recipe = new Recipe() 
+            Recipe newRecipe = new Recipe() 
             {
                 UserId = User.GetCurrentUser(),
                 Name = name,
                 Content = content,
                 CreatedOn = DateTime.Now,
             };
-            dbContext.Recipes.Add(recipe);
+            dbContext.Recipes.Add(newRecipe);
 
             dbContext.SaveChanges();
 
-            return recipe;
+            return newRecipe;
         }
     }
 }

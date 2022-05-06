@@ -23,23 +23,23 @@ namespace DiabetesTracker.Models
 
         public static Post AddPost(DiabetesTrackerDbContext dbContext, string content, ImageSource image, Tag[] tags)
         {
-            Post post = new Post() 
+            Post newPost = new Post() 
             {
                 Content = content,
                 UserId = User.GetCurrentUser(),
                 Image = image,
                 PublishedOn = DateTime.Now
             };
-            dbContext.Posts.Add(post);
+            dbContext.Posts.Add(newPost);
 
             foreach (Tag tag in tags)
 	        {
-                PostTag.AddPostTag(dbContext, post, tag);
+                PostTag.AddPostTag(dbContext, newPost, tag);
 	        }
 
             dbContext.SaveChanges();
 
-            return post;
+            return newPost;
         }
     }
 }
