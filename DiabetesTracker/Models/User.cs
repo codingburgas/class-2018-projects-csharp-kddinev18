@@ -77,20 +77,6 @@ namespace DiabetesTracker.Models
 
             return lastUser;
         }
-        public static void ConfigureUserProfile(DiabetesTrackerDbContext dbContext, User user, char gender, string about, string country, string city)
-        {
-            dbContext.UserProfiles.Add(new UserProfile()
-            {
-                UserId = user.UserId,
-                Gender = gender,
-                About = about,
-                DateUpdated = DateTime.Now,
-                Country = country,
-                City = city
-            });
-
-            dbContext.SaveChanges();
-        }
         public static void LogIn(DiabetesTrackerDbContext dbContext, string username, string password)
         {
             List<User> users = dbContext.Users

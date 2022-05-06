@@ -16,5 +16,20 @@ namespace DiabetesTracker.Models
         public string City { get; set; } = string.Empty;
 
         public virtual User User { get; set; }
+
+        public static void ConfigureUserProfile(DiabetesTrackerDbContext dbContext, User user, char gender, string about, string country, string city)
+        {
+            dbContext.UserProfiles.Add(new UserProfile()
+            {
+                UserId = user.UserId,
+                Gender = gender,
+                About = about,
+                DateUpdated = DateTime.Now,
+                Country = country,
+                City = city
+            });
+
+            dbContext.SaveChanges();
+        }
     }
 }
