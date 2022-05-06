@@ -15,5 +15,17 @@ namespace DiabetesTracker.Models
         public virtual User User { get; set; }
         public virtual ICollection<BlogPost> BlogPosts { get; set; } = new List<BlogPost>();
         public virtual ICollection<FollowingBlog> FollowingBlogs { get; set; } = new List<FollowingBlog>();
+
+        public static Blog CreateBlog(DiabetesTrackerDbContext dbContext, string name)
+        {
+            dbContext.Blogs.Add(new Blog() 
+            {
+                UserId = User.GetCurrentUser(),
+                Name = name,
+                CreatedOn = DateTime.Now
+            });
+
+            dbContext.SaveChanges();
+        }
     }
 }
