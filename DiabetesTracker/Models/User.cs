@@ -33,10 +33,7 @@ namespace DiabetesTracker.Models
         private static int? _logedUserId;
         public static int GetCurrentUser()
         {
-            if (_logedUserId.HasValue)
-                return _logedUserId.Value;
-            else
-                throw new ArgumentException("You first have to be logged");
+            return _logedUserId.Value;
         }
         private static string Hash(string data)
         {
@@ -52,7 +49,7 @@ namespace DiabetesTracker.Models
             }
             return salt.ToString();
         }
-        public static void Register(DiabetesTrackerDbContext dbContext, string userName, string email, string password)
+        public static User Register(DiabetesTrackerDbContext dbContext, string userName, string email, string password)
         {
             string salt = GetSalt();
             string hashPassword = Hash(password + salt);
@@ -68,9 +65,30 @@ namespace DiabetesTracker.Models
                 Email = email,
                 Salt = salt
             });
+            dbContext.SaveChanges();
+
+            User lastUser = dbContext.Users.GroupBy(user => user.UserId).Last();
+
+            _logedUserId = lastUser.UserId;
+
+            return lastUser;
+        }
+
+        public static void ConfigureUserProfile(DiabetesTrackerDbContext dbContext, User user, char gender, string about, string country, string city)
+        {
+            dbContext.UserProfiles.Add(new UserProfile()
+            {
+                UserId = user.UserId,
+                Gender = gender,
+                About = about,
+                DateUpdated = DateTime.Now,
+                Country = country,
+                City = city
+            });
 
             dbContext.SaveChanges();
         }
+
         public static void LogIn(DiabetesTrackerDbContext dbContext, string username, string password)
         {
             List<User> users = dbContext.Users
