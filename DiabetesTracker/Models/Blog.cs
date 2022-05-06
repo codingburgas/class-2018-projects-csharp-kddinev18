@@ -14,8 +14,8 @@ namespace DiabetesTracker.Models
         public DateTime CreatedOn { get; set; }
 
         public virtual User User { get; set; }
-        public virtual ICollection<BlogPost> BlogPosts { get; set; } = new List<BlogPost>();
         public virtual ICollection<FollowingBlog> FollowingBlogs { get; set; } = new List<FollowingBlog>();
+        public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 
         public static Blog CreateBlog(DiabetesTrackerDbContext dbContext, string name)
         {

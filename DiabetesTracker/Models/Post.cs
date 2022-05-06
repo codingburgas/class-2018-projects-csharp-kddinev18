@@ -10,25 +10,27 @@ namespace DiabetesTracker.Models
     {
         public int PostId { get; set; }
         public int UserId { get; set; }
+        public int BlogId { get; set; }
         public string Content { get; set; }
-        public ImageSource Image { get; set; }
+        public byte[] Image { get; set; }
         public DateTime PublishedOn { get; set; }
         public int LikeCount { get; set; }
         public int CommentCount { get; set; }
 
         public virtual User User { get; set; }
-        public virtual ICollection<BlogPost> BlogPosts { get; set; } = new List<BlogPost>();
+        public virtual Blog Blogs { get; set; }
         public virtual ICollection<Favourite> Favourites { get; set; } = new List<Favourite>();
         public virtual ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
         public virtual ICollection<PostLike> PostLikes { get; set; } = new List<PostLike>();
         public virtual ICollection<PostTag> PostTags { get; set; } = new List<PostTag>();
 
-        public static Post AddPost(DiabetesTrackerDbContext dbContext, string content, ImageSource image, Tag[] tags)
+        public static Post AddPost(DiabetesTrackerDbContext dbContext, Blog blog, Tag[] tags, string content, byte[] image)
         {
             Post newPost = new Post() 
             {
-                Content = content,
                 UserId = User.GetCurrentUser(),
+                BlogId = blog.BlogId,
+                Content = content,
                 Image = image,
                 PublishedOn = DateTime.Now
             };

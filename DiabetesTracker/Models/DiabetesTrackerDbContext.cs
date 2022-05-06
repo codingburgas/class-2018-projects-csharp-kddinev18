@@ -12,7 +12,6 @@ namespace DiabetesTracker.Models
         public DiabetesTrackerDbContext(DbContextOptions<DiabetesTrackerDbContext> options) : base(options) {}
 
         public virtual DbSet<Blog> Blogs { get; set; }
-        public virtual DbSet<BlogPost> BlogPosts { get; set; }
         public virtual DbSet<Favourite> Favourites { get; set; }
         public virtual DbSet<FollowingBlog> FollowingBlogs { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
@@ -49,24 +48,6 @@ namespace DiabetesTracker.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Blogs.UserId");
-            });
-
-            modelBuilder.Entity<BlogPost>(entity =>
-            {
-                entity.HasKey(e => new { e.BlogId, e.PostId })
-                    .HasName("PK__BlogPost__CE96B831CD760CF7");
-
-                entity.HasOne(d => d.Blog)
-                    .WithMany(p => p.BlogPosts)
-                    .HasForeignKey(d => d.BlogId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_BlogPosts.BlogId");
-
-                entity.HasOne(d => d.Post)
-                    .WithMany(p => p.BlogPosts)
-                    .HasForeignKey(d => d.PostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_BlogPosts.PostId");
             });
 
             modelBuilder.Entity<Favourite>(entity =>
@@ -153,7 +134,7 @@ namespace DiabetesTracker.Models
 
                 entity.Property(e => e.PostCommentsId).ValueGeneratedNever();
 
-                entity.Property(e => e.Comment)
+                entity.Property(e => e.CommentContend)
                     .IsRequired()
                     .HasMaxLength(1024);
 

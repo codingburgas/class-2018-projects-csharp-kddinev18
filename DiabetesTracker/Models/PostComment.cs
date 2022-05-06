@@ -10,7 +10,7 @@ namespace DiabetesTracker.Models
         public int PostCommentsId { get; set; }
         public int UserId { get; set; }
         public int PostId { get; set; }
-        public string Comment { get; set; }
+        public string CommentContend { get; set; }
         public DateTime CommentedOn { get; set; }
 
         public virtual Post Post { get; set; }
@@ -22,7 +22,7 @@ namespace DiabetesTracker.Models
             {
                 UserId = User.GetCurrentUser(),
                 PostId = post.PostId,
-                Comment = comment,
+                CommentContend = comment,
                 CommentedOn = DateTime.Now,
             });
 
