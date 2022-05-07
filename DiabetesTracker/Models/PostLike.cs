@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #nullable disable
 
@@ -23,6 +25,13 @@ namespace DiabetesTracker.Models
             post.LikeCount++;
 
             dbContext.SaveChanges();
+        }
+
+        public static int UpdateLikeCount(DiabetesTrackerDbContext dbContext, Post post)
+        {
+            int likesCount = dbContext.PostLikes.Where(postLike => postLike.PostId == post.PostId).Count();
+            post.LikeCount = likesCount;
+            return likesCount;
         }
     }
 }
