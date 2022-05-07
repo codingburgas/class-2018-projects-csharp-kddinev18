@@ -3,27 +3,51 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:DiabetesTracker"
         mc:Ignorable="d"
-        Title="UserAuthentication" Height="450" Width="800" WindowStartupLocation="CenterOwner" WindowStyle="None" ResizeMode="NoResize">
-    <Grid>
+        Title="UserAuthentication" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    <Grid MouseDown="Border_MouseDown">
         <Grid.Background>
             <LinearGradientBrush>
-                <GradientStop Color="#FF33AA7C" Offset="1"/>
-                <GradientStop Color="Aqua" Offset="0"/>
+                <GradientStop Color="#358c57" Offset="1"/>
+                <GradientStop Color="#FF33AA7C" Offset="0"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Border Height="390" VerticalAlignment="Top" CornerRadius="0 0 180 0" Background="White">
-            
-        </Border>
+        <Border Height="390" VerticalAlignment="Top" CornerRadius="0 0 180 0" Background="White" MouseDown="Border_MouseDown"/>
         <StackPanel Orientation="Horizontal">
             <StackPanel Width="350">
-                <Image Source="Assets/Eating healthy food.png" Width="300" Height="300" VerticalAlignment="Top" Margin="30" Stretch="Fill"/>
+                <Image Source="Assets/Backgrounds/Eating healthy food.png" Width="300" Height="300" VerticalAlignment="Top" Margin="30" Stretch="Fill"/>
             </StackPanel>
             <StackPanel Width="350">
                 <StackPanel Margin="20 40">
-                    
+                    <TextBlock Text="LogIn" Margin="0 30 0 0" Foreground="#2b2b2b" TextAlignment="Center" FontSize="40" FontFamily="Archive"/>
+                    <StackPanel Orientation="Horizontal" Margin="10 20 10 10">
+                        <materialDesign:PackIcon Kind="User" Width="25" Height="25" Foreground="#2b2b2b"/>
+                        <TextBox x:Name="UserNameTextBox" Margin="10 0" materialDesign:HintAssist.Hint="UserName" Foreground="#2b2b2b" Width="250"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <materialDesign:PackIcon Kind="Password" Width="25" Height="25" Foreground="#2b2b2b"/>
+                        <TextBox x:Name="PasswordTextBox" Margin="10 0" materialDesign:HintAssist.Hint="********" Foreground="#2b2b2b" Width="250"/>
+                    </StackPanel>
+                    <StackPanel Margin="10" HorizontalAlignment="Center">
+                        <Button Width="100" Height="40" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="#358c57" Background="#FF33AA7C" Foreground="White" ToolTip="LogIn" x:Name="LogInButton" Click="LogInButton_Click" Content="LogIn"/>
+                    </StackPanel>
+                    <Grid Margin="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Don't have an account yet?" Foreground="#2b2b2b" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" Grid.Column="0"/>
+                        <Button Width="70" Height="30" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="#358c57" Background="#FF33AA7C" Foreground="White" ToolTip="LogIn" x:Name="RegisterButton" Click="RegisterButton_Click" Content="Register" FontSize="10" Grid.Column="1"/>
+                    </Grid>
+                    </StackPanel>
                 </StackPanel>
+            <StackPanel Width="100">
+                <Button Margin="15" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFloatingActionButton}" Width="60" Height="60" Background="{x:Null}" BorderBrush="#358c57" ToolTip="Close" x:Name="ExitButton" Click="ExitButton_Click">
+                    <materialDesign:PackIcon Kind="Close" Foreground="#FF33AA7C" Width="40" Height="40" />
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiabetesTracker.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,40 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class UserAuthentication : Window
     {
+        private DiabetesTrackerDbContext _dbContext;
         public UserAuthentication()
         {
+            _dbContext = new DiabetesTrackerDbContext();
             InitializeComponent();
+        }
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (UserNameTextBox.Text == null || PasswordTextBox.Text == null)
+                throw new ArgumentException("Wrong username or password");
+
+            string userName = UserNameTextBox.Text;
+            string password = PasswordTextBox.Text;
+
+            User.LogIn(_dbContext, userName, password);
+        }
+        private void LogInButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (UserNameTextBox.Text == null || PasswordTextBox.Text == null)
+                throw new ArgumentException("Wrong username or password");
+
+            string userName = UserNameTextBox.Text;
+            string password = PasswordTextBox.Text;
+
+            User.LogIn(_dbContext, userName, password);
+        }
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+        }
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
