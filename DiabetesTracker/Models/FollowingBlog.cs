@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #nullable disable
 
@@ -23,6 +25,10 @@ namespace DiabetesTracker.Models
             });
 
             dbContext.SaveChanges();
+        }
+        public static ICollection<Blog> GetFollowingBlogs(DiabetesTrackerDbContext dbContext)
+        {
+            return dbContext.FollowingBlogs.Where(followingBlogs => followingBlogs.UserId == User.GetCurrentUser()).Include(followingBlogs => followingBlogs.Blog).Select(followingBlogs => followingBlogs.Blog).ToList();
         }
     }
 }

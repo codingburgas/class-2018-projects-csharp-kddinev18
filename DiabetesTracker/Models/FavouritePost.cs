@@ -25,5 +25,9 @@ namespace DiabetesTracker.Models
                 SavedOn = DateTime.Now,
             });
         }
+        public static ICollection<Post> GetFavouritePosts(DiabetesTrackerDbContext dbContext)
+        {
+            return dbContext.FavouritePosts.Where(favouritePost => favouritePost.UserId == User.GetCurrentUser()).Include(favouritePost => favouritePost.Post).Select(favouritePost => favouritePost.Post).ToList();
+        }
     }
 }
