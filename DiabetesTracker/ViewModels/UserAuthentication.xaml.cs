@@ -26,15 +26,21 @@ namespace DiabetesTracker.ViewModels
             _dbContext = new DiabetesTrackerDbContext();
             InitializeComponent();
         }
+        private void OpenRegistrationFromButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginPanel.Visibility = Visibility.Collapsed;
+            RegisterPanel.Visibility = Visibility.Visible;
+        }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            if (UserNameTextBox.Text == null || PasswordTextBox.Text == null)
+            if (UserNameRegisterTextBox.Text == null || PasswordRegisterTextBox.Text == null || EmailRegisterTextBox == null)
                 throw new ArgumentException("Wrong username or password");
 
-            string userName = UserNameTextBox.Text;
-            string password = PasswordTextBox.Text;
+            string userName = UserNameRegisterTextBox.Text;
+            string email = EmailRegisterTextBox.Text;
+            string password = PasswordRegisterTextBox.Text;
 
-            User.LogIn(_dbContext, userName, password);
+            User.Register(_dbContext, userName, email, password);
         }
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {

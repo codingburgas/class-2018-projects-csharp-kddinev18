@@ -19,31 +19,53 @@
             <StackPanel Width="350">
                 <Image Source="Assets/Backgrounds/Eating healthy food.png" Width="300" Height="300" VerticalAlignment="Top" Margin="30" Stretch="Fill"/>
             </StackPanel>
-            <StackPanel Width="350">
-                <StackPanel Margin="20 40">
-                    <TextBlock Text="LogIn" Margin="0 30 0 0" Foreground="#2b2b2b" TextAlignment="Center" FontSize="40" FontFamily="Archive"/>
-                    <StackPanel Orientation="Horizontal" Margin="10 20 10 10">
-                        <materialDesign:PackIcon Kind="User" Width="25" Height="25" Foreground="#2b2b2b"/>
-                        <TextBox x:Name="UserNameTextBox" Margin="10 0" materialDesign:HintAssist.Hint="UserName" Foreground="#2b2b2b" Width="250"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <materialDesign:PackIcon Kind="Password" Width="25" Height="25" Foreground="#2b2b2b"/>
-                        <TextBox x:Name="PasswordTextBox" Margin="10 0" materialDesign:HintAssist.Hint="********" Foreground="#2b2b2b" Width="250"/>
-                    </StackPanel>
-                    <StackPanel Margin="10" HorizontalAlignment="Center">
-                        <Button Width="100" Height="40" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="#358c57" Background="#FF33AA7C" Foreground="White" ToolTip="LogIn" x:Name="LogInButton" Click="LogInButton_Click" Content="LogIn"/>
-                    </StackPanel>
-                    <Grid Margin="30">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+            <Grid>
+                <StackPanel x:Name="LoginPanel" Width="350" Visibility="Visible">
+                    <StackPanel Margin="20 40">
+                        <TextBlock Text="LogIn" Margin="0 30 0 0" Foreground="#2b2b2b" TextAlignment="Center" FontSize="40" FontFamily="Archive"/>
+                        <StackPanel Orientation="Horizontal" Margin="10 20 10 10">
+                            <materialDesign:PackIcon Kind="User" Width="25" Height="25" Foreground="#2b2b2b"/>
+                            <TextBox x:Name="UserNameTextBox" Margin="10 0" materialDesign:HintAssist.Hint="UserName" Foreground="#2b2b2b" Width="250"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <materialDesign:PackIcon Kind="Password" Width="25" Height="25" Foreground="#2b2b2b"/>
+                            <TextBox x:Name="PasswordTextBox" Margin="10 0" materialDesign:HintAssist.Hint="********" Foreground="#2b2b2b" Width="250"/>
+                        </StackPanel>
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <Button Width="100" Height="40" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="#358c57" Background="#FF33AA7C" Foreground="White" ToolTip="LogIn" x:Name="LogInButton" Click="LogInButton_Click" Content="LogIn"/>
+                        </StackPanel>
+                        <Grid Margin="30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Don't have an account yet?" Foreground="#2b2b2b" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" Grid.Column="0"/>
-                        <Button Width="70" Height="30" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="#358c57" Background="#FF33AA7C" Foreground="White" ToolTip="LogIn" x:Name="RegisterButton" Click="RegisterButton_Click" Content="Register" FontSize="10" Grid.Column="1"/>
-                    </Grid>
+                            <TextBlock Text="Don't have an account yet?" Foreground="#2b2b2b" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" Grid.Column="0"/>
+                            <Button Width="70" Height="30" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="#358c57" Background="#FF33AA7C" Foreground="White" x:Name="OpenRegistrationFromButton" Click="OpenRegistrationFromButton_Click" Content="Register" FontSize="10" Grid.Column="1"/>
+                        </Grid>
                     </StackPanel>
                 </StackPanel>
+                <StackPanel x:Name="RegisterPanel" Width="350" Visibility="Collapsed">
+                    <StackPanel Margin="20 40">
+                        <TextBlock Text="Register" Margin="0 30 0 0" Foreground="#2b2b2b" TextAlignment="Center" FontSize="40" FontFamily="Archive"/>
+                        <StackPanel Orientation="Horizontal" Margin="10 20 10 10">
+                            <materialDesign:PackIcon Kind="User" Width="25" Height="25" Foreground="#2b2b2b"/>
+                            <TextBox x:Name="UserNameRegisterTextBox" Margin="10 0" materialDesign:HintAssist.Hint="UserName" Foreground="#2b2b2b" Width="250"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <materialDesign:PackIcon Kind="Email" Width="25" Height="25" Foreground="#2b2b2b"/>
+                            <TextBox x:Name="EmailRegisterTextBox" Margin="10 0" materialDesign:HintAssist.Hint="Example@Emaple.com" Foreground="#2b2b2b" Width="250"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <materialDesign:PackIcon Kind="Password" Width="25" Height="25" Foreground="#2b2b2b"/>
+                            <TextBox x:Name="PasswordRegisterTextBox" Margin="10 0" materialDesign:HintAssist.Hint="********" Foreground="#2b2b2b" Width="250"/>
+                        </StackPanel>
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <Button Width="100" Height="40" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="#358c57" Background="#FF33AA7C" Foreground="White" ToolTip="Register" x:Name="RegisterButton" Click="RegisterButton_Click" Content="Register"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
             <StackPanel Width="100">
                 <Button Margin="15" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFloatingActionButton}" Width="60" Height="60" Background="{x:Null}" BorderBrush="#358c57" ToolTip="Close" x:Name="ExitButton" Click="ExitButton_Click">
                     <materialDesign:PackIcon Kind="Close" Foreground="#FF33AA7C" Width="40" Height="40" />
