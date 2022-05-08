@@ -89,5 +89,10 @@ namespace DiabetesTracker.Models
                 if (Hash(password + user.Salt.ToString()) == user.Password)
                     _logedUserId = user.UserId;
         }
+
+        public static bool CheckUserProfile(DiabetesTrackerDbContext dbContext, int userId)
+        {
+            return dbContext.UserProfiles.Where(userProfile => userProfile.UserId == userId).Count() == 1;
+        }
     }
 }
