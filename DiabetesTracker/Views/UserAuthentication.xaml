@@ -20,7 +20,7 @@
                 <Image Source="Assets/Backgrounds/Eating healthy food.png" Width="300" Height="300" VerticalAlignment="Top" Margin="30" Stretch="Fill"/>
             </StackPanel>
             <StackPanel>
-                <Frame x:Name="Forms" NavigationUIVisibility="Hidden"/>
+                <Frame x:Name="Forms" NavigationUIVisibility="Hidden" />
             </StackPanel>
             <StackPanel Width="100">
                 <Button Margin="15" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFloatingActionButton}" Width="60" Height="60" Background="{x:Null}" BorderBrush="#358c57" ToolTip="Close" x:Name="ExitButton" Click="ExitButton_Click">
