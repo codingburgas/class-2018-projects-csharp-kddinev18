@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiabetesTracker.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,13 +21,33 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class FinishRegistrationForm : Page
     {
-        public FinishRegistrationForm()
+        DiabetesTrackerDbContext _dbContext;
+        public FinishRegistrationForm(DiabetesTrackerDbContext dbContext)
         {
+            _dbContext = dbContext;
             InitializeComponent();
         }
-        
         private void FinishRegistrationButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Country.Text == null || City.Text == null || About == null || (MeleCheckBox.IsChecked == false && FemeleCheckBox.IsChecked == false))
+                throw new ArgumentException("You must eneter all textboxs");
+
+            string country = Country.Text;
+            string city = City.Text;
+            string about = About.Text;
+            char gender = MeleCheckBox.IsChecked == true? 'M' : 'F';
+
+            UserProfile.ConfigureUserProfile(_dbContext, User.GetCurrentUser(), gender, about, country, city);
+        }
+        private void MeleCheckBox_Ckecked(object sender, RoutedEventArgs e)
+        {
+            MeleCheckBox.IsChecked = true;
+            FemeleCheckBox.IsChecked = false;
+        }
+        private void FemeleCheckBox_Ckecked(object sender, RoutedEventArgs e)
+        {
+            MeleCheckBox.IsChecked = false;
+            FemeleCheckBox.IsChecked = true;
         }
     }
 }

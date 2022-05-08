@@ -23,12 +23,14 @@ namespace DiabetesTracker.ViewModels
         private DiabetesTrackerDbContext _dbContext;
         private LogInForm _logInForm;
         private RegistrationForm _registrationForm;
+        private FinishRegistrationForm _finishRegistrationForm;
         public UserAuthentication()
         {
             _dbContext = new DiabetesTrackerDbContext();
             InitializeComponent();
             _logInForm = new LogInForm(_dbContext, this);
             _registrationForm = new RegistrationForm(_dbContext, this);
+            _finishRegistrationForm = new FinishRegistrationForm(_dbContext);
             ShowLogInForm();
         }
         public void ShowLogInForm()
@@ -38,6 +40,10 @@ namespace DiabetesTracker.ViewModels
         public void ShowRegisterForm()
         {
             Forms.Content = _registrationForm;
+        }
+        public void ShowFinishRegisterForm()
+        {
+            Forms.Content = _finishRegistrationForm;
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {

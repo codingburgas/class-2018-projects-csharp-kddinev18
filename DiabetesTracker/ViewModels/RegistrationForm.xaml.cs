@@ -39,6 +39,8 @@ namespace DiabetesTracker.ViewModels
             string password = PasswordRegisterTextBox.Text;
 
             User.Register(_dbContext, userName, email, password);
+
+            _userAuthentication.ShowFinishRegisterForm();
         }
         private void OpenLogInFromButton_Click(object sender, RoutedEventArgs e)
         {
