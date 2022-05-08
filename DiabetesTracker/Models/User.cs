@@ -54,6 +54,8 @@ namespace DiabetesTracker.Models
         }
         public static User Register(DiabetesTrackerDbContext dbContext, string userName, string email, string password)
         {
+            CheckEmail(email);
+            CheckPassword(password);
             string salt = GetSalt();
             string hashPassword = Hash(password + salt);
 
@@ -76,6 +78,37 @@ namespace DiabetesTracker.Models
 
             return newUser;
         }
+        private static bool CheckEmail(string email)
+        {
+            if (email.Contains('@') == false)
+                throw new ArgumentException("Email must contain \'@\'");
+
+            return true;
+        }
+        private static bool CheckPassword(string pass)
+        {
+            if (pass.Length < 8 || pass.Length > 32)
+                throw new ArgumentException("Password must be between 8 and 32 charcters");
+
+            if (pass.Contains(" "))
+                throw new ArgumentException("Password must not contain spaces");
+
+            if (!pass.Any(char.IsUpper))
+                throw new ArgumentException("Password must contain at least 1 upper character");
+
+            if (!pass.Any(char.IsLower))
+                throw new ArgumentException("Password must contain at least 1 lower character");
+
+            string specialCharacters = @"%!@#$%^&*()?/>.<,:;'\|}]{[_~`+=-" + "\"";
+            char[] specialCharactersArray = specialCharacters.ToCharArray();
+            foreach (char c in specialCharactersArray)
+            {
+                if (pass.Contains(c))
+                    return true;
+            }
+            throw new ArgumentException("Password must contain at least 1 special character");
+        }
+
         public static void LogIn(DiabetesTrackerDbContext dbContext, string username, string password)
         {
             List<User> users = dbContext.Users
@@ -89,7 +122,6 @@ namespace DiabetesTracker.Models
                 if (Hash(password + user.Salt.ToString()) == user.Password)
                     _logedUserId = user.UserId;
         }
-
         public static bool CheckUserProfile(DiabetesTrackerDbContext dbContext, int userId)
         {
             return dbContext.UserProfiles.Where(userProfile => userProfile.UserId == userId).Count() == 1;

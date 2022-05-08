@@ -43,6 +43,9 @@ namespace DiabetesTracker.ViewModels
             string password = PasswordTextBox.Text;
 
             User.LogIn(_dbContext, userName, password);
+
+            if (User.CheckUserProfile(_dbContext, User.GetCurrentUser()) == false)
+                _userAuthentication.ShowFinishRegisterForm();
         }
     }
 }
