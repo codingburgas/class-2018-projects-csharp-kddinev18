@@ -44,7 +44,6 @@ namespace DiabetesTracker.ViewModels
             _dbContext = dbContext;
             InitializeComponent();
         }
-
         private void OpenRegistrationFromButton_Click(object sender, RoutedEventArgs e)
         {
             _userAuthentication.ShowRegisterForm();
