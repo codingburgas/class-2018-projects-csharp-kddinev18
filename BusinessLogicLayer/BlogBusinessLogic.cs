@@ -1,28 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccessLayer;
+using DataAccessLayer.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 #nullable disable
 
-namespace DiabetesTracker.Models
+namespace BusinessLogicLayer
 {
-    public class Blog
+    public class BlogBusinessLogic
     {
-        public int BlogId { get; set; }
-        public int UserId { get; set; }
-        public string Name { get; set; }
-        public DateTime CreatedOn { get; set; }
-
-        public virtual User User { get; set; }
-        public virtual ICollection<FollowingBlog> FollowingBlogs { get; set; } = new List<FollowingBlog>();
-        public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
-
         public static Blog CreateBlog(DiabetesTrackerDbContext dbContext, string name)
         {
             Blog newBlog = new Blog() 
             {
-                UserId = User.GetCurrentUser(),
+                UserId = UserBusinessLogic.GetCurrentUser(),
                 Name = name,
                 CreatedOn = DateTime.Now
             };

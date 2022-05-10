@@ -1,27 +1,20 @@
-﻿using System;
+﻿using DataAccessLayer;
+using DataAccessLayer.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 #nullable disable
 
-namespace DiabetesTracker.Models
+namespace BusinessLogicLayer
 {
-    public class Recipe
+    public class RecipeBusinessLogic
     {
-        public int RecipeId { get; set; }
-        public int UserId { get; set; }
-        public string Name { get; set; }
-        public string Content { get; set; }
-        public DateTime CreatedOn { get; set; }
-
-        public virtual User User { get; set; }
-        public virtual ICollection<MenuRecipe> MenuRecipes { get; set; } = new List<MenuRecipe>();
-
         public static Recipe CreateRecipe(DiabetesTrackerDbContext dbContext, string name, string content)
         {
             Recipe newRecipe = new Recipe() 
             {
-                UserId = User.GetCurrentUser(),
+                UserId = UserBusinessLogic.GetCurrentUser(),
                 Name = name,
                 Content = content,
                 CreatedOn = DateTime.Now,

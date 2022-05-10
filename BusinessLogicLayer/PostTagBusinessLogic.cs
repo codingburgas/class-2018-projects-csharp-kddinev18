@@ -1,18 +1,14 @@
-﻿using System;
+﻿using DataAccessLayer;
+using DataAccessLayer.Data.Models;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
 
-namespace DiabetesTracker.Models
+namespace BusinessLogicLayer
 {
-    public class PostTag
+    public class PostTagBusinessLogic
     {
-        public int PostId { get; set; }
-        public int TagId { get; set; }
-
-        public virtual Post Post { get; set; }
-        public virtual Tag Tag { get; set; }
-
         public static void AddPostTag(DiabetesTrackerDbContext dbContext, Post post, Tag tag)
         {
             dbContext.PostTags.Add(new PostTag() 

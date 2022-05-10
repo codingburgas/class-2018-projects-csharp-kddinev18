@@ -1,19 +1,14 @@
-﻿using System;
+﻿using DataAccessLayer;
+using DataAccessLayer.Data.Models;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
 
-namespace DiabetesTracker.Models
+namespace BusinessLogicLayer
 {
-    public class Menu
+    public class MenuBusinessLogic
     {
-        public int MenuId { get; set; }
-        public int UserId { get; set; }
-        public string Name { get; set; }
-        public DateTime CreatedOn { get; set; }
-
-        public virtual ICollection<MenuRecipe> MenuRecipes { get; set; } = new List<MenuRecipe>();
-
         public static Menu CreateMenu(DiabetesTrackerDbContext dbContext, string name, Recipe[] recipes)
         {
             Menu newMenu = new Menu()
