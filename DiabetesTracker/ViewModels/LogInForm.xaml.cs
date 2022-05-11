@@ -1,5 +1,4 @@
-﻿using DiabetesTracker.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,19 +28,17 @@ namespace DiabetesTracker.ViewModels
     }
     public partial class LogInForm : Page
     {
-        private DiabetesTrackerDbContext _dbContext;
         private UserAuthentication _userAuthentication;
         private readonly string _userCredentialsPath = @$"C:\Users\{WindowsIdentity.GetCurrent().Name}\AppData\Local\Microsoft\Windows\INetCookies\DiabetesTracker.txt";
-        public LogInForm(DiabetesTrackerDbContext dbContext, UserAuthentication userAuthentication)
+        public LogInForm(UserAuthentication userAuthentication)
         {
             if(Directory.Exists(_userCredentialsPath))
             {
                 string credentials = File.ReadAllText(_userCredentialsPath);
                 UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
-                User.LogIn(_dbContext, userCredentials.UserName, userCredentials.Password);
+                // log in
             }
             _userAuthentication = userAuthentication;
-            _dbContext = dbContext;
             InitializeComponent();
         }
         private void OpenRegistrationFromButton_Click(object sender, RoutedEventArgs e)
@@ -56,9 +53,9 @@ namespace DiabetesTracker.ViewModels
             string userName = UserNameTextBox.Text;
             string password = PasswordTextBox.Text;
 
-            User.LogIn(_dbContext, userName, password);
+            // log in
 
-            if (User.CheckUserProfile(_dbContext, User.GetCurrentUser()) == false)
+            if (/*check user profile*/false == false)
                 _userAuthentication.ShowFinishRegisterForm();
 
             if(RememberMeCheckBox.IsChecked == true)

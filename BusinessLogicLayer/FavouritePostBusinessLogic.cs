@@ -9,20 +9,21 @@ using System.Linq;
 
 namespace BusinessLogicLayer
 {
-    public class FavouritePostBusinessLogic
+    public static class FavouritePostBusinessLogic
     {
-        public static void Favourite(DiabetesTrackerDbContext dbContext, Post post)
+        public static DiabetesTrackerDbContext DbContext { get; set; }
+        public static void Favourite(Post post)
         {
-            dbContext.FavouritePosts.Add(new FavouritePost()
+            DbContext.FavouritePosts.Add(new FavouritePost()
             {
                 UserId = User.GetCurrentUser(),
                 PostId = post.PostId,
                 SavedOn = DateTime.Now,
             });
         }
-        public static ICollection<Post> GetFavouritePosts(DiabetesTrackerDbContext dbContext)
+        public static ICollection<Post> GetFavouritePosts()
         {
-            return dbContext.FavouritePosts.Where(favouritePost => favouritePost.UserId == UserBusinessLogic.GetCurrentUser()).Include(favouritePost => favouritePost.Post).Select(favouritePost => favouritePost.Post).ToList();
+            return DbContext.FavouritePosts.Where(favouritePost => favouritePost.UserId == UserBusinessLogic.GetCurrentUserId()).Include(favouritePost => favouritePost.Post).Select(favouritePost => favouritePost.Post).ToList();
         }
     }
 }

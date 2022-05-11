@@ -1,5 +1,4 @@
-﻿using DiabetesTracker.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,10 +20,10 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class FinishRegistrationForm : Page
     {
-        DiabetesTrackerDbContext _dbContext;
-        public FinishRegistrationForm(DiabetesTrackerDbContext dbContext)
+        UserAuthentication _userAuthentication;
+        public FinishRegistrationForm(UserAuthentication userAuthentication)
         {
-            _dbContext = dbContext;
+            _userAuthentication = userAuthentication;
             InitializeComponent();
         }
         private void FinishRegistrationButton_Click(object sender, RoutedEventArgs e)
@@ -37,7 +36,7 @@ namespace DiabetesTracker.ViewModels
             string about = About.Text;
             char gender = MeleCheckBox.IsChecked == true? 'M' : 'F';
 
-            UserProfile.ConfigureUserProfile(_dbContext, User.GetCurrentUser(), gender, about, country, city);
+            //configure user profile
         }
         private void MeleCheckBox_Ckecked(object sender, RoutedEventArgs e)
         {

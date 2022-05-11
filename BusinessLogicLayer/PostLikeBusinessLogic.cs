@@ -9,23 +9,24 @@ using System.Linq;
 
 namespace BusinessLogicLayer
 {
-    public class PostLikeBusinessLogic
+    public static class PostLikeBusinessLogic
     {
-        public static void Like(DiabetesTrackerDbContext dbContext, Post post)
+        public static DiabetesTrackerDbContext DbContext { get; set; }
+        public static void Like(Post post)
         {
-            dbContext.PostLikes.Add(new PostLike() 
+            DbContext.PostLikes.Add(new PostLike() 
             {
                 UserId = UserBusinessLogic.GetCurrentUser(),
                 PostId = post.PostId,
             });
             post.LikeCount++;
 
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
         }
 
-        public static int UpdateLikeCount(DiabetesTrackerDbContext dbContext, Post post)
+        public static int UpdateLikeCount(Post post)
         {
-            int likesCount = dbContext.PostLikes.Where(postLike => postLike.PostId == post.PostId).Count();
+            int likesCount = DbContext.PostLikes.Where(postLike => postLike.PostId == post.PostId).Count();
             post.LikeCount = likesCount;
             return likesCount;
         }

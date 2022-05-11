@@ -7,9 +7,10 @@ using System.Linq;
 
 namespace BusinessLogicLayer
 {
-    public class PostBusinessLogic
+    public static class PostBusinessLogic
     {
-        public static Post AddPost(DiabetesTrackerDbContext dbContext, Blog blog, Tag[] tags, string content, byte[] image)
+        public static DiabetesTrackerDbContext DbContext { get; set; }
+        public static Post AddPost(Blog blog, Tag[] tags, string content, byte[] image)
         {
             Post newPost = new Post() 
             {
@@ -19,14 +20,14 @@ namespace BusinessLogicLayer
                 Image = image,
                 PublishedOn = DateTime.Now
             };
-            dbContext.Posts.Add(newPost);
+            DbContext.Posts.Add(newPost);
 
             foreach (Tag tag in tags)
 	        {
-                PostTag.AddPostTag(dbContext, newPost, tag);
+                PostTag.AddPostTag(DbContext, newPost, tag);
 	        }
 
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
 
             return newPost;
         }

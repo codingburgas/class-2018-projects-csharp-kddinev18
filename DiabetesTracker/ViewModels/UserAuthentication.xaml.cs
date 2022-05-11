@@ -1,5 +1,4 @@
-﻿using DiabetesTracker.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,18 +19,16 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class UserAuthentication : Window
     {
-        private DiabetesTrackerDbContext _dbContext;
         private LogInForm _logInForm;
         private RegistrationForm _registrationForm;
         private FinishRegistrationForm _finishRegistrationForm;
         public UserAuthentication()
         {
-            _dbContext = new DiabetesTrackerDbContext();
             InitializeComponent();
-            _logInForm = new LogInForm(_dbContext, this);
-            _registrationForm = new RegistrationForm(_dbContext, this);
-            _finishRegistrationForm = new FinishRegistrationForm(_dbContext);
             ShowLogInForm();
+            _logInForm = new LogInForm(this);
+            _registrationForm = new RegistrationForm(this);
+            _finishRegistrationForm = new FinishRegistrationForm(this);
         }
         public void ShowLogInForm()
         {

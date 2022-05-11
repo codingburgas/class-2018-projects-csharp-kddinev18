@@ -7,11 +7,12 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class PostCommentBusinessLogic
+    public static class PostCommentBusinessLogic
     {
-        public static void Comment(DiabetesTrackerDbContext dbContext, Post post, string comment)
+        public static DiabetesTrackerDbContext DbContext { get; set; }
+        public static void Comment(Post post, string comment)
         {
-            dbContext.PostComments.Add(new PostComment() 
+            DbContext.PostComments.Add(new PostComment() 
             {
                 UserId = User.GetCurrentUser(),
                 PostId = post.PostId,
@@ -19,7 +20,7 @@ namespace BusinessLogicLayer
                 CommentedOn = DateTime.Now,
             });
 
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
         }
     }
 }

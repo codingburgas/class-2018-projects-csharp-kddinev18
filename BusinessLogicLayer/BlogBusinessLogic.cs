@@ -9,26 +9,27 @@ using System.Linq;
 
 namespace BusinessLogicLayer
 {
-    public class BlogBusinessLogic
+    public static class BlogBusinessLogic
     {
-        public static Blog CreateBlog(DiabetesTrackerDbContext dbContext, string name)
+        public static DiabetesTrackerDbContext DbContext { get; set; }
+        public static Blog CreateBlog(string name)
         {
             Blog newBlog = new Blog() 
             {
-                UserId = UserBusinessLogic.GetCurrentUser(),
+                UserId = UserBusinessLogic.GetCurrentUserId(),
                 Name = name,
                 CreatedOn = DateTime.Now
             };
 
-            dbContext.Blogs.Add(newBlog);
+            DbContext.Blogs.Add(newBlog);
 
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
 
             return newBlog;
         }
-        public static ICollection<Post> GetAllPosts(DiabetesTrackerDbContext dbContext, Blog Blog)
+        public static ICollection<Post> GetAllPosts(Blog Blog)
         {
-            return dbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == Blog.BlogId).Select(blog => blog.Posts).First().ToList();
+            return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == Blog.BlogId).Select(blog => blog.Posts).First().ToList();
         }
     }
 }

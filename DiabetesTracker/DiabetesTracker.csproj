@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Views\Assets\Backgrounds\Eating healthy food.png" />
   </ItemGroup>
 

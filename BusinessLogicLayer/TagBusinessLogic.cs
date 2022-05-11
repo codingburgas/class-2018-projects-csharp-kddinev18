@@ -8,17 +8,18 @@ using System.Linq;
 
 namespace BusinessLogicLayer
 {
-    public class TagBusinessLogic
+    public static class TagBusinessLogic
     {
-        public static Tag AddTag(DiabetesTrackerDbContext dbContext, string tagName)
+        public static DiabetesTrackerDbContext DbContext { get; set; }
+        public static Tag AddTag(string tagName)
         {
             Tag newTag = new Tag() 
             {
                 TagName = tagName
             };
-            dbContext.Tags.Add(newTag);
+            DbContext.Tags.Add(newTag);
 
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
 
             return newTag;
         }

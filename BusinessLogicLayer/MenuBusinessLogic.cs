@@ -7,9 +7,10 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class MenuBusinessLogic
+    public static class MenuBusinessLogic
     {
-        public static Menu CreateMenu(DiabetesTrackerDbContext dbContext, string name, Recipe[] recipes)
+        public static DiabetesTrackerDbContext DbContext { get; set; }
+        public static Menu CreateMenu(string name, Recipe[] recipes)
         {
             Menu newMenu = new Menu()
             {
@@ -17,14 +18,14 @@ namespace BusinessLogicLayer
                 Name = name,
                 CreatedOn = DateTime.Now
             };
-            dbContext.Menus.Add(newMenu);
+            DbContext.Menus.Add(newMenu);
 
             foreach (Recipe recipe in recipes)
             {
-                MenuRecipe.AddMenuRecipes(dbContext, newMenu, recipe);
+                MenuRecipe.AddMenuRecipes(DbContext, newMenu, recipe);
             }
 
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
 
             return newMenu;
         }

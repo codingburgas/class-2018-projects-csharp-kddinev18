@@ -1,5 +1,4 @@
-﻿using DiabetesTracker.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +20,10 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class RegistrationForm : Page
     {
-        private DiabetesTrackerDbContext _dbContext;
         private UserAuthentication _userAuthentication;
-        public RegistrationForm(DiabetesTrackerDbContext dbContext, UserAuthentication userAuthentication)
+        public RegistrationForm(UserAuthentication userAuthentication)
         {
             _userAuthentication = userAuthentication;
-            _dbContext = dbContext;
             InitializeComponent();
         }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -38,7 +35,7 @@ namespace DiabetesTracker.ViewModels
             string email = EmailRegisterTextBox.Text;
             string password = PasswordRegisterTextBox.Text;
 
-            User.Register(_dbContext, userName, email, password);
+            //register
 
             _userAuthentication.ShowFinishRegisterForm();
         }

@@ -7,11 +7,12 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public partial class UserProfileBusinessLogic
+    public static class UserProfileBusinessLogic
     {
-        public static void ConfigureUserProfile(DiabetesTrackerDbContext dbContext, int userId, char gender, string about, string country, string city)
+        public static DiabetesTrackerDbContext DbContext { get; set; }
+        public static void ConfigureUserProfile(int userId, char gender, string about, string country, string city)
         {
-            dbContext.UserProfiles.Add(new UserProfile()
+            DbContext.UserProfiles.Add(new UserProfile()
             {
                 UserId = userId,
                 Gender = gender,
@@ -21,7 +22,7 @@ namespace BusinessLogicLayer
                 City = city
             });
 
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
         }
     }
 }

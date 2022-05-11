@@ -9,9 +9,10 @@ namespace BusinessLogicLayer
 {
     public class MenuRecipeBusinessLogic
     {
-        public static void AddMenuRecipes(DiabetesTrackerDbContext dbContext, Menu menu, Recipe recipe)
+        public static DiabetesTrackerDbContext DbContext { get; set; }
+        public static void AddMenuRecipes(Menu menu, Recipe recipe)
         {
-            dbContext.MenuRecipes.Add(new MenuRecipe()
+            DbContext.MenuRecipes.Add(new MenuRecipe()
             {
                 MenuId = menu.MenuId,
                 RecipeId = recipe.RecipeId,

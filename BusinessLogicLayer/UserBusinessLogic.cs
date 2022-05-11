@@ -11,16 +11,17 @@ using System.Text;
 
 namespace BusinessLogicLayer
 {
-    public partial class UserBusinessLogic
+    public static class UserBusinessLogic
     {
+        public static DiabetesTrackerDbContext DbContext { get; set; }
         private static int? _logedUserId;
-        public static int GetCurrentUser()
+        public static int GetCurrentUserId()
         {
             return _logedUserId.Value;
         }
-        public static User GetCurrentUser(DiabetesTrackerDbContext dbContext)
+        public static User GetCurrentUser()
         {
-            return dbContext.Users.Where(user => user.UserId == GetCurrentUser()).FirstOrDefault();
+            return DbContext.Users.Where(user => user.UserId == GetCurrentUserId()).FirstOrDefault();
         }
         private static string Hash(string data)
         {
@@ -34,14 +35,14 @@ namespace BusinessLogicLayer
                 salt.Append(Convert.ToChar(random.Next(0, 26) + 65));
             return salt.ToString();
         }
-        public static User Register(DiabetesTrackerDbContext dbContext, string userName, string email, string password)
+        public static User Register(string userName, string email, string password)
         {
             CheckEmail(email);
             CheckPassword(password);
             string salt = GetSalt();
             string hashPassword = Hash(password + salt);
 
-            foreach (User existingUser in dbContext.Users)
+            foreach (User existingUser in DbContext.Users)
                 if (existingUser.Email == email || existingUser.UserName == userName)
                     throw new ArgumentException("There is already a user with that email or username");
 
@@ -53,8 +54,8 @@ namespace BusinessLogicLayer
                 Salt = salt
             };
 
-            dbContext.Users.Add(newUser);
-            dbContext.SaveChanges();
+            DbContext.Users.Add(newUser);
+            DbContext.SaveChanges();
 
             _logedUserId = newUser.UserId;
 
@@ -91,9 +92,9 @@ namespace BusinessLogicLayer
             throw new ArgumentException("Password must contain at least 1 special character");
         }
 
-        public static void LogIn(DiabetesTrackerDbContext dbContext, string username, string password)
+        public static void LogIn(string username, string password)
         {
-            List<User> users = dbContext.Users
+            List<User> users = DbContext.Users
                 .Where(u => u.UserName == username)
                 .ToList();
 
@@ -104,9 +105,9 @@ namespace BusinessLogicLayer
                 if (Hash(password + user.Salt.ToString()) == user.Password)
                     _logedUserId = user.UserId;
         }
-        public static bool CheckUserProfile(DiabetesTrackerDbContext dbContext, int userId)
+        public static bool CheckUserProfile(int userId)
         {
-            return dbContext.UserProfiles.Where(userProfile => userProfile.UserId == userId).Count() == 1;
+            return DbContext.UserProfiles.Where(userProfile => userProfile.UserId == userId).Count() == 1;
         }
     }
 }

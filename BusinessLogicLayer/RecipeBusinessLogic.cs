@@ -8,9 +8,10 @@ using System.Linq;
 
 namespace BusinessLogicLayer
 {
-    public class RecipeBusinessLogic
+    public static class RecipeBusinessLogic
     {
-        public static Recipe CreateRecipe(DiabetesTrackerDbContext dbContext, string name, string content)
+        public static DiabetesTrackerDbContext DbContext { get; set; }
+        public static Recipe CreateRecipe(string name, string content)
         {
             Recipe newRecipe = new Recipe() 
             {
@@ -19,9 +20,9 @@ namespace BusinessLogicLayer
                 Content = content,
                 CreatedOn = DateTime.Now,
             };
-            dbContext.Recipes.Add(newRecipe);
+            DbContext.Recipes.Add(newRecipe);
 
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
 
             return newRecipe;
         }
