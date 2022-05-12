@@ -2,7 +2,10 @@
 using DataAccessLayer.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 #nullable disable
 
 namespace BusinessLogicLayer
@@ -30,6 +33,23 @@ namespace BusinessLogicLayer
             DbContext.SaveChanges();
 
             return newPost;
+        }
+        public static Image ConvertBytesToImage()
+        {
+            using(MemoryStream memoryStream = new MemoryStream())
+            {
+                return Image.FromStream(memoryStream);
+            }
+        }
+
+        public static byte[] ConvertImageToBytes(Image image)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                bf.Serialize(memoryStream, new ImageConverter().ConvertTo(image, typeof(byte[])));
+                return memoryStream.ToArray();
+            }
         }
     }
 }
