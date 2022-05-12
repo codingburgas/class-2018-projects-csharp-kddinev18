@@ -27,7 +27,7 @@ namespace DataAccessLayer
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DiabetesTracker;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=DiabetesTracker;Trusted_Connection=True;MultipleActiveResultSets=true");
             }
         }
 

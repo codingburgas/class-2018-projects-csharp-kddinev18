@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogicLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,11 +25,12 @@ namespace DiabetesTracker.ViewModels
         private FinishRegistrationForm _finishRegistrationForm;
         public UserAuthentication()
         {
-            InitializeComponent();
-            ShowLogInForm();
+            Master.OpenConnection();
             _logInForm = new LogInForm(this);
             _registrationForm = new RegistrationForm(this);
             _finishRegistrationForm = new FinishRegistrationForm(this);
+            InitializeComponent();
+            ShowLogInForm();
         }
         public void ShowLogInForm()
         {

@@ -11,6 +11,14 @@ using System.Text;
 
 namespace BusinessLogicLayer
 {
+    public class WrongCredentialsException : Exception
+    {
+        public WrongCredentialsException() { }
+
+        public WrongCredentialsException(string message) : base(message) { }
+
+        public WrongCredentialsException(string message, Exception inner) : base(message, inner) { }
+    }
     public static class UserBusinessLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
@@ -44,7 +52,7 @@ namespace BusinessLogicLayer
 
             foreach (User existingUser in DbContext.Users)
                 if (existingUser.Email == email || existingUser.UserName == userName)
-                    throw new ArgumentException("There is already a user with that email or username");
+                    throw new WrongCredentialsException("There is already a user with that email or username");
 
             User newUser = new User()
             {
@@ -64,23 +72,23 @@ namespace BusinessLogicLayer
         private static bool CheckEmail(string email)
         {
             if (email.Contains('@') == false)
-                throw new ArgumentException("Email must contain \'@\'");
+                throw new WrongCredentialsException("Email must contain \'@\'");
 
             return true;
         }
         private static bool CheckPassword(string pass)
         {
             if (pass.Length < 8 || pass.Length > 32)
-                throw new ArgumentException("Password must be between 8 and 32 charcters");
+                throw new WrongCredentialsException("Password must be between 8 and 32 charcters");
 
             if (pass.Contains(" "))
-                throw new ArgumentException("Password must not contain spaces");
+                throw new WrongCredentialsException("Password must not contain spaces");
 
             if (!pass.Any(char.IsUpper))
-                throw new ArgumentException("Password must contain at least 1 upper character");
+                throw new WrongCredentialsException("Password must contain at least 1 upper character");
 
             if (!pass.Any(char.IsLower))
-                throw new ArgumentException("Password must contain at least 1 lower character");
+                throw new WrongCredentialsException("Password must contain at least 1 lower character");
 
             string specialCharacters = @"%!@#$%^&*()?/>.<,:;'\|}]{[_~`+=-" + "\"";
             char[] specialCharactersArray = specialCharacters.ToCharArray();
@@ -89,7 +97,7 @@ namespace BusinessLogicLayer
                 if (pass.Contains(c))
                     return true;
             }
-            throw new ArgumentException("Password must contain at least 1 special character");
+            throw new WrongCredentialsException("Password must contain at least 1 special character");
         }
 
         public static void LogIn(string username, string password)
@@ -99,7 +107,7 @@ namespace BusinessLogicLayer
                 .ToList();
 
             if (users.Count == 0)
-                throw new ArgumentException("Your password or username is incorrect");
+                throw new WrongCredentialsException("Your password or username is incorrect");
 
             foreach (User user in users)
                 if (Hash(password + user.Salt.ToString()) == user.Password)

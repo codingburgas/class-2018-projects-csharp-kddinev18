@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogicLayer;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,11 +33,11 @@ namespace DiabetesTracker.ViewModels
         private readonly string _userCredentialsPath = @$"C:\Users\{WindowsIdentity.GetCurrent().Name}\AppData\Local\Microsoft\Windows\INetCookies\DiabetesTracker.txt";
         public LogInForm(UserAuthentication userAuthentication)
         {
-            if(Directory.Exists(_userCredentialsPath))
+            if(File.Exists(_userCredentialsPath))
             {
                 string credentials = File.ReadAllText(_userCredentialsPath);
                 UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
-                // log in
+                UserBusinessLogic.LogIn(userCredentials.UserName, userCredentials.Password);
             }
             _userAuthentication = userAuthentication;
             InitializeComponent();
@@ -47,20 +48,23 @@ namespace DiabetesTracker.ViewModels
         }
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
-            if (UserNameTextBox.Text == null || PasswordTextBox.Text == null)
-                throw new ArgumentException("Wrong username or password");
-
             string userName = UserNameTextBox.Text;
             string password = PasswordTextBox.Text;
 
-            // log in
+            try
+            {
+                UserBusinessLogic.LogIn(userName, password);
+            }catch (WrongCredentialsException exception)
+            {
+                MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
-            if (/*check user profile*/false == false)
+            if (UserBusinessLogic.CheckUserProfile(UserBusinessLogic.GetCurrentUserId()) == false)
                 _userAuthentication.ShowFinishRegisterForm();
 
             if(RememberMeCheckBox.IsChecked == true)
             {
-                Directory.CreateDirectory(_userCredentialsPath);
                 File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { UserName = userName, Password = password}));
             }
         }

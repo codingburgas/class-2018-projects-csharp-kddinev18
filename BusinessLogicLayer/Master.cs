@@ -7,30 +7,28 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer
 {
-    public class Master
+    public static class Master
     {
-        private DiabetesTrackerDbContext _dbContext;
-        public void OpenConnection()
+        public static void OpenConnection()
         {
-            _dbContext = new DiabetesTrackerDbContext();
-            BlogBusinessLogic.DbContext = _dbContext;
-            FavouritePostBusinessLogic.DbContext = _dbContext;
-            FollowingBlogBusinessLogic.DbContext = _dbContext;
-            MenuBusinessLogic.DbContext = _dbContext;
-            MenuRecipeBusinessLogic.DbContext = _dbContext;
-            PostBusinessLogic.DbContext = _dbContext;
-            PostCommentBusinessLogic.DbContext = _dbContext;
-            PostLikeBusinessLogic.DbContext = _dbContext;
-            PostTagBusinessLogic.DbContext = _dbContext;
-            RecipeBusinessLogic.DbContext = _dbContext;
-            TagBusinessLogic.DbContext = _dbContext;
-            UserBusinessLogic.DbContext = _dbContext;
-            UserProfileBusinessLogic.DbContext = _dbContext;
+            DiabetesTrackerDbContext dbContext = new DiabetesTrackerDbContext();
+            BlogBusinessLogic.DbContext = dbContext;
+            FavouritePostBusinessLogic.DbContext = dbContext;
+            FollowingBlogBusinessLogic.DbContext = dbContext;
+            MenuBusinessLogic.DbContext = dbContext;
+            MenuRecipeBusinessLogic.DbContext = dbContext;
+            PostBusinessLogic.DbContext = dbContext;
+            PostCommentBusinessLogic.DbContext = dbContext;
+            PostLikeBusinessLogic.DbContext = dbContext;
+            PostTagBusinessLogic.DbContext = dbContext;
+            RecipeBusinessLogic.DbContext = dbContext;
+            TagBusinessLogic.DbContext = dbContext;
+            UserBusinessLogic.DbContext = dbContext;
+            UserProfileBusinessLogic.DbContext = dbContext;
         }
 
-        public void CloseConnection()
+        public static void CloseConnection()
         {
-            _dbContext = null;
             BlogBusinessLogic.DbContext = null;
             FavouritePostBusinessLogic.DbContext = null;
             FollowingBlogBusinessLogic.DbContext = null;

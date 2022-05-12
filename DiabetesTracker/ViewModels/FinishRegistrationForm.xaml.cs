@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogicLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,15 +29,20 @@ namespace DiabetesTracker.ViewModels
         }
         private void FinishRegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Country.Text == null || City.Text == null || About == null || (MeleCheckBox.IsChecked == false && FemeleCheckBox.IsChecked == false))
-                throw new ArgumentException("You must eneter all textboxs");
-
             string country = Country.Text;
             string city = City.Text;
             string about = About.Text;
             char gender = MeleCheckBox.IsChecked == true? 'M' : 'F';
 
-            //configure user profile
+            try
+            {
+                UserProfileBusinessLogic.ConfigureUserProfile(UserBusinessLogic.GetCurrentUserId(), gender, about, country, city);
+            }
+            catch (WrongCredentialsException exception)
+            {
+                MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
         private void MeleCheckBox_Ckecked(object sender, RoutedEventArgs e)
         {

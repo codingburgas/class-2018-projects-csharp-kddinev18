@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogicLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,14 +29,19 @@ namespace DiabetesTracker.ViewModels
         }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            if (UserNameRegisterTextBox.Text == null || PasswordRegisterTextBox.Text == null || EmailRegisterTextBox == null)
-                throw new ArgumentException("Wrong username or password");
-
             string userName = UserNameRegisterTextBox.Text;
             string email = EmailRegisterTextBox.Text;
             string password = PasswordRegisterTextBox.Text;
 
-            //register
+            try
+            {
+                UserBusinessLogic.Register(userName, email, password);
+            }
+            catch (WrongCredentialsException exception)
+            {
+                MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             _userAuthentication.ShowFinishRegisterForm();
         }

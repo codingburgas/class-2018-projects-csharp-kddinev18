@@ -15,7 +15,7 @@ namespace BusinessLogicLayer
         {
             Recipe newRecipe = new Recipe() 
             {
-                UserId = UserBusinessLogic.GetCurrentUser(),
+                UserId = UserBusinessLogic.GetCurrentUserId(),
                 Name = name,
                 Content = content,
                 CreatedOn = DateTime.Now,

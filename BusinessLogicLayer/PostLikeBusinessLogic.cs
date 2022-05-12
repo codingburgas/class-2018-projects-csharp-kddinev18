@@ -16,7 +16,7 @@ namespace BusinessLogicLayer
         {
             DbContext.PostLikes.Add(new PostLike() 
             {
-                UserId = UserBusinessLogic.GetCurrentUser(),
+                UserId = UserBusinessLogic.GetCurrentUserId(),
                 PostId = post.PostId,
             });
             post.LikeCount++;
