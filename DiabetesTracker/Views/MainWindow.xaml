@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:DiabetesTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="730" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        Title="MainWindow" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Grid>
 
         <Grid Grid.ColumnSpan="2" Grid.RowSpan="2">
@@ -34,19 +34,18 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" >
-                <StackPanel Margin="50 30 50 40" Orientation="Horizontal" HorizontalAlignment="Left">
+                <StackPanel Margin="50 30 50 30" Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Home" Style="{StaticResource menuTitle}"/>
                     <TextBlock Text="Your Blogs" Style="{StaticResource menuTitle}"/>
                     <TextBlock Text="Followed" Style="{StaticResource menuTitle}"/>
                     <TextBlock Text="Saved" Style="{StaticResource menuTitle}"/>
-                    <TextBlock Text="Analitics" Style="{StaticResource menuTitle}"/>
+                    <TextBlock Text="Analytics" Style="{StaticResource menuTitle}"/>
                 </StackPanel>
 
                 <Button Margin="15" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionButton}" Width="60" Height="60" Background="{x:Null}" BorderBrush="#EAEAEA" ToolTip="Close" x:Name="ExitButton" Click="ExitButton_Click">
                     <materialDesign:PackIcon Kind="Close" Foreground="#EAEAEA" Width="40" Height="40" />
                 </Button>
             </Grid>
-
             <Frame x:Name="MainWindowFrame" Grid.Row="1"/>
         </Grid>
         

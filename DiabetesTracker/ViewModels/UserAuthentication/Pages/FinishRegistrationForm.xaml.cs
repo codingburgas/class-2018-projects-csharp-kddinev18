@@ -43,6 +43,7 @@ namespace DiabetesTracker.ViewModels
                 MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            _userAuthentication.GoToMainWindow();
         }
         private void MeleCheckBox_Ckecked(object sender, RoutedEventArgs e)
         {

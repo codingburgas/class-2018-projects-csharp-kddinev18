@@ -44,6 +44,12 @@ namespace DiabetesTracker.ViewModels
         {
             Forms.Content = _finishRegistrationForm;
         }
+        public void GoToMainWindow()
+        {
+            MainWindow mainWindow = new MainWindow();
+            this.Close();
+            mainWindow.Show();
+        }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(e.LeftButton == MouseButtonState.Pressed)
