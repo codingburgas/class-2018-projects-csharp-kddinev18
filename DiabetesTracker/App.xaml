@@ -5,6 +5,17 @@
              StartupUri="Views\UserAuthentication.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <Style x:Key="menuTitle" TargetType="TextBlock">
+                <Setter Property="Margin" Value="0 0 25 0"/>
+                <Setter Property="FontSize" Value="28"/>
+                <Setter Property="Opacity" Value="0.7"/>
+                <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Opacity" Value="1"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

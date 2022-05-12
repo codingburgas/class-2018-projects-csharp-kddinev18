@@ -29,4 +29,10 @@
     <Resource Include="Views\Assets\Backgrounds\Eating healthy food.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="ViewModels\MainWindow\Pages\" />
+    <Folder Include="Views\Pages\MainWindow\" />
+  </ItemGroup>
+
 </Project>

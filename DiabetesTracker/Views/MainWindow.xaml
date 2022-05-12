@@ -3,10 +3,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:DiabetesTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="730" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Grid>
+
+        <Grid Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Border CornerRadius="10 10 0 0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#358c57" Offset="0"/>
+                        <GradientStop Color="#FF33AA7C" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <Border Grid.Row="1" CornerRadius="0 0 10 10" Background="#EAEAEA"/>
+        </Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" >
+                <StackPanel Margin="50 30 50 40" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Text="Home" Style="{StaticResource menuTitle}"/>
+                    <TextBlock Text="Your Blogs" Style="{StaticResource menuTitle}"/>
+                    <TextBlock Text="Followed" Style="{StaticResource menuTitle}"/>
+                    <TextBlock Text="Saved" Style="{StaticResource menuTitle}"/>
+                    <TextBlock Text="Analitics" Style="{StaticResource menuTitle}"/>
+                </StackPanel>
+
+                <Button Margin="15" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionButton}" Width="60" Height="60" Background="{x:Null}" BorderBrush="#EAEAEA" ToolTip="Close" x:Name="ExitButton" Click="ExitButton_Click">
+                    <materialDesign:PackIcon Kind="Close" Foreground="#EAEAEA" Width="40" Height="40" />
+                </Button>
+            </Grid>
+
+            <Frame x:Name="MainWindowFrame" Grid.Row="1"/>
+        </Grid>
         
     </Grid>
 </Window>
