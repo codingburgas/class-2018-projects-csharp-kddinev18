@@ -64,6 +64,40 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <Style x:Key="infoCard" TargetType="Border">
+                <Setter Property="Background" Value="#216E50"/>
+                <Setter Property="CornerRadius" Value="15"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Margin" Value="8 0 8 0"/>
+            </Style>
+
+            <Style x:Key="infoCardStack" TargetType="StackPanel">
+                <Setter Property="Margin" Value="20 0 0 0"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="infoCardText" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#E9E9E9"/>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="Opacity" Value="0.8"/>
+            </Style>
+
+            <Style x:Key="inforCardTitle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#E9E9E9"/>
+                <Setter Property="FontSize" Value="33"/>
+                <Setter Property="Margin" Value="0 0 0 5"/>
+            </Style>
+
+            <Style x:Key="infocardIcon" TargetType="materialDesign:PackIcon">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0 0 20 0"/>
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="Width" Value="50"/>
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="Foreground" Value="#E0E0E0"/>
+            </Style>
             
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
