@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DiabetesTracker.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +20,22 @@ namespace DiabetesTracker.ViewModels
     /// <summary>
     /// Interaction logic for SocialMediaPage.xaml
     /// </summary>
+    public class PostInfomation
+    {
+        public string UserName { get; set; }
+        public System.Drawing.Image Image { get; set; }
+        public string Content { get; set; }
+     }
     public partial class SocialMediaPage : Page
     {
+        public ObservableCollection<PostInfomation> Posts { get; set; } = new ObservableCollection<PostInfomation>();
         public SocialMediaPage()
         {
             InitializeComponent();
+            Posts.Add(MainWindowModel.GetPost());
+            Posts.Add(MainWindowModel.GetPost());
+            Posts.Add(MainWindowModel.GetPost());
+            PostsList.ItemsSource = Posts;
         }
     }
 }

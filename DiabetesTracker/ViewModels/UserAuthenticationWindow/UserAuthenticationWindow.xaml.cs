@@ -18,12 +18,12 @@ namespace DiabetesTracker.ViewModels
     /// <summary>
     /// Interaction logic for UserAuthentication.xaml
     /// </summary>
-    public partial class UserAuthentication : Window
+    public partial class UserAuthenticationWindow : Window
     {
         private LogInForm _logInForm;
         private RegistrationForm _registrationForm;
         private FinishRegistrationForm _finishRegistrationForm;
-        public UserAuthentication()
+        public UserAuthenticationWindow()
         {
             Master.OpenConnection();
             _logInForm = new LogInForm(this);

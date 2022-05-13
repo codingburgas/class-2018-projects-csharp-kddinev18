@@ -16,21 +16,5 @@ namespace DataAccessLayer.Data.Models
 
         public virtual User User { get; set; }
         public virtual ICollection<MenuRecipe> MenuRecipes { get; set; } = new List<MenuRecipe>();
-
-        public static Recipe CreateRecipe(DiabetesTrackerDbContext dbContext, string name, string content)
-        {
-            Recipe newRecipe = new Recipe() 
-            {
-                UserId = User.GetCurrentUser(),
-                Name = name,
-                Content = content,
-                CreatedOn = DateTime.Now,
-            };
-            dbContext.Recipes.Add(newRecipe);
-
-            dbContext.SaveChanges();
-
-            return newRecipe;
-        }
     }
 }

@@ -22,8 +22,8 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class RegistrationForm : Page
     {
-        private UserAuthentication _userAuthentication;
-        public RegistrationForm(UserAuthentication userAuthentication)
+        private UserAuthenticationWindow _userAuthentication;
+        public RegistrationForm(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                UserAuthenticationWindow.Register(userName, email, password);
+                UserAuthenticationWindowModel.Register(userName, email, password);
             }
             catch (WrongCredentialsException exception)
             {

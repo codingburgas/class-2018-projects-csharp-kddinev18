@@ -25,11 +25,11 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class LogInForm : Page
     {
-        private UserAuthentication _userAuthentication;
-        public LogInForm(UserAuthentication userAuthentication)
+        private UserAuthenticationWindow _userAuthentication;
+        public LogInForm(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
-            if(UserAuthenticationWindow.CheckCookies())
+            if(UserAuthenticationWindowModel.CheckCookies())
             {
                 _userAuthentication.OpenMainWindow();
             }
@@ -46,7 +46,7 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                UserAuthenticationWindow.LogIn(userName, password);
+                UserAuthenticationWindowModel.LogIn(userName, password);
             }
             catch (WrongCredentialsException exception)
             {
@@ -60,7 +60,7 @@ namespace DiabetesTracker.ViewModels
 
             if (RememberMeCheckBox.IsChecked == true)
             {
-                UserAuthenticationWindow.AddCookies(userName, password);
+                UserAuthenticationWindowModel.AddCookies(userName, password);
             }
 
             _userAuthentication.OpenMainWindow();

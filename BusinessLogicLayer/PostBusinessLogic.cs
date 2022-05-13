@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -34,9 +35,24 @@ namespace BusinessLogicLayer
 
             return newPost;
         }
-        public static Image ConvertBytesToImage()
+
+        public static byte[] GetPostImage(int id)
         {
-            using(MemoryStream memoryStream = new MemoryStream())
+            return DbContext.Posts.Where(post => post.PostId == id).OrderBy(post => post.PostId).First().Image;
+        }
+        public static string GetPostContent(int id)
+        {
+            return DbContext.Posts.Where(post => post.PostId == id).OrderBy(post => post.PostId).First().Content;
+        }
+        public static string GetPostUser(int id)
+        {
+            //return DbContext.Posts.Where(post => post.PostId == id).Include(post => post.User).Select(post => post.User).First().UserName;
+            return "asdasd";
+        }
+
+        public static Image ConvertBytesToImage(byte [] bytes)
+        {
+            using(MemoryStream memoryStream = new MemoryStream(bytes))
             {
                 return Image.FromStream(memoryStream);
             }

@@ -92,8 +92,8 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Style="{StaticResource infoCardStack}">
-                                <TextBlock Text="42,500,000" Style="{StaticResource inforCardTitle}"/>
-                                <TextBlock Text="TotalViews" Style="{StaticResource infoCardText}"/>
+                                <TextBlock x:Name="TotalLikes" Text="{Binding}" Style="{StaticResource inforCardTitle}"/>
+                                <TextBlock Text="TotalLikes" Style="{StaticResource infoCardText}"/>
                             </StackPanel>
 
                             <materialDesign:PackIcon Kind="Close" Style="{StaticResource infocardIcon}" />
@@ -112,8 +112,8 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Style="{StaticResource infoCardStack}">
-                                <TextBlock Text="42,500,000" Style="{StaticResource inforCardTitle}"/>
-                                <TextBlock Text="TotalViews" Style="{StaticResource infoCardText}"/>
+                                <TextBlock x:Name="TotalFollowers" Text="{Binding}" Style="{StaticResource inforCardTitle}"/>
+                                <TextBlock Text="TotalFollowers" Style="{StaticResource infoCardText}"/>
                             </StackPanel>
 
                             <materialDesign:PackIcon Kind="Close" Style="{StaticResource infocardIcon}" />
@@ -126,6 +126,29 @@
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="35" Opacity="0.4"/>
                         </Border.Effect>
+                        <!--Post List-->
+                        <ListView x:Name="PostsList" ItemsSource="{Binding}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource postUserNameText}" Text="{Binding Username}"/>
+                                        <Image Height="350" Margin="10" Source="{Binding Image}"/>
+                                        <TextBlock Style="{StaticResource postUserNameText}" Text="{Binding Content}"/>
+                                        <StackPanel Orientation="Horizontal" Margin="10">
+                                            <Button Style="{StaticResource postActionButton}">
+                                                <materialDesign:PackIcon Kind="Like" Style="{StaticResource postActionIcon}" />
+                                            </Button>
+                                            <Button Style="{StaticResource postActionButton}">
+                                                <materialDesign:PackIcon Kind="Favorite" Style="{StaticResource postActionIcon}" />
+                                            </Button>
+                                            <Button Style="{StaticResource postActionButton}">
+                                                <materialDesign:PackIcon Kind="Comment" Style="{StaticResource postActionIcon}" />
+                                            </Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </Border>
                 </Grid>
 

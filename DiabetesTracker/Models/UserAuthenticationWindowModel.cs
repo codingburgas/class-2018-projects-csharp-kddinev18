@@ -15,7 +15,7 @@ namespace DiabetesTracker.Models
         public string UserName { get; set; }
         public string Password { get; set; }
     }
-    public static class UserAuthenticationWindow
+    public static class UserAuthenticationWindowModel
     {
         private readonly static string _userCredentialsPath = @$"{Directory.GetCurrentDirectory()}/DiabetesTrackerCredentials.txt";
         public static void LogIn(string userName, string password)
