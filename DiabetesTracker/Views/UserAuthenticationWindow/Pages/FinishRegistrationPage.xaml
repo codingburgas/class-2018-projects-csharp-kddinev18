@@ -15,19 +15,19 @@
                 <TextBlock Text="Finish" Margin="0 30 0 0" Foreground="#2b2b2b" TextAlignment="Center" FontSize="40" FontFamily="Archive"/>
                 <TextBlock Text="Registration"  Foreground="#2b2b2b" TextAlignment="Center" FontSize="40" FontFamily="Archive"/>
                 <StackPanel Orientation="Horizontal" Margin="10 20 10 10">
-                    <materialDesign:PackIcon Kind="AddressMarker" Width="25" Height="25" Foreground="#2b2b2b"/>
+                    <materialDesign:PackIcon Kind="AddressMarker" Style="{StaticResource textBoxIcon}"/>
                     <TextBox x:Name="Country" Margin="10 0" materialDesign:HintAssist.Hint="Country" Foreground="#2b2b2b" Width="250"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <materialDesign:PackIcon Kind="City" Width="25" Height="25" Foreground="#2b2b2b"/>
+                    <materialDesign:PackIcon Kind="City" Style="{StaticResource textBoxIcon}"/>
                     <TextBox x:Name="City" Margin="10 0" materialDesign:HintAssist.Hint="City" Foreground="#2b2b2b" Width="250"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <materialDesign:PackIcon Kind="About" Width="25" Height="25" Foreground="#2b2b2b"/>
+                    <materialDesign:PackIcon Kind="About" Style="{StaticResource textBoxIcon}"/>
                     <TextBox x:Name="About" Margin="10 0" materialDesign:HintAssist.Hint="About" Foreground="#2b2b2b" Width="250"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <materialDesign:PackIcon Kind="GenderMaleFemale" Width="25" Height="25" Foreground="#2b2b2b" VerticalAlignment="Center"/>
+                    <materialDesign:PackIcon Kind="GenderMaleFemale" Style="{StaticResource textBoxIcon}"/>
                     <CheckBox x:Name = "MeleCheckBox" Margin="5 0 0 0" Foreground="#2b2b2b" Checked="MeleCheckBox_Ckecked">M</CheckBox>
                     <CheckBox x:Name = "FemeleCheckBox" Margin="15 0 0 0" Foreground="#2b2b2b" Checked="FemeleCheckBox_Ckecked">F</CheckBox>
                     <Button Margin="20 0 0 0" Width="146" Height="40" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="#358c57" Background="#FF33AA7C" Foreground="White" x:Name="FinishRegistrationButton" Click="FinishRegistrationButton_Click" Content="FinishRegistration"/>

@@ -6,6 +6,13 @@
              StartupUri="Views\UserAuthenticationWindow\UserAuthenticationWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <Style x:Key="textBoxIcon" TargetType="materialDesign:PackIcon">
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="25"/>
+                <Setter Property="Foreground" Value="#2b2b2b"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            
             <Style x:Key="menuTitle" TargetType="TextBlock">
                 <Setter Property="Margin" Value="0 0 25 0"/>
                 <Setter Property="FontSize" Value="28"/>
@@ -66,10 +73,10 @@
             </Style>
 
             <Style x:Key="infoCard" TargetType="Border">
-                <Setter Property="Background" Value="#216E50"/>
+                <Setter Property="Background" Value="#E9E9E9"/>
                 <Setter Property="CornerRadius" Value="15"/>
                 <Setter Property="Padding" Value="10"/>
-                <Setter Property="Margin" Value="8 0 8 0"/>
+                <Setter Property="Margin" Value="10"/>
             </Style>
 
             <Style x:Key="infoCardStack" TargetType="StackPanel">
@@ -78,13 +85,13 @@
             </Style>
 
             <Style x:Key="infoCardText" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="#E9E9E9"/>
+                <Setter Property="Foreground" Value="#2b2b2b"/>
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="Opacity" Value="0.8"/>
             </Style>
 
             <Style x:Key="inforCardTitle" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="#E9E9E9"/>
+                <Setter Property="Foreground" Value="#2b2b2b"/>
                 <Setter Property="FontSize" Value="33"/>
                 <Setter Property="Margin" Value="0 0 0 5"/>
             </Style>
@@ -96,7 +103,7 @@
                 <Setter Property="Grid.Column" Value="1"/>
                 <Setter Property="Width" Value="50"/>
                 <Setter Property="Height" Value="50"/>
-                <Setter Property="Foreground" Value="#E0E0E0"/>
+                <Setter Property="Foreground" Value="Black"/>
             </Style>
             
             <ResourceDictionary.MergedDictionaries>

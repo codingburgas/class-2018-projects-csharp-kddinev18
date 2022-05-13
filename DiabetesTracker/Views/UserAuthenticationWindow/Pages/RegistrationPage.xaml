@@ -14,15 +14,15 @@
             <StackPanel Margin="20 40">
                 <TextBlock Text="Register" Margin="0 30 0 0" Foreground="#2b2b2b" TextAlignment="Center" FontSize="40" FontFamily="Archive"/>
                 <StackPanel Orientation="Horizontal" Margin="10 20 10 10">
-                    <materialDesign:PackIcon Kind="User" Width="25" Height="25" Foreground="#2b2b2b"/>
+                    <materialDesign:PackIcon Kind="User" Style="{StaticResource textBoxIcon}"/>
                     <TextBox x:Name="UserNameRegisterTextBox" Margin="10 0" materialDesign:HintAssist.Hint="UserName" Foreground="#2b2b2b" Width="250"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <materialDesign:PackIcon Kind="Email" Width="25" Height="25" Foreground="#2b2b2b"/>
+                    <materialDesign:PackIcon Kind="Email" Style="{StaticResource textBoxIcon}"/>
                     <TextBox x:Name="EmailRegisterTextBox" Margin="10 0" materialDesign:HintAssist.Hint="Example@Emaple.com" Foreground="#2b2b2b" Width="250"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <materialDesign:PackIcon Kind="Password" Width="25" Height="25" Foreground="#2b2b2b"/>
+                    <materialDesign:PackIcon Kind="Password" Style="{StaticResource textBoxIcon}"/>
                     <TextBox x:Name="PasswordRegisterTextBox" Margin="10 0" materialDesign:HintAssist.Hint="********" Foreground="#2b2b2b" Width="250"/>
                 </StackPanel>
                 <StackPanel Margin="10" HorizontalAlignment="Center">

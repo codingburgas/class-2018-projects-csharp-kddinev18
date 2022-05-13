@@ -99,76 +99,69 @@
         
         <!--Main Panel-->
         <StackPanel Grid.Column="1" Grid.Row="1" Margin="0 0 50 20" VerticalAlignment="Stretch">
-            <Grid Height="110" Margin="-8 0 -8 0">
+            <Grid Height="450" Margin="-8 0 -8 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!--Info Crads-->
-                <Border Grid.Column="0" Style="{StaticResource infoCard}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Style="{StaticResource infoCardStack}">
-                            <TextBlock Text="42,500,000" Style="{StaticResource inforCardTitle}"/>
-                            <TextBlock Text="TotalViews" Style="{StaticResource infoCardText}"/>
-                        </StackPanel>
-
-                        <materialDesign:PackIcon Kind="Close" Style="{StaticResource infocardIcon}" />
-
-                    </Grid>
-                </Border>
-
-                <Border Grid.Column="1" Style="{StaticResource infoCard}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Style="{StaticResource infoCardStack}">
-                            <TextBlock Text="42,500,000" Style="{StaticResource inforCardTitle}"/>
-                            <TextBlock Text="TotalViews" Style="{StaticResource infoCardText}"/>
-                        </StackPanel>
-
-                        <materialDesign:PackIcon Kind="Close" Style="{StaticResource infocardIcon}" />
-
-                    </Grid>
-                </Border>
-
-                <Border Grid.Column="2" Style="{StaticResource infoCard}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Style="{StaticResource infoCardStack}">
-                            <TextBlock Text="42,500,000" Style="{StaticResource inforCardTitle}"/>
-                            <TextBlock Text="TotalViews" Style="{StaticResource infoCardText}"/>
-                        </StackPanel>
-
-                        <materialDesign:PackIcon Kind="Close" Style="{StaticResource infocardIcon}" />
-
-                    </Grid>
-                </Border>
-            </Grid>
-            <Border Background="#FDFDFD" Padding="15" Margin="0 20 0 0" CornerRadius="15">
                 <Grid>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Border Width="60" Height="60" Margin="15 0 15 0" CornerRadius="30">
-                            <Border.Background>
-                                <ImageBrush Stretch="Fill"/>
-                            </Border.Background>
-                        </Border>
-                    </StackPanel>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!--Info Crads-->
+                    <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource infoCard}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Style="{StaticResource infoCardStack}">
+                                <TextBlock Text="42,500,000" Style="{StaticResource inforCardTitle}"/>
+                                <TextBlock Text="TotalViews" Style="{StaticResource infoCardText}"/>
+                            </StackPanel>
+
+                            <materialDesign:PackIcon Kind="Close" Style="{StaticResource infocardIcon}" />
+
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource infoCard}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Style="{StaticResource infoCardStack}">
+                                <TextBlock Text="42,500,000" Style="{StaticResource inforCardTitle}"/>
+                                <TextBlock Text="TotalViews" Style="{StaticResource infoCardText}"/>
+                            </StackPanel>
+
+                            <materialDesign:PackIcon Kind="Close" Style="{StaticResource infocardIcon}" />
+
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="2" Background="#FF33AA7C" Padding="15" Margin="10 40 10 0" CornerRadius="15">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Border Width="60" Height="60" Margin="15 0 15 0" CornerRadius="30">
+                                    <Border.Background>
+                                        <ImageBrush Stretch="Fill"/>
+                                    </Border.Background>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
                 </Grid>
-            </Border>
+                
+            </Grid>
         </StackPanel>
     </Grid>
 </Window>
