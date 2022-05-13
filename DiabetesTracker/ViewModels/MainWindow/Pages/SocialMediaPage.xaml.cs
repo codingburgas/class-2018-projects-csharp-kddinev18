@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace DiabetesTracker.ViewModels
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SocialMediaPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SocialMediaPage : Page
     {
-        public MainWindow()
+        public SocialMediaPage()
         {
             InitializeComponent();
-            MainWindowFrame.Content = new SocialMediaPage();
-        }
-        private void ExitButton_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
     }
 }
