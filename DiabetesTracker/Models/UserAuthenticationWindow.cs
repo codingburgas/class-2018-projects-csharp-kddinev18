@@ -17,7 +17,7 @@ namespace DiabetesTracker.Models
     }
     public static class UserAuthenticationWindow
     {
-        private readonly static string _userCredentialsPath = @$"C:\Users\{WindowsIdentity.GetCurrent().Name}\AppData\Local\Microsoft\Windows\INetCookies\DiabetesTracker.txt";
+        private readonly static string _userCredentialsPath = @$"{Directory.GetCurrentDirectory()}/DiabetesTrackerCredentials.txt";
         public static void LogIn(string userName, string password)
         {
             UserBusinessLogic.LogIn(userName, password);

@@ -62,6 +62,8 @@ namespace DiabetesTracker.ViewModels
             {
                 UserAuthenticationWindow.AddCookies(userName, password);
             }
+
+            _userAuthentication.OpenMainWindow();
         }
     }
 }

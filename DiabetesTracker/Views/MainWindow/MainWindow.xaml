@@ -8,11 +8,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!--Background-->
         <Grid Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.4*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Border CornerRadius="10 10 0 0">
@@ -26,28 +35,67 @@
 
             <Border Grid.Row="1" CornerRadius="0 0 10 10" Background="#EAEAEA"/>
         </Grid>
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="6*"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0" >
-                <StackPanel Margin="50 30 50 30" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock Text="Home" Style="{StaticResource menuTitle}"/>
-                    <TextBlock Text="Your Blogs" Style="{StaticResource menuTitle}"/>
-                    <TextBlock Text="Followed" Style="{StaticResource menuTitle}"/>
-                    <TextBlock Text="Saved" Style="{StaticResource menuTitle}"/>
-                    <TextBlock Text="Analytics" Style="{StaticResource menuTitle}"/>
-                </StackPanel>
-
-                <Button Margin="15" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionButton}" Width="60" Height="60" Background="{x:Null}" BorderBrush="#EAEAEA" ToolTip="Close" x:Name="ExitButton" Click="ExitButton_Click">
-                    <materialDesign:PackIcon Kind="Close" Foreground="#EAEAEA" Width="40" Height="40" />
-                </Button>
-            </Grid>
-            <Frame x:Name="MainWindowFrame" Grid.Row="1"/>
+        
+        <!--NavBar-->
+        <Grid Grid.ColumnSpan="2" Grid.Row="0" Margin="50 30 50 40" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Home" Style="{StaticResource menuTitle}"/>
+                <TextBlock Text="Your Blogs" Style="{StaticResource menuTitle}"/>
+                <TextBlock Text="Followed" Style="{StaticResource menuTitle}"/>
+                <TextBlock Text="Saved" Style="{StaticResource menuTitle}"/>
+                <TextBlock Text="Analytics" Style="{StaticResource menuTitle}"/>
+            </StackPanel>
         </Grid>
+        <Frame x:Name="MainWindowFrame" Grid.Row="1"/>
+
+        <!--Left NavBar-->
+        <Border Background="#FDFDFD" Grid.Row="1" BorderThickness="1" BorderBrush="#DBDBDB" Width="125" CornerRadius="15" Margin="50 0 50 25">
+            <StackPanel>
+                
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Close" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="DashBoard" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Close" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="DashBoard" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Close" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="DashBoard" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Close" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="DashBoard" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Close" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="DashBoard" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Close" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="DashBoard" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+        </Border>
         
     </Grid>
 </Window>
