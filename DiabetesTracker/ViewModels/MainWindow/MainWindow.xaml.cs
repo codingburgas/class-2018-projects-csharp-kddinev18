@@ -22,7 +22,6 @@ namespace DiabetesTracker.ViewModels
         public MainWindow()
         {
             InitializeComponent();
-            MainWindowFrame.Content = new Home();
         }
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {

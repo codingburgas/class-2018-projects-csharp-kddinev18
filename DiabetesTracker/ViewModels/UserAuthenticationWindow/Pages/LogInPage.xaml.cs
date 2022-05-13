@@ -68,7 +68,7 @@ namespace DiabetesTracker.ViewModels
                 File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { UserName = userName, Password = password}));
             }
 
-            _userAuthentication.GoToMainWindow();
+            _userAuthentication.OpenMainWindow();
         }
     }
 }

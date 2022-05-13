@@ -44,7 +44,7 @@ namespace DiabetesTracker.ViewModels
         {
             Forms.Content = _finishRegistrationForm;
         }
-        public void GoToMainWindow()
+        public void OpenMainWindow()
         {
             MainWindow mainWindow = new MainWindow();
             this.Close();
