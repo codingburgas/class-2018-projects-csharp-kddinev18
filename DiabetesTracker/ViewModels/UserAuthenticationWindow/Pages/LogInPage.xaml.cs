@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using DiabetesTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,24 +23,16 @@ namespace DiabetesTracker.ViewModels
     /// <summary>
     /// Interaction logic for LogInForm.xaml
     /// </summary>
-    public class UserCredentials
-    {
-        public string UserName { get; set; }
-        public string Password { get; set; }
-    }
     public partial class LogInForm : Page
     {
         private UserAuthentication _userAuthentication;
-        private readonly string _userCredentialsPath = @$"C:\Users\{WindowsIdentity.GetCurrent().Name}\AppData\Local\Microsoft\Windows\INetCookies\DiabetesTracker.txt";
         public LogInForm(UserAuthentication userAuthentication)
         {
-            if(File.Exists(_userCredentialsPath))
-            {
-                string credentials = File.ReadAllText(_userCredentialsPath);
-                UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
-                UserBusinessLogic.LogIn(userCredentials.UserName, userCredentials.Password);
-            }
             _userAuthentication = userAuthentication;
+            if(UserAuthenticationWindow.CheckCookies())
+            {
+                _userAuthentication.OpenMainWindow();
+            }
             InitializeComponent();
         }
         private void OpenRegistrationFromButton_Click(object sender, RoutedEventArgs e)
@@ -53,22 +46,22 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                UserBusinessLogic.LogIn(userName, password);
-            }catch (WrongCredentialsException exception)
+                UserAuthenticationWindow.LogIn(userName, password);
+            }
+            catch (WrongCredentialsException exception)
             {
                 MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
-            if (UserBusinessLogic.CheckUserProfile(UserBusinessLogic.GetCurrentUserId()) == false)
-                _userAuthentication.ShowFinishRegisterForm();
-
-            if(RememberMeCheckBox.IsChecked == true)
+            catch (ArgumentNullException)
             {
-                File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { UserName = userName, Password = password}));
+                _userAuthentication.OpenMainWindow();
             }
 
-            _userAuthentication.OpenMainWindow();
+            if (RememberMeCheckBox.IsChecked == true)
+            {
+                UserAuthenticationWindow.AddCookies(userName, password);
+            }
         }
     }
 }
