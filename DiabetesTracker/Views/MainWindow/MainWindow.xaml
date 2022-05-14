@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:DiabetesTracker"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
-    <Grid>
+    <Grid MouseDown="Border_MouseDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="8*"/>
@@ -61,7 +61,7 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Column="1" CornerRadius="0 15 15 0">
+        <Border Grid.Column="1" CornerRadius="0 15 15 0" MouseDown="Border_MouseDown">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#358c57" Offset="0"/>

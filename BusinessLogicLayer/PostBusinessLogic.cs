@@ -2,6 +2,7 @@
 using DataAccessLayer.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -33,7 +34,14 @@ namespace BusinessLogicLayer
 
             return newPost;
         }
+        public static List<int> GetPostIds(int skip)
+        {
+            List<int> Ids = DbContext.Posts.OrderByDescending(post => post.PostId).Skip(skip).Select(post => post.PostId).Take(10).ToList();
+            if(Ids.Count != 0)
+                return Ids;
 
+            throw new ArgumentNullException("No more posts");
+        }
         public static byte[] GetPostImage(int id)
         {
             return DbContext.Posts.Where(post => post.PostId == id).OrderBy(post => post.PostId).First().Image;
