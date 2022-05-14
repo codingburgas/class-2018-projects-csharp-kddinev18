@@ -31,6 +31,12 @@
                 <Setter Property="Foreground" Value="#2b2b2b"/>
             </Style>
 
+            <Style x:Key="postUserText" TargetType="TextBlock">
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="FontSize" Value="23"/>
+                <Setter Property="Foreground" Value="#2b2b2b"/>
+            </Style>
+
             <Style x:Key="menuButtonIcon" TargetType="materialDesign:PackIcon">
                 <Setter Property="Width" Value="35"/>
                 <Setter Property="Height" Value="35"/>
@@ -44,7 +50,7 @@
             </Style>
 
             <Style x:Key="menuButton" TargetType="Button">
-                <Setter Property="Margin" Value="0 7 0 0"/>
+                <Setter Property="Margin" Value="0 5 0 0"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="Width" Value="100"/>
                 <Setter Property="Height" Value="90"/>
@@ -106,12 +112,6 @@
                 <Setter Property="Foreground" Value="Black"/>
             </Style>
 
-            <Style x:Key="postUserNameText" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="#2b2b2b"/>
-                <Setter Property="FontSize" Value="25"/>
-                <Setter Property="Margin" Value="10"/>
-            </Style>
-
             <Style x:Key="postActionIcon" TargetType="materialDesign:PackIcon">
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -148,6 +148,17 @@
                         <Setter Property="Foreground" Value="#FFFFFF"/>
                     </Trigger>
                 </Style.Triggers>
+            </Style>
+
+            <Style x:Key="userIcon" TargetType="Border">
+                <Setter Property="Background" Value="#27825F"/>
+                <Setter Property="CornerRadius" Value="50"/>
+                <Setter Property="Width" Value="150"/>
+                <Setter Property="Height" Value="150"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="Margin" Value="60 10 10 80"/>
             </Style>
 
             <ResourceDictionary.MergedDictionaries>

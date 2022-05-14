@@ -6,29 +6,15 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:DiabetesTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        Title="MainWindow" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="#EAEAEA">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Background-->
-        <Grid Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1.4*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Border CornerRadius="10 10 0 0">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#358c57" Offset="0"/>
-                        <GradientStop Color="#FF33AA7C" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
-
-            <Border Grid.Row="1" CornerRadius="0 0 10 10" Background="#EAEAEA"/>
+        <Grid Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1">
+            <Border CornerRadius="90 0 10 10" Background="#FF33AA7C"/>
         </Grid>
         
         <!--NavBar-->

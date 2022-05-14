@@ -17,7 +17,7 @@ namespace BusinessLogicLayer
             DbContext.FollowingBlogs.Add(new FollowingBlog() 
             {
                 BlogId = blog.BlogId,
-                UserId = User.GetCurrentUser(),
+                UserId = UserBusinessLogic.GetCurrentUserId(),
             });
 
             DbContext.SaveChanges();

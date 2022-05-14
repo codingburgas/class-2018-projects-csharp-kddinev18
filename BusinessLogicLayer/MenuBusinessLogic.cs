@@ -14,7 +14,7 @@ namespace BusinessLogicLayer
         {
             Menu newMenu = new Menu()
             {
-                UserId = User.GetCurrentUser(),
+                UserId = UserBusinessLogic.GetCurrentUserId(),
                 Name = name,
                 CreatedOn = DateTime.Now
             };
@@ -22,7 +22,7 @@ namespace BusinessLogicLayer
 
             foreach (Recipe recipe in recipes)
             {
-                MenuRecipe.AddMenuRecipes(DbContext, newMenu, recipe);
+                MenuRecipeBusinessLogic.AddMenuRecipes(newMenu, recipe);
             }
 
             DbContext.SaveChanges();

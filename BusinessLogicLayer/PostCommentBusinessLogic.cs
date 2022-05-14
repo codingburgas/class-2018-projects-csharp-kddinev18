@@ -14,7 +14,7 @@ namespace BusinessLogicLayer
         {
             DbContext.PostComments.Add(new PostComment() 
             {
-                UserId = User.GetCurrentUser(),
+                UserId = UserBusinessLogic.GetCurrentUserId(),
                 PostId = post.PostId,
                 CommentContend = comment,
                 CommentedOn = DateTime.Now,

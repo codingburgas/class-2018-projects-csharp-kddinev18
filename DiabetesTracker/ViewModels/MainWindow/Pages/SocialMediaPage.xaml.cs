@@ -1,7 +1,9 @@
-﻿using DiabetesTracker.Models;
+﻿using BusinessLogicLayer;
+using DiabetesTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,22 +22,25 @@ namespace DiabetesTracker.ViewModels
     /// <summary>
     /// Interaction logic for SocialMediaPage.xaml
     /// </summary>
-    public class PostInfomation
-    {
-        public string UserName { get; set; }
-        public System.Drawing.Image Image { get; set; }
-        public string Content { get; set; }
-     }
     public partial class SocialMediaPage : Page
     {
-        public ObservableCollection<PostInfomation> Posts { get; set; } = new ObservableCollection<PostInfomation>();
         public SocialMediaPage()
         {
             InitializeComponent();
-            Posts.Add(MainWindowModel.GetPost());
-            Posts.Add(MainWindowModel.GetPost());
-            Posts.Add(MainWindowModel.GetPost());
-            PostsList.ItemsSource = Posts;
+            PostImage.Source = ConvertByteArrayToBitMapImage(PostBusinessLogic.GetPostImage(2));
+        }
+        public BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
+        {
+            BitmapImage img = new BitmapImage();
+            using (MemoryStream memStream = new MemoryStream(imageByteArray))
+            {
+                img.BeginInit();
+                img.CacheOption = BitmapCacheOption.OnLoad;
+                img.StreamSource = memStream;
+                img.EndInit();
+                img.Freeze();
+            }
+            return img;
         }
     }
 }
