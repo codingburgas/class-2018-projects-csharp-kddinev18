@@ -6,28 +6,60 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:DiabetesTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="#EAEAEA">
+        Title="MainWindow" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <!--Background-->
-        <Grid Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1">
-            <Border CornerRadius="90 0 10 10" Background="#FF33AA7C"/>
-        </Grid>
-        
-        <!--NavBar-->
-        <Grid Grid.ColumnSpan="2" Grid.Row="0" Margin="50 30 50 40" >
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <TextBlock Text="Home" Style="{StaticResource menuTitle}"/>
-                <TextBlock Text="BloodSugar" Style="{StaticResource menuTitle}"/>
-                <TextBlock Text="Reminders" Style="{StaticResource menuTitle}"/>
-                <TextBlock Text="Recipes" Style="{StaticResource menuTitle}"/>
-                <TextBlock Text="Menus" Style="{StaticResource menuTitle}"/>
-                <TextBlock Text="SocialMedia" Style="{StaticResource menuTitle}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="#FDFDFD" Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="#DBDBDB" Width="125" CornerRadius=" 15 0 0 15">
+            <StackPanel>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Home" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="Home" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Blood" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="BloodSugar" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Reminder" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="Reminders" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Receipt" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="Recipes" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Menu" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="Menus" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="MediaNetwork" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="SocialMedia" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
             </StackPanel>
-        </Grid>
+        </Border>
 
         <Frame x:Name="MainWindowFrame" Grid.Row="1"/>
     </Grid>
