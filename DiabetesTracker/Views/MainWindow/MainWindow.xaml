@@ -10,10 +10,10 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Background="#FDFDFD" Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="#DBDBDB" Width="125" CornerRadius=" 15 0 0 15">
+        <Border Background="#FDFDFD" Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="#DBDBDB" Width="145" CornerRadius=" 15 0 0 15">
             <StackPanel>
 
                 <Button Style="{StaticResource menuButton}">
@@ -61,6 +61,14 @@
             </StackPanel>
         </Border>
 
-        <Frame x:Name="MainWindowFrame" Grid.Row="1"/>
+        <Border Grid.Column="1" CornerRadius="0 15 15 0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#358c57" Offset="0"/>
+                    <GradientStop Color="#FF33AA7C" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Frame x:Name="MainWindowFrame" Grid.Row="1"/>
+        </Border>
     </Grid>
 </Window>

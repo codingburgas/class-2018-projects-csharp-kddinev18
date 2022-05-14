@@ -6,67 +6,11 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:DiabetesTracker"
       mc:Ignorable="d" 
-      d:DesignHeight="720" d:DesignWidth="1280"
+      d:DesignHeight="720" d:DesignWidth="1135"
       Title="SocialMediaPage">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <Border Background="#FDFDFD" Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="#DBDBDB" Width="125" CornerRadius="15" Margin="50 10 50 25">
-            <StackPanel>
-
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Home" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="Home" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Blog" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="Blogs" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Favorite" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="Favorites" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Person" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="Following" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Tag" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="Tags" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Analytics" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="Analytics" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-            </StackPanel>
-        </Border>
-
-        <!--Main Panel-->
-        <StackPanel Grid.Column="1" Margin="0 0 50 20" Orientation="Horizontal">
-            <!--Info Crads-->
-            <!--<Border Grid.Column="0" Grid.Row="0" Style="{StaticResource infoCard}">
+        <!--<Border Grid.Column="0" Grid.Row="0" Style="{StaticResource infoCard}">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="35" Opacity="0.4"/>
                 </Border.Effect>
@@ -104,12 +48,20 @@
                     <materialDesign:PackIcon Kind="Close" Style="{StaticResource infocardIcon}" />
                 </Grid>
             </Border>-->
-            <Border Style="{StaticResource userIcon}">
-                <Image/>
-            </Border>
-            <Grid Margin="30 0 0 0">
-                <Border Background="#FDFDFD" BorderThickness="1" BorderBrush="#DBDBDB" Style="{StaticResource infoCard}">
-                    <!--Post List-->
+        <StackPanel HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 25 10 20">
+                <TextBlock Text="Home" Style="{StaticResource menuTitle}"/>
+                <TextBlock Text="Blogs" Style="{StaticResource menuTitle}"/>
+                <TextBlock Text="Favorites" Style="{StaticResource menuTitle}"/>
+                <TextBlock Text="Following" Style="{StaticResource menuTitle}"/>
+                <TextBlock Text="Tags" Style="{StaticResource menuTitle}"/>
+                <TextBlock Text="Analytics" Style="{StaticResource menuTitle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" >
+                <Border Background="#FDFDFD" BorderThickness="1" CornerRadius="20" BorderBrush="#DBDBDB" Height="100" Width="100" VerticalAlignment="Top" Margin="0 25 10 0">
+                    <Image/>
+                </Border>
+                <Border Background="#FDFDFD" BorderThickness="1" BorderBrush="#DBDBDB" Margin="25 10 0 0" Width="850" CornerRadius="20">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource postUserText}" Text="UserName"/>
@@ -119,12 +71,12 @@
                             <Button Style="{StaticResource postActionButton}">
                                 <materialDesign:PackIcon Kind="NavigateBefore" Style="{StaticResource postActionIcon}" />
                             </Button>
-                            <Image x:Name="PostImage" Height="375" Width="450" Margin="10" Source="{Binding}"/>
+                            <Image x:Name="PostImage" Height="420" Width="665" Margin="10" Source="{Binding}"/>
                             <Button Style="{StaticResource postActionButton}">
                                 <materialDesign:PackIcon Kind="NavigateNext" Style="{StaticResource postActionIcon}" />
                             </Button>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="10 0 10 0">
+                        <StackPanel Orientation="Horizontal" Margin="10 0 0 10">
                             <Button Style="{StaticResource postActionButton}">
                                 <materialDesign:PackIcon Kind="Like" Style="{StaticResource postActionIcon}" />
                             </Button>
@@ -137,7 +89,7 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
-            </Grid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

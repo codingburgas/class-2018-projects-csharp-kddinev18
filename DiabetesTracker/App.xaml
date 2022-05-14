@@ -32,7 +32,7 @@
             </Style>
 
             <Style x:Key="postUserText" TargetType="TextBlock">
-                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Margin" Value="20"/>
                 <Setter Property="FontSize" Value="23"/>
                 <Setter Property="Foreground" Value="#2b2b2b"/>
             </Style>
@@ -52,7 +52,7 @@
             <Style x:Key="menuButton" TargetType="Button">
                 <Setter Property="Margin" Value="0 25 0 0"/>
                 <Setter Property="FontSize" Value="14"/>
-                <Setter Property="Width" Value="100"/>
+                <Setter Property="Width" Value="110"/>
                 <Setter Property="Height" Value="90"/>
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="Foreground" Value="#A9A9A9"/>
