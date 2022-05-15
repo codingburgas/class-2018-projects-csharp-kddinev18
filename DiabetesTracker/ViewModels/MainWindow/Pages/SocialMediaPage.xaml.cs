@@ -24,10 +24,22 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class SocialMediaPage : Page
     {
+        private PostsPage _postsPage;
+        private BlogsPage _blogsPage;
         public SocialMediaPage()
         {
+            _postsPage = new PostsPage();
+            _blogsPage = new BlogsPage();
             InitializeComponent();
-            SocialMediaPageFrame.Content = new PostsPage();
+            SocialMediaPageFrame.Content = _postsPage;
+        }
+        private void PostsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SocialMediaPageFrame.Content = _postsPage;
+        }
+        private void BlogsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SocialMediaPageFrame.Content = _blogsPage;
         }
     }
 }

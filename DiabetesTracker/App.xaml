@@ -12,18 +12,6 @@
                 <Setter Property="Foreground" Value="#2b2b2b"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
-            
-            <Style x:Key="menuTitle" TargetType="TextBlock">
-                <Setter Property="Margin" Value="0 0 25 0"/>
-                <Setter Property="FontSize" Value="28"/>
-                <Setter Property="Opacity" Value="0.7"/>
-                <Setter Property="Foreground" Value="#ffffff"/>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Opacity" Value="1"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
 
             <Style x:Key="postText" TargetType="TextBlock">
                 <Setter Property="Margin" Value="10"/>
@@ -159,6 +147,41 @@
                 <Setter Property="VerticalAlignment" Value="Top"/>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="Margin" Value="60 10 10 80"/>
+            </Style>
+
+            <Style x:Key="menuTextButton" TargetType="Button">
+                <Setter Property="Margin" Value="25 5 25 5"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Width" Value="110"/>
+                <Setter Property="Height" Value="60"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="#A9A9A9"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="15" Padding="15">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FF33AA7C"/>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseCaptured" Value="True">
+                        <Setter Property="Background" Value="#358c57"/>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="whiteText" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Setter Property="FontSize" Value="33"/>
+                <Setter Property="Margin" Value="0 0 0 5"/>
             </Style>
 
             <ResourceDictionary.MergedDictionaries>

@@ -17,7 +17,7 @@ namespace DataAccessLayer.Data.Models
         public int CommentCount { get; set; }
 
         public virtual User User { get; set; }
-        public virtual Blog Blogs { get; set; }
+        public virtual Blog Blog { get; set; }
         public virtual ICollection<FavouritePost> FavouritePosts { get; set; } = new List<FavouritePost>();
         public virtual ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
         public virtual ICollection<PostLike> PostLikes { get; set; } = new List<PostLike>();

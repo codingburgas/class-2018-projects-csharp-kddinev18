@@ -68,7 +68,7 @@
                     <GradientStop Color="#FF33AA7C" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
-            <Frame x:Name="MainWindowFrame" Grid.Row="1"/>
+            <Frame x:Name="MainWindowFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
         </Border>
     </Grid>
 </Window>

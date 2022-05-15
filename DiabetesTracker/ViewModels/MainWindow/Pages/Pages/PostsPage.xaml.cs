@@ -23,11 +23,11 @@ namespace DiabetesTracker.ViewModels
         public PostsPage()
         {
             InitializeComponent();
-            SetPost(_index++);
+            SetPost(_index);
         }
         private void SetPost(int index)
         {
-            UserNameTextBlock.Text = Posts.ElementAt(index).Item1;
+            BlogNameTextBlock.Text = Posts.ElementAt(index).Item1;
             ContentTextBlock.Text = Posts.ElementAt(index).Item2;
             PostImage.Source = Posts.ElementAt(index).Item3;
         }

@@ -20,7 +20,7 @@ namespace DiabetesTracker.Models
             foreach (int id in ids)
             {
                 posts.Add(new Tuple<string, string, BitmapImage>(
-                    PostBusinessLogic.GetPostUser(id), 
+                    PostBusinessLogic.GetPostBlogName(id), 
                     PostBusinessLogic.GetPostContent(id),
                     ConvertByteArrayToBitMapImage(PostBusinessLogic.GetPostImage(id))
                 ));

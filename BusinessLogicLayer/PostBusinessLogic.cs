@@ -50,9 +50,9 @@ namespace BusinessLogicLayer
         {
             return DbContext.Posts.Where(post => post.PostId == id).OrderBy(post => post.PostId).First().Content;
         }
-        public static string GetPostUser(int id)
+        public static string GetPostBlogName(int id)
         {
-            return DbContext.Posts.Where(post => post.PostId == id).Include(post => post.User).Select(post => post.User).First().UserName;
+            return DbContext.Posts.Where(post => post.PostId == id).Include(post => post.Blog).Select(post => post.Blog).First().Name;
         }
     }
 }
