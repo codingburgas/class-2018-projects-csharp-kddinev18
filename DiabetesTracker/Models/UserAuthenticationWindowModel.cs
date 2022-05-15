@@ -41,7 +41,7 @@ namespace DiabetesTracker.Models
 
             string credentials = File.ReadAllText(_userCredentialsPath);
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
-            UserBusinessLogic.LogIn(userCredentials.UserName, userCredentials.Password);
+            UserBusinessLogic.LogInWithPreHashedPassword(userCredentials.UserName, userCredentials.Password);
             return true;
         }
         public static void RemoveCookies()

@@ -13,20 +13,20 @@ namespace DiabetesTracker.Models
     {
         public static List<Tuple<string,string,BitmapImage>> GetPosts(int skip)
         {
-            List<int> ids = PostBusinessLogic.GetPostIds(skip);
+            List<int> postIds = PostBusinessLogic.GetPostIds(skip);
 
-            List<Tuple<string, string, BitmapImage>> posts = new List<Tuple<string, string, BitmapImage>>();
+            List<Tuple<string, string, BitmapImage>> postsInformation = new List<Tuple<string, string, BitmapImage>>();
 
-            foreach (int id in ids)
+            foreach (int id in postIds)
             {
-                posts.Add(new Tuple<string, string, BitmapImage>(
+                postsInformation.Add(new Tuple<string, string, BitmapImage>(
                     PostBusinessLogic.GetPostBlogName(id), 
                     PostBusinessLogic.GetPostContent(id),
                     ConvertByteArrayToBitMapImage(PostBusinessLogic.GetPostImage(id))
                 ));
             }
 
-            return posts;
+            return postsInformation;
         }
         private static BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
         {
@@ -40,6 +40,39 @@ namespace DiabetesTracker.Models
                 img.Freeze();
             }
             return img;
+        }
+        public static List<Tuple<BitmapImage, string, int, int>> GetCurrentUserBlogsInformation()
+        {
+            List<int> currentUserBlogsIds = BlogBusinessLogic.GetCurrentUserBlogs();
+
+            List<Tuple<BitmapImage, string, int, int>> currentUserBlogsInformation = new List<Tuple<BitmapImage, string, int, int>>();
+            foreach (int id in currentUserBlogsIds)
+            {
+                currentUserBlogsInformation.Add(new Tuple<BitmapImage, string, int, int>(
+                    new BitmapImage(),
+                    BlogBusinessLogic.GetBlogName(id),
+                    BlogBusinessLogic.GetBlogPostsCount(id),
+                    BlogBusinessLogic.GetBlogFollowingCount(id)
+                ));
+            }
+            return currentUserBlogsInformation;
+        }
+
+        public static List<Tuple<BitmapImage, string, int, int>> GetBlogsInformationByName(string blogName)
+        {
+            List<int> blogsIdsByName = BlogBusinessLogic.GetBlogsIdByName(blogName);
+
+            List<Tuple<BitmapImage, string, int, int>> blogsInformationByName = new List<Tuple<BitmapImage, string, int, int>>();
+            foreach (int id in blogsIdsByName)
+            {
+                blogsInformationByName.Add(new Tuple<BitmapImage, string, int, int>(
+                    new BitmapImage(),
+                    BlogBusinessLogic.GetBlogName(id),
+                    BlogBusinessLogic.GetBlogPostsCount(id),
+                    BlogBusinessLogic.GetBlogFollowingCount(id)
+                ));
+            }
+            return blogsInformationByName;
         }
     }
 }

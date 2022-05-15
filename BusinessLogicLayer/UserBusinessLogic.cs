@@ -133,6 +133,7 @@ namespace BusinessLogicLayer
                 if (preHashedPassword == user.Password)
                 {
                     _logedUserId = user.UserId;
+                    return;
                 }
             }
             throw new WrongCredentialsException("Your password or username is incorrect");

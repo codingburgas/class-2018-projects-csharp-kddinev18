@@ -27,9 +27,29 @@ namespace BusinessLogicLayer
 
             return newBlog;
         }
-        public static ICollection<Post> GetAllPosts(Blog Blog)
+        public static List<int> GetBlogsIdByName(string blogName)
         {
-            return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == Blog.BlogId).Select(blog => blog.Posts).First().ToList();
+            return DbContext.Blogs.Where(blog=>blog.Name==blogName).Select(blod => blod.BlogId).ToList();
+        }
+        public static List<int> GetCurrentUserBlogs()
+        {
+            return DbContext.Blogs.Where(blog => blog.UserId == UserBusinessLogic.GetCurrentUserId()).Select(blog => blog.BlogId).ToList();
+        }
+        public static string GetBlogName(int blogId)
+        {
+            return DbContext.Blogs.Where(blog => blog.BlogId == blogId).OrderBy(blog => blog.BlogId).First().Name;
+        }
+        public static int GetBlogPostsCount(int blogId)
+        {
+            return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == blogId).Select(blog => blog.Posts).First().Count();
+        }
+        public static int GetBlogFollowingCount(int blogId)
+        {
+            return DbContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == blogId).Count();
+        }
+        public static ICollection<Post> GetAllPosts(int blogId)
+        {
+            return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == blogId).Select(blog => blog.Posts).First().ToList();
         }
     }
 }

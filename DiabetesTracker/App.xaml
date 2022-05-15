@@ -180,8 +180,9 @@
 
             <Style x:Key="whiteText" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="FontSize" Value="33"/>
-                <Setter Property="Margin" Value="0 0 0 5"/>
+                <Setter Property="Margin" Value="0 0 35 0"/>
             </Style>
 
             <ResourceDictionary.MergedDictionaries>
