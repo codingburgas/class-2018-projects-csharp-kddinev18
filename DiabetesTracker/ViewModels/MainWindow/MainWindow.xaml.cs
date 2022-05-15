@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiabetesTracker.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,12 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class MainWindow : Window
     {
+        private SocialMediaPage _socialMediaPage;
         public MainWindow()
         {
+            _socialMediaPage = new SocialMediaPage();
             InitializeComponent();
-            MainWindowFrame.Content = new SocialMediaPage();
+            MainWindowFrame.Content = _socialMediaPage;
         }
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
@@ -32,6 +35,12 @@ namespace DiabetesTracker.ViewModels
         {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
+        }
+        private void SignOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserAuthenticationWindowModel.RemoveCookies();
+            new UserAuthenticationWindow().Show();
+            this.Close();
         }
     }
 }

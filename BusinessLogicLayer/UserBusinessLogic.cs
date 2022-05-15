@@ -100,7 +100,7 @@ namespace BusinessLogicLayer
             throw new WrongCredentialsException("Password must contain at least 1 special character");
         }
 
-        public static void LogIn(string username, string password)
+        public static string LogIn(string username, string password)
         {
             List<User> users = DbContext.Users
                 .Where(u => u.UserName == username)
@@ -110,8 +110,32 @@ namespace BusinessLogicLayer
                 throw new WrongCredentialsException("Your password or username is incorrect");
 
             foreach (User user in users)
+            {
                 if (Hash(password + user.Salt.ToString()) == user.Password)
+                {
                     _logedUserId = user.UserId;
+                    return Hash(password + user.Salt.ToString());
+                }
+            }
+            throw new WrongCredentialsException("Your password or username is incorrect");
+        }
+        public static void LogInWithPreHashedPassword(string username, string preHashedPassword)
+        {
+            List<User> users = DbContext.Users
+                .Where(u => u.UserName == username)
+                .ToList();
+
+            if (users.Count == 0)
+                throw new WrongCredentialsException("Your password or username is incorrect");
+
+            foreach (User user in users)
+            {
+                if (preHashedPassword == user.Password)
+                {
+                    _logedUserId = user.UserId;
+                }
+            }
+            throw new WrongCredentialsException("Your password or username is incorrect");
         }
         public static bool CheckUserProfile(int userId)
         {

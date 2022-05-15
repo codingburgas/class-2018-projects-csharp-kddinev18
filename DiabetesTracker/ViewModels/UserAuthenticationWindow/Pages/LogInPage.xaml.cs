@@ -43,10 +43,15 @@ namespace DiabetesTracker.ViewModels
         {
             string userName = UserNameTextBox.Text;
             string password = PasswordTextBox.Text;
+            bool doRememberMe;
+            if (RememberMeCheckBox.IsChecked == true)
+                doRememberMe = true;
+            else
+                doRememberMe = false;
 
             try
             {
-                UserAuthenticationWindowModel.LogIn(userName, password);
+                UserAuthenticationWindowModel.LogIn(userName, password, doRememberMe);
             }
             catch (WrongCredentialsException exception)
             {
@@ -56,11 +61,6 @@ namespace DiabetesTracker.ViewModels
             catch (ArgumentNullException)
             {
                 _userAuthentication.OpenMainWindow();
-            }
-
-            if (RememberMeCheckBox.IsChecked == true)
-            {
-                UserAuthenticationWindowModel.AddCookies(userName, password);
             }
 
             _userAuthentication.OpenMainWindow();

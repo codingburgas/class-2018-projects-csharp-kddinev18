@@ -47,8 +47,8 @@ namespace DiabetesTracker.ViewModels
         public void OpenMainWindow()
         {
             MainWindow mainWindow = new MainWindow();
-            this.Close();
             mainWindow.Show();
+            this.Close();
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {

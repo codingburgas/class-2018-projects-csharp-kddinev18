@@ -18,8 +18,16 @@ namespace DiabetesTracker.ViewModels
     /// <summary>
     /// Interaction logic for BlogsPage.xaml
     /// </summary>
+    
     public partial class BlogsPage : Page
     {
+        public class BlogInformation
+        {
+            public BitmapImage BlogImage { get; set; }
+            public string BlogName { get; set; }
+            public int PostCount { get; set; }
+            public int FollowingCount { get; set; }
+        }
         public BlogsPage()
         {
             InitializeComponent();

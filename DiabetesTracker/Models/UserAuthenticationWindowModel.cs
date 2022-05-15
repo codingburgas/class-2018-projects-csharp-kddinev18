@@ -18,16 +18,21 @@ namespace DiabetesTracker.Models
     public static class UserAuthenticationWindowModel
     {
         private readonly static string _userCredentialsPath = @$"{Directory.GetCurrentDirectory()}/DiabetesTrackerCredentials.txt";
-        public static void LogIn(string userName, string password)
+        public static void LogIn(string userName, string password, bool doRememberMe)
         {
-            UserBusinessLogic.LogIn(userName, password);
+            string hashedPassword = UserBusinessLogic.LogIn(userName, password);
+
+            if (doRememberMe)
+                AddCookies(userName, hashedPassword);
+            else
+                RemoveCookies();
 
             if (UserBusinessLogic.CheckUserProfile(UserBusinessLogic.GetCurrentUserId()) == false)
                 throw new ArgumentNullException("User Profile data is not entered");
         }
-        public static void AddCookies(string userName, string password)
+        public static void AddCookies(string userName, string hashedPassword)
         {
-            File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { UserName = userName, Password = password }));
+            File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { UserName = userName, Password = hashedPassword }));
         }
         public static bool CheckCookies()
         {
@@ -38,6 +43,13 @@ namespace DiabetesTracker.Models
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
             UserBusinessLogic.LogIn(userCredentials.UserName, userCredentials.Password);
             return true;
+        }
+        public static void RemoveCookies()
+        {
+            if (!File.Exists(_userCredentialsPath))
+                return;
+
+            File.Delete(_userCredentialsPath);
         }
         public static void Register(string userName, string email, string password)
         {

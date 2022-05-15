@@ -58,6 +58,13 @@
                     </StackPanel>
                 </Button>
 
+                <Button Style="{StaticResource menuButton}" Click="SignOutButton_Click">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="SignOut" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="SignOut" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
             </StackPanel>
         </Border>
 
