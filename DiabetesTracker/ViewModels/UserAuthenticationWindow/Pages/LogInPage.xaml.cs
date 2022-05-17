@@ -42,7 +42,7 @@ namespace DiabetesTracker.ViewModels
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
             string userName = UserNameTextBox.Text;
-            string password = PasswordTextBox.Text;
+            string password = PasswordTextBox.Password;
             bool doRememberMe;
             if (RememberMeCheckBox.IsChecked == true)
                 doRememberMe = true;

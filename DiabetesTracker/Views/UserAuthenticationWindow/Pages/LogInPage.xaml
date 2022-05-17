@@ -19,7 +19,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <materialDesign:PackIcon Kind="Password" Style="{StaticResource textBoxIcon}"/>
-                    <TextBox x:Name="PasswordTextBox" Margin="10 0" materialDesign:HintAssist.Hint="********" Foreground="#2b2b2b" Width="250"/>
+                    <PasswordBox x:Name="PasswordTextBox" Margin="10 0" materialDesign:HintAssist.Hint="********" Foreground="#2b2b2b" Width="250"/>
                 </StackPanel>
                 <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
                     <CheckBox x:Name="RememberMeCheckBox" Margin="20" Foreground="#2b2b2b">Remember me</CheckBox>
