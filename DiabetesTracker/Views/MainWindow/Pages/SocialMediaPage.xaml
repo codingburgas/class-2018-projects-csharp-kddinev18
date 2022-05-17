@@ -53,10 +53,10 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                     <Button Style="{StaticResource menuTextButton}" Click="PostsButton_Click" Content="Posts"/>
                     <Button Style="{StaticResource menuTextButton}" Click="BlogsButton_Click" Content="Blogs"/>
-                    <Button Style="{StaticResource menuTextButton}" Content="Favorites"/>
-                    <Button Style="{StaticResource menuTextButton}" Content="Following"/>
-                    <Button Style="{StaticResource menuTextButton}" Content="Tags"/>
-                    <Button Style="{StaticResource menuTextButton}" Content="Analytics"/>
+                    <Button Style="{StaticResource menuTextButton}" Click="FavoritesButton_Click" Content="Favorites"/>
+                    <Button Style="{StaticResource menuTextButton}" Click="FollowingButton_Click" Content="Following"/>
+                    <Button Style="{StaticResource menuTextButton}" Click="TagsButton_Click" Content="Tags"/>
+                    <Button Style="{StaticResource menuTextButton}" Click="AnalyticsButton_Click" Content="Analytics"/>
                 </StackPanel>
             </Border>
             <Frame x:Name="SocialMediaPageFrame" NavigationUIVisibility="Hidden"/>

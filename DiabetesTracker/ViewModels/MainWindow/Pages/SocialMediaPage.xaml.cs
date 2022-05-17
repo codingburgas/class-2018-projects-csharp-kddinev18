@@ -26,10 +26,18 @@ namespace DiabetesTracker.ViewModels
     {
         public PostsPage PostsPage { get; set; }
         public BlogsPage BlogsPage { get; set; }
+        public FavouritesPage FavouritesPage { get; set; }
+        public FollowingPage FollowingPage { get; set; }
+        public TagsPage TagsPage { get; set; }
+        public AnalyticsPage AnalyticsPage { get; set; }
         public SocialMediaPage()
         {
             PostsPage = new PostsPage();
             BlogsPage = new BlogsPage();
+            FavouritesPage = new FavouritesPage();
+            FollowingPage = new FollowingPage();
+            TagsPage = new TagsPage();
+            AnalyticsPage = new AnalyticsPage();
             InitializeComponent();
             ShowPage(PostsPage);
         }
@@ -47,6 +55,22 @@ namespace DiabetesTracker.ViewModels
         private void BlogsButton_Click(object sender, RoutedEventArgs e)
         {
             ShowPage(BlogsPage);
+        }
+        private void FavoritesButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(FavouritesPage);
+        }
+        private void FollowingButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(FollowingPage);
+        }
+        private void TagsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(TagsPage);
+        }
+        private void AnalyticsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPage(AnalyticsPage);
         }
     }
 }

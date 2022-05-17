@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace DiabetesTracker.ViewModels
 {
     /// <summary>
-    /// Interaction logic for FollowingsPage.xaml
+    /// Interaction logic for FollowingPage.xaml
     /// </summary>
-    public partial class FollowingsPage : Page
+    public partial class FollowingPage : Page
     {
-        public FollowingsPage()
+        public FollowingPage()
         {
             InitializeComponent();
         }
