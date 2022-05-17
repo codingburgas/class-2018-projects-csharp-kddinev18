@@ -34,9 +34,9 @@ namespace BusinessLogicLayer
 
             return newPost;
         }
-        public static List<int> GetPostIds(int skip)
+        public static List<int> GetPostIds(int skipCount)
         {
-            List<int> Ids = DbContext.Posts.OrderByDescending(post => post.PostId).Skip(skip).Select(post => post.PostId).Take(10).ToList();
+            List<int> Ids = DbContext.Posts.OrderByDescending(post => post.PostId).Skip(skipCount).Select(post => post.PostId).Take(10).ToList();
             if(Ids.Count != 0)
                 return Ids;
 

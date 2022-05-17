@@ -11,9 +11,9 @@ namespace DiabetesTracker.Models
 {
     public static class MainWindowModel
     {
-        public static List<Tuple<string,string,BitmapImage>> GetPosts(int skip)
+        public static List<Tuple<string,string,BitmapImage>> GetPosts(int skipCount)
         {
-            List<int> postIds = PostBusinessLogic.GetPostIds(skip);
+            List<int> postIds = PostBusinessLogic.GetPostIds(skipCount);
 
             List<Tuple<string, string, BitmapImage>> postsInformation = new List<Tuple<string, string, BitmapImage>>();
 
