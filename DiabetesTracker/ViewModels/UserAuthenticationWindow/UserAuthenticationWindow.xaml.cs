@@ -20,29 +20,22 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class UserAuthenticationWindow : Window
     {
-        private LogInForm _logInForm;
-        private RegistrationForm _registrationForm;
-        private FinishRegistrationForm _finishRegistrationForm;
+        public LogInPage LogInPage { get; set; }
+        public RegistrationPage RegistrationPage { get; set; }
+        public FinishRegistrationPage FinishRegistrationPage { get; set; }
         public UserAuthenticationWindow()
         {
             Master.OpenConnection();
-            _logInForm = new LogInForm(this);
-            _registrationForm = new RegistrationForm(this);
-            _finishRegistrationForm = new FinishRegistrationForm(this);
+            LogInPage = new LogInPage(this);
+            RegistrationPage = new RegistrationPage(this);
+            FinishRegistrationPage = new FinishRegistrationPage(this);
             InitializeComponent();
-            ShowLogInForm();
+            ShowPage(LogInPage);
         }
-        public void ShowLogInForm()
+
+        public void ShowPage(Page page)
         {
-            Forms.Content = _logInForm;
-        }
-        public void ShowRegisterForm()
-        {
-            Forms.Content = _registrationForm;
-        }
-        public void ShowFinishRegisterForm()
-        {
-            Forms.Content = _finishRegistrationForm;
+            Forms.Content = page;
         }
         public void OpenMainWindow()
         {
@@ -50,6 +43,8 @@ namespace DiabetesTracker.ViewModels
             mainWindow.Show();
             this.Close();
         }
+
+        //Event handlers
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(e.LeftButton == MouseButtonState.Pressed)

@@ -28,7 +28,7 @@ namespace DiabetesTracker.Models
                 RemoveCookies();
 
             if (UserBusinessLogic.CheckUserProfile(UserBusinessLogic.GetCurrentUserId()) == false)
-                throw new ArgumentNullException("User Profile data is not entered");
+                throw new ArgumentNullException(" You need to finish your refistration first");
         }
         public static void AddCookies(string userName, string hashedPassword)
         {

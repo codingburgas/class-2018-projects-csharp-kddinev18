@@ -20,13 +20,20 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class MainWindow : Window
     {
-        private SocialMediaPage _socialMediaPage;
+        public SocialMediaPage SocialMediaPage { get; set; }
         public MainWindow()
         {
-            _socialMediaPage = new SocialMediaPage();
+            SocialMediaPage = new SocialMediaPage();
             InitializeComponent();
-            MainWindowFrame.Content = _socialMediaPage;
+            ShowPage(SocialMediaPage);
         }
+
+        public void ShowPage(Page page)
+        {
+            MainWindowFrame.Content = page;
+        }
+
+        //Event handlers
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

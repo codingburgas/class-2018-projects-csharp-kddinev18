@@ -20,13 +20,18 @@ namespace DiabetesTracker.ViewModels
     /// <summary>
     /// Interaction logic for RegistrationForm.xaml
     /// </summary>
-    public partial class RegistrationForm : Page
+    public partial class RegistrationPage : Page
     {
         private UserAuthenticationWindow _userAuthentication;
-        public RegistrationForm(UserAuthenticationWindow userAuthentication)
+        public RegistrationPage(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
             InitializeComponent();
+        }
+
+        private void OpenLogInFormButton_Click(object sender, RoutedEventArgs e)
+        {
+            _userAuthentication.ShowPage(_userAuthentication.LogInPage);
         }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
@@ -44,11 +49,7 @@ namespace DiabetesTracker.ViewModels
                 return;
             }
 
-            _userAuthentication.ShowFinishRegisterForm();
-        }
-        private void OpenLogInFromButton_Click(object sender, RoutedEventArgs e)
-        {
-            _userAuthentication.ShowLogInForm();
+            _userAuthentication.ShowPage(_userAuthentication.RegistrationPage);
         }
     }
 }

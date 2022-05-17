@@ -20,10 +20,10 @@ namespace DiabetesTracker.ViewModels
     /// <summary>
     /// Interaction logic for FinishRegistrationForm.xaml
     /// </summary>
-    public partial class FinishRegistrationForm : Page
+    public partial class FinishRegistrationPage : Page
     {
         UserAuthenticationWindow _userAuthentication;
-        public FinishRegistrationForm(UserAuthenticationWindow userAuthentication)
+        public FinishRegistrationPage(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
             InitializeComponent();

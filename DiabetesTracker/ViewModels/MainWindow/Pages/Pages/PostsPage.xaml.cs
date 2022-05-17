@@ -18,10 +18,11 @@ namespace DiabetesTracker.ViewModels
 {
     public partial class PostsPage : Page
     {
-        public List<Tuple<string, string, BitmapImage>> Posts { get; set; } = MainWindowModel.GetPosts(0);
+        public List<Tuple<string, string, BitmapImage>> Posts { get; set; }
         private int _index = 0;
         public PostsPage()
         {
+            Posts = MainWindowModel.GetPosts(0);
             InitializeComponent();
             SetPost(_index);
         }
@@ -31,10 +32,14 @@ namespace DiabetesTracker.ViewModels
             ContentTextBlock.Text = Posts.ElementAt(index).Item2;
             PostImage.Source = Posts.ElementAt(index).Item3;
         }
+
+        //Event handlers
         private void PrevButton_Click(object sender, RoutedEventArgs e)
         {
             if (_index <= 0)
+            {
                 return;
+            }
             if(_index % 10 == 0)
             {
                 Posts = MainWindowModel.GetPosts(_index - 10);

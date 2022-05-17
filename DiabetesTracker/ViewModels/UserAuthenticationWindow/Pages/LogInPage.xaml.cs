@@ -23,10 +23,10 @@ namespace DiabetesTracker.ViewModels
     /// <summary>
     /// Interaction logic for LogInForm.xaml
     /// </summary>
-    public partial class LogInForm : Page
+    public partial class LogInPage : Page
     {
         private UserAuthenticationWindow _userAuthentication;
-        public LogInForm(UserAuthenticationWindow userAuthentication)
+        public LogInPage(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
             if(UserAuthenticationWindowModel.CheckCookies())
@@ -35,19 +35,17 @@ namespace DiabetesTracker.ViewModels
             }
             InitializeComponent();
         }
-        private void OpenRegistrationFromButton_Click(object sender, RoutedEventArgs e)
+
+        //Event handlers
+        private void OpenRegistrationFormButton_Click(object sender, RoutedEventArgs e)
         {
-            _userAuthentication.ShowRegisterForm();
+            _userAuthentication.ShowPage(_userAuthentication.RegistrationPage);
         }
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
             string userName = UserNameTextBox.Text;
             string password = PasswordTextBox.Password;
-            bool doRememberMe;
-            if (RememberMeCheckBox.IsChecked == true)
-                doRememberMe = true;
-            else
-                doRememberMe = false;
+            bool doRememberMe = RememberMeCheckBox.IsChecked == true ? true : false;
 
             try
             {
@@ -58,9 +56,10 @@ namespace DiabetesTracker.ViewModels
                 MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            catch (ArgumentNullException)
+            catch (ArgumentNullException exception)
             {
-                _userAuthentication.OpenMainWindow();
+                MessageBox.Show(exception.Message, "User Profile data is not entered", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
 
             _userAuthentication.OpenMainWindow();

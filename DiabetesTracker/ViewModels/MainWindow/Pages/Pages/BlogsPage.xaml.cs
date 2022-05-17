@@ -34,11 +34,11 @@ namespace DiabetesTracker.ViewModels
         public List<BlogInformation> SearchBlogsInformation { get; set; } = new List<BlogInformation>();
         public BlogsPage()
         {
-            LoadYourBlogsInformation();
+            LoadBlogsInformation();
             InitializeComponent();
             YourBlogsList.ItemsSource = YourBlogsInformation;
         }
-        private void LoadYourBlogsInformation()
+        private void LoadBlogsInformation()
         {
             List<Tuple<BitmapImage, string, int, int>> currentUserblogsInformation = MainWindowModel.GetCurrentUserBlogsInformation();
             foreach (Tuple<BitmapImage, string, int, int> currentUserblogInformation in currentUserblogsInformation)
@@ -52,7 +52,7 @@ namespace DiabetesTracker.ViewModels
                 });
             }
         }
-        private void LoadSearchBlogsInformation(string blogName)
+        private void LoadBlogsInformation(string blogName)
         {
             SearchBlogsInformation = new List<BlogInformation>();
             List<Tuple<BitmapImage, string, int, int>> searchBlogsInformation = MainWindowModel.GetBlogsInformationByName(blogName);
@@ -67,6 +67,8 @@ namespace DiabetesTracker.ViewModels
                 });
             }
         }
+
+        //Event handlers
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             if (BlogNameSearchBar.Text == "")
@@ -77,7 +79,7 @@ namespace DiabetesTracker.ViewModels
             {
                 string blogName = BlogNameSearchBar.Text;
                 BlogNameSearchBar.Text = "";
-                LoadSearchBlogsInformation(blogName);
+                LoadBlogsInformation(blogName);
             }
             SerchBlogsList.ItemsSource = SearchBlogsInformation;
         }
