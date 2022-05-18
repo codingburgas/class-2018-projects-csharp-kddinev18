@@ -22,9 +22,9 @@ namespace DiabetesTracker.ViewModels
         private int _index = 0;
         public PostsPage()
         {
-            Posts = MainWindowModel.GetPosts(0);
+            //Posts = MainWindowModel.GetPosts(0);
             InitializeComponent();
-            SetPost(_index);
+            //SetPost(_index);
         }
         private void SetPost(int index)
         {
