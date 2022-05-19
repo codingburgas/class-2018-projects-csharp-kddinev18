@@ -3,14 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:DiabetesTracker"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              StartupUri="Views\UserAuthenticationWindow\UserAuthenticationWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <Style x:Key="textBoxIcon" TargetType="materialDesign:PackIcon">
-                <Setter Property="Height" Value="25"/>
-                <Setter Property="Width" Value="25"/>
-                <Setter Property="Foreground" Value="#2b2b2b"/>
+
+            <Style x:Key="textBoxIcon" TargetType="Icon:PackIconMaterial">
+                <Setter Property="Width" Value="18"/>
+                <Setter Property="Height" Value="18"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Foreground" Value="#2b2b2b"/>
             </Style>
 
             <Style x:Key="postText" TargetType="TextBlock">

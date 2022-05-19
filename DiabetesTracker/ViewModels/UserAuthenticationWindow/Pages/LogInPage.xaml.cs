@@ -43,8 +43,8 @@ namespace DiabetesTracker.ViewModels
         }
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
-            string userName = UserNameTextBox.Text;
-            string password = PasswordTextBox.Password;
+            string userName = UserName.UserNameTextBox.Text;
+            string password = Password.PasswordTextBox.Text;
             bool doRememberMe = RememberMeCheckBox.IsChecked == true ? true : false;
 
             try
