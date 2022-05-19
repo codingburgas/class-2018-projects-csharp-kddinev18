@@ -12,12 +12,13 @@ namespace BusinessLogicLayer
     public static class BlogBusinessLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static Blog CreateBlog(string name)
+        public static Blog CreateBlog(string name, byte[] image)
         {
             Blog newBlog = new Blog() 
             {
                 UserId = UserBusinessLogic.GetCurrentUserId(),
                 Name = name,
+                Image = image,
                 CreatedOn = DateTime.Now
             };
 

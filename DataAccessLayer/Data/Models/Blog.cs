@@ -12,6 +12,7 @@ namespace DataAccessLayer.Data.Models
         public int BlogId { get; set; }
         public int UserId { get; set; }
         public string Name { get; set; }
+        public byte[] Image { get; set; }
         public DateTime CreatedOn { get; set; }
 
         public virtual User User { get; set; }
