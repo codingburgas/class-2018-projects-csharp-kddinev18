@@ -44,7 +44,7 @@ namespace DiabetesTracker.ViewModels
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
             string userName = UserName.TextBox.Text;
-            string password = Password.TextBox.Text;
+            string password = PasswordTextBox.Password;
             bool doRememberMe = RememberMeCheckBox.IsChecked == true ? true : false;
 
             try
@@ -59,6 +59,7 @@ namespace DiabetesTracker.ViewModels
             catch (ArgumentNullException exception)
             {
                 MessageBox.Show(exception.Message, "User Profile data is not entered", MessageBoxButton.OK, MessageBoxImage.Information);
+                _userAuthentication.ShowPage(_userAuthentication.FinishRegistrationPage);
                 return;
             }
 

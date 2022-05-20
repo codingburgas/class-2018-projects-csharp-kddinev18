@@ -37,7 +37,7 @@ namespace DiabetesTracker.ViewModels
         {
             string userName = UserName.TextBox.Text;
             string email = Email.TextBox.Text;
-            string password = Password.TextBox.Text;
+            string password = PasswordTextBox.Password;
 
             try
             {
