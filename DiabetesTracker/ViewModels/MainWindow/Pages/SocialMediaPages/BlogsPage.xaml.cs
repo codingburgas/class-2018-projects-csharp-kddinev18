@@ -71,14 +71,14 @@ namespace DiabetesTracker.ViewModels
         //Event handlers
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (BlogNameSearchBar.Text == "")
+            if (BlogName.TextBox.Text == "")
             {
                 SearchBlogsInformation = new List<BlogInformation>();
             }
             else
             {
-                string blogName = BlogNameSearchBar.Text;
-                BlogNameSearchBar.Text = "";
+                string blogName = BlogName.TextBox.Text;
+                BlogName.TextBox.Text = "";
                 LoadBlogsInformation(blogName);
             }
             SerchBlogsList.ItemsSource = SearchBlogsInformation;
