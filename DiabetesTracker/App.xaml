@@ -28,7 +28,7 @@
                 <Setter Property="Foreground" Value="#2b2b2b"/>
             </Style>
 
-            <Style x:Key="menuButtonIcon" TargetType="materialDesign:PackIcon">
+            <Style x:Key="menuButtonIcon" TargetType="Icon:PackIconMaterial">
                 <Setter Property="Width" Value="35"/>
                 <Setter Property="Height" Value="35"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -93,7 +93,7 @@
                 <Setter Property="Margin" Value="0 0 0 5"/>
             </Style>
 
-            <Style x:Key="infocardIcon" TargetType="materialDesign:PackIcon">
+            <Style x:Key="infocardIcon" TargetType="Icon:PackIconMaterial">
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="Margin" Value="0 0 20 0"/>

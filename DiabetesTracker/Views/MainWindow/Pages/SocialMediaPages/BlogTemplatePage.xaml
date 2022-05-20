@@ -1,0 +1,123 @@
+﻿<Page x:Class="DiabetesTracker.ViewModels.BlogTemplatePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DiabetesTracker.ViewModels"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1180"
+      Title="BlogTemplatePage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>    
+            <Border Grid.Column="0" Style="{StaticResource infoCard}">
+                <TextBlock Text="BlogName" Margin="10" FontSize="30" FontWeight="Bold" Foreground="#2b2b2b"/>
+            </Border>
+            <Border Grid.Column="1" Style="{StaticResource infoCard}">
+                <Image x:Name="BlogImage"/>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Style="{StaticResource infoCard}">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="35" Opacity="0.4"/>
+                </Border.Effect>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock x:Name="ContentTextBlock" Style="{StaticResource postUserText}" Text="Content"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Style="{StaticResource postActionButton}" Click="PrevButton_Click">
+                                <materialDesign:PackIcon Kind="NavigateBefore" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
+                            </Button>
+                            <Image x:Name="PostImage" Height="300" Width="500" Margin="10"/>
+                            <Button Style="{StaticResource postActionButton}" Click="NextButton_Click">
+                                <materialDesign:PackIcon Kind="NavigateNext" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10 0 0 10">
+                            <Button Style="{StaticResource postActionButton}" Click="LikeButton_Click">
+                                <materialDesign:PackIcon Kind="Like" Style="{StaticResource postActionIcon}" />
+                            </Button>
+                            <Button Style="{StaticResource postActionButton}" Click="FavouriteButton_Click">
+                                <materialDesign:PackIcon Kind="Favorite" Style="{StaticResource postActionIcon}" />
+                            </Button>
+                            <Button Style="{StaticResource postActionButton}" Click="CommentButton_Click">
+                                <materialDesign:PackIcon Kind="Comment" Style="{StaticResource postActionIcon}" />
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Style="{StaticResource infoCard}">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="35" Opacity="0.4"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Style="{StaticResource infoCardStack}">
+                            <TextBlock x:Name="TotalLikes" Text="45" Style="{StaticResource inforCardTitle}"/>
+                            <TextBlock Text="TotalLikes" Style="{StaticResource infoCardText}"/>
+                        </StackPanel>
+                        <Icon:PackIconMaterial Kind="HandBackLeft" Style="{StaticResource infocardIcon}" />
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1" Style="{StaticResource infoCard}">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="35" Opacity="0.4"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Style="{StaticResource infoCardStack}">
+                            <TextBlock x:Name="TotalPosts" Text="45" Style="{StaticResource inforCardTitle}"/>
+                            <TextBlock Text="TotalPosts" Style="{StaticResource infoCardText}"/>
+                        </StackPanel>
+                        <Icon:PackIconMaterial Kind="HandBackLeft" Style="{StaticResource infocardIcon}" />
+                    </Grid>
+                </Border>
+                <Border Grid.Row="2" Style="{StaticResource infoCard}">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="35" Opacity="0.4"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Style="{StaticResource infoCardStack}">
+                            <TextBlock x:Name="TotalFollowers" Text="45" Style="{StaticResource inforCardTitle}"/>
+                            <TextBlock Text="TotalFollowers" Style="{StaticResource infoCardText}"/>
+                        </StackPanel>
+                        <Icon:PackIconMaterial Kind="HandBackLeft" Style="{StaticResource infocardIcon}" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

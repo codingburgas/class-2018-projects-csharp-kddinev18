@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:DiabetesTracker"
+        xmlns:userControls="clr-namespace:DiabetesTracker.ViewModels.UserControls"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Grid MouseDown="Border_MouseDown">
@@ -16,40 +17,14 @@
         <Border Background="#FDFDFD" Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="#DBDBDB" Width="145" CornerRadius=" 15 0 0 15">
             <StackPanel>
 
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Home" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="Home" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Blood" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="BloodSugar" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Reminder" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="Reminders" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Receipt" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="Recipes" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource menuButton}">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Menu" Style="{StaticResource menuButtonIcon}" />
-                        <TextBlock Text="Menus" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
+                <userControls:MenuButton MenuButtonIcon="Home" MenuButtonText="Home"/>
+                <userControls:MenuButton MenuButtonIcon="BloodBag" MenuButtonText="BoolSugar"/>
+                <userControls:MenuButton MenuButtonIcon="Reminder" MenuButtonText="Reminders"/>
+                <userControls:MenuButton MenuButtonIcon="Receipt" MenuButtonText="Recipes"/>
+                <userControls:MenuButton MenuButtonIcon="Menu" MenuButtonText="Menus"/>
+                <userControls:MenuButton MenuButtonIcon="Network" MenuButtonText="SocialMedia"/>
+                <userControls:MenuButton MenuButtonIcon="ExitRun" MenuButtonText="Exit"/>
+                <!--
 
                 <Button Style="{StaticResource menuButton}">
                     <StackPanel>
@@ -63,7 +38,7 @@
                         <materialDesign:PackIcon Kind="SignOut" Style="{StaticResource menuButtonIcon}" />
                         <TextBlock Text="SignOut" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
-                </Button>
+                </Button>-->
 
             </StackPanel>
         </Border>
