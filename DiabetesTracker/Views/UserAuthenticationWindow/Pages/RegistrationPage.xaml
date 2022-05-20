@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:userControls="clr-namespace:DiabetesTracker.ViewModels.UserControls"
       xmlns:local="clr-namespace:DiabetesTracker"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -13,18 +14,9 @@
         <StackPanel x:Name="RegisterPanel" Width="350">
             <StackPanel Margin="20 40">
                 <TextBlock Text="Register" Margin="0 30 0 0" Foreground="#2b2b2b" TextAlignment="Center" FontSize="40" FontFamily="Archive"/>
-                <StackPanel Orientation="Horizontal" Margin="10 20 10 10">
-                    <materialDesign:PackIcon Kind="User" Style="{StaticResource textBoxIcon}"/>
-                    <TextBox x:Name="UserNameRegisterTextBox" Margin="10 0" materialDesign:HintAssist.Hint="UserName" Foreground="#2b2b2b" Width="250"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <materialDesign:PackIcon Kind="Email" Style="{StaticResource textBoxIcon}"/>
-                    <TextBox x:Name="EmailRegisterTextBox" Margin="10 0" materialDesign:HintAssist.Hint="Example@Emaple.com" Foreground="#2b2b2b" Width="250"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <materialDesign:PackIcon Kind="Password" Style="{StaticResource textBoxIcon}"/>
-                    <PasswordBox x:Name="PasswordRegisterTextBox" Margin="10 0" materialDesign:HintAssist.Hint="********" Foreground="#2b2b2b" Width="250"/>
-                </StackPanel>
+                <userControls:TextBoxForm x:Name="UserName" TextBoxIcon="Account" TextBoxHintText="UserName"/>
+                <userControls:TextBoxForm x:Name="Email" TextBoxIcon="Email" TextBoxHintText="UserName"/>
+                <userControls:TextBoxForm x:Name="Password" TextBoxIcon="FormTextboxPassword" TextBoxHintText="**********"/>
                 <StackPanel Margin="10" HorizontalAlignment="Center">
                     <Button Width="100" Height="40" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="#358c57" Background="#FF33AA7C" Foreground="White" ToolTip="Register" x:Name="RegisterButton" Click="RegisterButton_Click" Content="Register"/>
                 </StackPanel>

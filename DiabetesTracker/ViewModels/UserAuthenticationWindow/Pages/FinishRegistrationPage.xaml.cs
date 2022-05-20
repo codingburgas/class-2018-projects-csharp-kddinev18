@@ -30,9 +30,9 @@ namespace DiabetesTracker.ViewModels
         }
         private void FinishRegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            string country = Country.Text;
-            string city = City.Text;
-            string about = About.Text;
+            string country = Country.TextBox.Text;
+            string city = City.TextBox.Text;
+            string about = About.TextBox.Text;
             char gender = MeleCheckBox.IsChecked == true? 'M' : 'F';
 
             try

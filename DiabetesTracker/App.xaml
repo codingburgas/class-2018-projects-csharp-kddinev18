@@ -9,8 +9,8 @@
         <ResourceDictionary>
 
             <Style x:Key="textBoxIcon" TargetType="Icon:PackIconMaterial">
-                <Setter Property="Width" Value="18"/>
-                <Setter Property="Height" Value="18"/>
+                <Setter Property="Width" Value="15"/>
+                <Setter Property="Height" Value="15"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Foreground" Value="#2b2b2b"/>

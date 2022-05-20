@@ -25,20 +25,20 @@ namespace DiabetesTracker.ViewModels.UserControls
         {
             InitializeComponent();
         }
-        public PackIconMaterialKind Icon
+        public PackIconMaterialKind PasswordBoxIcon
         {
-            get { return (PackIconMaterialKind)GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
+            get { return (PackIconMaterialKind)GetValue(PasswordBoxIconProperty); }
+            set { SetValue(PasswordBoxIconProperty, value); }
         }
 
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(PackIconMaterialKind), typeof(TextBoxForm));
+        public static readonly DependencyProperty PasswordBoxIconProperty = DependencyProperty.Register("PasswordBoxIcon", typeof(PackIconMaterialKind), typeof(TextBoxForm));
 
-        public string HintText
+        public string PasswordBoxHintText
         {
-            get { return (string)GetValue(HintTextProperty); }
-            set { SetValue(HintTextProperty, value); }
+            get { return (string)GetValue(PasswordBoxHintTextProperty); }
+            set { SetValue(PasswordBoxHintTextProperty, value); }
         }
 
-        public static readonly DependencyProperty HintTextProperty = DependencyProperty.Register("HintText", typeof(string), typeof(TextBoxForm));
+        public static readonly DependencyProperty PasswordBoxHintTextProperty = DependencyProperty.Register("PasswordBoxHintText", typeof(string), typeof(TextBoxForm));
     }
 }

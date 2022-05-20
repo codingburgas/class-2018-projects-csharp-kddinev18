@@ -35,9 +35,9 @@ namespace DiabetesTracker.ViewModels
         }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            string userName = UserNameRegisterTextBox.Text;
-            string email = EmailRegisterTextBox.Text;
-            string password = PasswordRegisterTextBox.Password;
+            string userName = UserName.TextBox.Text;
+            string email = Email.TextBox.Text;
+            string password = Password.TextBox.Text;
 
             try
             {

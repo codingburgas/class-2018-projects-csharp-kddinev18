@@ -7,7 +7,7 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              Name ="textBoxForm">
     <StackPanel Orientation="Horizontal" Margin="10">
-        <Icon:PackIconMaterial Kind="{Binding ElementName=textBoxForm,Path=Icon}" Style="{StaticResource textBoxIcon}"/>
-        <TextBox x:Name="UserNameTextBox" Margin="10 0" materialDesign:HintAssist.Hint="{Binding ElementName=textBoxForm,Path=HintText}" Foreground="#2b2b2b" Width="250"/>
+        <Icon:PackIconMaterial Kind="{Binding ElementName=textBoxForm,Path=TextBoxIcon}" Style="{StaticResource textBoxIcon}"/>
+        <TextBox x:Name="TextBox" Margin="10 0" materialDesign:HintAssist.Hint="{Binding ElementName=textBoxForm,Path=TextBoxHintText}" Foreground="#2b2b2b" Width="250"/>
     </StackPanel>
 </UserControl>
