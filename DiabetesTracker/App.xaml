@@ -4,9 +4,26 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:DiabetesTracker"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             StartupUri="View\XAML\UserAuthenticationWindow\UserAuthenticationWindow.xaml">
+             StartupUri="Views\XAML\UserAuthenticationWindow\UserAuthenticationWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+
+            <Style x:Key="buttonStyleNoHighlighting" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid Background="{TemplateBinding Background}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
             <Style x:Key="textBoxIcon" TargetType="Icon:PackIconMaterial">
                 <Setter Property="Width" Value="15"/>
@@ -72,8 +89,6 @@
             <Style x:Key="infoCard" TargetType="Border">
                 <Setter Property="Background" Value="#E9E9E9"/>
                 <Setter Property="CornerRadius" Value="15"/>
-                <Setter Property="Padding" Value="10"/>
-                <Setter Property="Margin" Value="10"/>
             </Style>
 
             <Style x:Key="infoCardStack" TargetType="StackPanel">

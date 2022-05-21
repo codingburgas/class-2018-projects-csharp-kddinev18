@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DiabetesTracker.Models;
 
 namespace DiabetesTracker.ViewModels
 {
@@ -20,16 +21,12 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class BlogTemplatePage : Page
     {
-        public string BlogName { get; set; }
-        public BitmapImage BlogImage { get; set; }
-        public string BlogTotalPosts { get; set; }
-        public string BlogTotalFollowers { get; set; }
-
-        public string PostContent { get; set; }
-        public BitmapImage PostImage { get; set; }
-        public BlogTemplatePage()
+        private BlogContent _blogContent;
+        public BlogTemplatePage(BlogContent BlogContent)
         {
+            _blogContent = new BlogContent();
             InitializeComponent();
+            DataContext = _blogContent;
         }
 
         private void PrevButton_Click(object sender, RoutedEventArgs e)

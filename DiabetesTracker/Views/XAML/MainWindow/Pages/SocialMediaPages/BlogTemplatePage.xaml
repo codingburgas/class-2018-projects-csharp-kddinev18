@@ -21,10 +21,10 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Style="{StaticResource infoCard}">
-                <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=BlogName}" Margin="10" FontSize="30" FontWeight="Bold" Foreground="#2b2b2b"/>
+                <TextBlock Text="{Binding Path=BlogName, UpdateSourceTrigger=PropertyChanged}" Margin="10" FontSize="30" FontWeight="Bold" Foreground="#2b2b2b"/>
             </Border>
             <Border Grid.Column="1" Style="{StaticResource infoCard}">
-                <Image Source="{Binding ElementName=blogTemplatePage, Path=BlogImage}"/>
+                <Image Source="{Binding Path=BlogImage, UpdateSourceTrigger=PropertyChanged}"/>
             </Border>
         </Grid>
         <Grid Grid.Row="1">
@@ -43,7 +43,7 @@
                             <Button Style="{StaticResource postActionButton}" Click="PrevButton_Click">
                                 <materialDesign:PackIcon Kind="NavigateBefore" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
                             </Button>
-                            <Image Source="{Binding ElementName=blogTemplatePage, Path=PostImage}" Height="300" Width="500" Margin="10"/>
+                            <Image Source="{Binding Path=PostImage, UpdateSourceTrigger=PropertyChanged}" Height="300" Width="500" Margin="10"/>
                             <Button Style="{StaticResource postActionButton}" Click="NextButton_Click">
                                 <materialDesign:PackIcon Kind="NavigateNext" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
                             </Button>
@@ -79,7 +79,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Style="{StaticResource infoCardStack}">
-                            <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=BlogTotalPosts}" Style="{StaticResource inforCardTitle}"/>
+                            <TextBlock Text="{Binding Path=BlogTotalPosts, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource inforCardTitle}"/>
                             <TextBlock Text="TotalPosts" Style="{StaticResource infoCardText}"/>
                         </StackPanel>
                         <Icon:PackIconMaterial Kind="HandBackLeft" Style="{StaticResource infocardIcon}" />
@@ -95,7 +95,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Style="{StaticResource infoCardStack}">
-                            <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=BlogTotalFollowers}" Style="{StaticResource inforCardTitle}"/>
+                            <TextBlock Text="{Binding Path=BlogTotalFollowers, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource inforCardTitle}"/>
                             <TextBlock Text="TotalFollowers" Style="{StaticResource infoCardText}"/>
                         </StackPanel>
                         <Icon:PackIconMaterial Kind="HandBackLeft" Style="{StaticResource infocardIcon}" />

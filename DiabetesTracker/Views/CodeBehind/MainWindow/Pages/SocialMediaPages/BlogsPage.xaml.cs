@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using DiabetesTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,23 +22,16 @@ namespace DiabetesTracker.ViewModels
     /// <summary>
     /// Interaction logic for BlogsPage.xaml
     /// </summary>
-    public class BlogInformation
-    {
-        public BitmapImage BlogImage { get; set; }
-        public string BlogName { get; set; }
-        public int PostCount { get; set; }
-        public int FollowingCount { get; set; }
-    }
-
     public partial class BlogsPage : Page
     {
-        public List<BlogInformation> YourBlogsInformation { get; set; } = new List<BlogInformation>();
-        public List<BlogInformation> SearchBlogsInformation { get; set; } = new List<BlogInformation>();
+        public ObservableCollection<BlogInformation> YourBlogsInformation { get; set; } = new ObservableCollection<BlogInformation>();
+        public ObservableCollection<BlogInformation> SearchBlogsInformation { get; set; } = new ObservableCollection<BlogInformation>();
+        public BlogInformation SelectedBlogInformation { get; set; } = new BlogInformation();
         public BlogsPage()
         {
             LoadBlogsInformation();
             InitializeComponent();
-            YourBlogsList.ItemsSource = YourBlogsInformation;
+            DataContext = this;
         }
         private void LoadBlogsInformation()
         {
@@ -55,7 +49,7 @@ namespace DiabetesTracker.ViewModels
         }
         private void LoadBlogsInformation(string blogName)
         {
-            SearchBlogsInformation = new List<BlogInformation>();
+            SearchBlogsInformation = new ObservableCollection<BlogInformation>();
             List<Tuple<byte[], string, int, int>> searchBlogsInformation = BlogBusinessLogic.GetBlogsInformationByName(blogName);
             foreach (Tuple<byte[], string, int, int> searchBlogInformation in searchBlogsInformation)
             {
@@ -88,7 +82,7 @@ namespace DiabetesTracker.ViewModels
         {
             if (BlogName.TextBox.Text == "")
             {
-                SearchBlogsInformation = new List<BlogInformation>();
+                SearchBlogsInformation = new ObservableCollection<BlogInformation>();
             }
             else
             {
@@ -96,7 +90,21 @@ namespace DiabetesTracker.ViewModels
                 BlogName.TextBox.Text = "";
                 LoadBlogsInformation(blogName);
             }
-            SerchBlogsList.ItemsSource = SearchBlogsInformation;
+        }
+        private void BlogButton_Click(object sender, RoutedEventArgs e)
+        {
+            //*Button button = sender as Button;
+        }
+        private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            BlogInformation blogInformation = (sender as ListBox).SelectedItem as BlogInformation;
+            BlogContent blogContent = new BlogContent() 
+            {
+                BlogName = blogInformation.BlogName,
+                BlogImage = blogInformation.BlogImage,
+                BlogTotalFollowers = blogInformation.FollowingCount,
+                BlogTotalPosts = blogInformation.PostCount,
+            };
         }
     }
 }

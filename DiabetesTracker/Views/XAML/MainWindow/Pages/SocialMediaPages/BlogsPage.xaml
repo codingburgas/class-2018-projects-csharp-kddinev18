@@ -24,18 +24,16 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="Your Blogs: " Style="{StaticResource whiteText}"/>
                 <Grid Grid.Row="1">
-                    <ListView x:Name="YourBlogsList" MaxHeight="200">
+                    <ListView x:Name="YourBlogsList" SelectionChanged="OnBlog_SelectionChanged" SelectionMode="Single" ItemsSource="{Binding YourBlogsInformation}" MaxHeight="200" HorizontalContentAlignment="Stretch">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border Style="{StaticResource infoCard}" Height="50">
-                                    <Button Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center">
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="700">
-                                            <Image Source="{Binding BlogImage}" Width="40" Height="40" HorizontalAlignment="Left" />
-                                            <TextBlock Margin="20 0 0 0" Text="{Binding BlogName}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
-                                            <TextBlock Margin="20 0 0 0" Text="{Binding PostCount}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
-                                            <TextBlock Margin="20 0 0 0" Text="{Binding FollowingCount}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="700">
+                                        <Image Source="{Binding BlogImage}" Width="40" Height="40" HorizontalAlignment="Left" />
+                                        <TextBlock Margin="20 0 0 0" Text="{Binding BlogName}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
+                                        <TextBlock Margin="20 0 0 0" Text="{Binding PostCount}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
+                                        <TextBlock Margin="20 0 0 0" Text="{Binding FollowingCount}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
+                                    </StackPanel>
                                 </Border>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -52,11 +50,11 @@
                     <userControls:TextBoxForm x:Name="BlogName" TextBoxIcon="GoogleLens" TextBoxHintText="BlogName"/>
                     <Button Content="Search" Click="SearchButton_Click" Foreground="#2b2b2b" Background="#FFFFFF" BorderBrush="#FFFFFF"/>
                 </StackPanel>
-                <ListView x:Name="SerchBlogsList" Grid.Row="1" MaxHeight="200">
+                <ListView x:Name="SerchBlogsList" ItemsSource="{Binding SearchBlogsInformation}" Grid.Row="1" MaxHeight="200">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Style="{StaticResource infoCard}" Height="50">
-                                <Button Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center">
+                                <Button Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" Click="BlogButton_Click">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="700">
                                         <Image Source="{Binding BlogImage}" Width="40" Height="40" HorizontalAlignment="Left" />
                                         <TextBlock Margin="20 0 0 0" Text="{Binding BlogName}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>

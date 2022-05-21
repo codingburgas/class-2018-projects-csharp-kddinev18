@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using DiabetesTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,76 +20,26 @@ using System.Windows.Shapes;
 
 namespace DiabetesTracker.ViewModels
 {
-    /*public class PostInformation : INotifyPropertyChanged
-    {
-        public string BlogName
-        { 
-            get
-            {
-                return this.BlogName;
-            }
-            set
-            {
-                if (BlogName != value)
-                {
-                    this.BlogName = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        public string PostContent
-        {
-            get
-            {
-                return this.PostContent;
-            }
-            set
-            {
-                this.PostContent = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public BitmapImage PostImage
-        {
-            get
-            {
-                return this.PostImage;
-            }
-            set
-            {
-                this.PostImage = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }*/
     public partial class PostsPage : Page
     {
-        //public PostInformation postInformation;
+        private PostInformation _postInformation;
 
         private List<Tuple<string, string, byte[]>> _posts;
         private int _index = 0;
         public PostsPage()
         {
-            /*postInformation = new PostInformation();
-            _posts = PostBusinessLogic.GetPosts(0);*/
+            _postInformation = new PostInformation();
+            _posts = PostBusinessLogic.GetPosts(0);
             InitializeComponent();
-            /*this.DataContext = postInformation;
-            SetPost(_index);*/
+            this.DataContext = _postInformation;
+            SetPost(_index);
         }
-        /*private void SetPost(int index)
+        private void SetPost(int index)
         {
-            postInformation.BlogName = _posts.ElementAt(index).Item1;
-            postInformation.PostContent = _posts.ElementAt(index).Item2;
-            postInformation.PostImage = ConvertByteArrayToBitMapImage(_posts.ElementAt(index).Item3);
-        }*/
+            _postInformation.BlogName = _posts.ElementAt(index).Item1;
+            _postInformation.PostContent = _posts.ElementAt(index).Item2;
+            _postInformation.PostImage = ConvertByteArrayToBitMapImage(_posts.ElementAt(index).Item3);
+        }
 
         private static BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
         {
@@ -116,7 +67,7 @@ namespace DiabetesTracker.ViewModels
                 _posts = PostBusinessLogic.GetPosts(_index - 10);
             }
             _index--;
-            //SetPost(_index % 10);
+            SetPost(_index % 10);
         }
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
@@ -132,7 +83,7 @@ namespace DiabetesTracker.ViewModels
                 }
             }
             _index++;
-            //SetPost(_index % 10);
+            SetPost(_index % 10);
         }
         private void LikeButton_Click(object sender, RoutedEventArgs e)
         {
