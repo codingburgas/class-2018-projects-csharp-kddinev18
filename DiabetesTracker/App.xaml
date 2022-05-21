@@ -4,7 +4,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:DiabetesTracker"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             StartupUri="Views\UserAuthenticationWindow\UserAuthenticationWindow.xaml">
+             StartupUri="View\XAML\UserAuthenticationWindow\UserAuthenticationWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
 

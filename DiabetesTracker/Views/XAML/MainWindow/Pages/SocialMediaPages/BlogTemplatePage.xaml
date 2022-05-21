@@ -19,12 +19,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>    
+            </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Style="{StaticResource infoCard}">
-                <TextBlock Text="BlogName" Margin="10" FontSize="30" FontWeight="Bold" Foreground="#2b2b2b"/>
+                <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=BlogName}" Margin="10" FontSize="30" FontWeight="Bold" Foreground="#2b2b2b"/>
             </Border>
             <Border Grid.Column="1" Style="{StaticResource infoCard}">
-                <Image x:Name="BlogImage"/>
+                <Image Source="{Binding ElementName=blogTemplatePage, Path=BlogImage}"/>
             </Border>
         </Grid>
         <Grid Grid.Row="1">
@@ -38,12 +38,12 @@
                 </Border.Effect>
                 <Grid>
                     <StackPanel>
-                        <TextBlock x:Name="ContentTextBlock" Style="{StaticResource postUserText}" Text="Content"/>
+                        <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=PostContent}" Style="{StaticResource postUserText}"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button Style="{StaticResource postActionButton}" Click="PrevButton_Click">
                                 <materialDesign:PackIcon Kind="NavigateBefore" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
                             </Button>
-                            <Image x:Name="PostImage" Height="300" Width="500" Margin="10"/>
+                            <Image Source="{Binding ElementName=blogTemplatePage, Path=PostImage}" Height="300" Width="500" Margin="10"/>
                             <Button Style="{StaticResource postActionButton}" Click="NextButton_Click">
                                 <materialDesign:PackIcon Kind="NavigateNext" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
                             </Button>
@@ -79,8 +79,8 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Style="{StaticResource infoCardStack}">
-                            <TextBlock x:Name="TotalLikes" Text="45" Style="{StaticResource inforCardTitle}"/>
-                            <TextBlock Text="TotalLikes" Style="{StaticResource infoCardText}"/>
+                            <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=BlogTotalPosts}" Style="{StaticResource inforCardTitle}"/>
+                            <TextBlock Text="TotalPosts" Style="{StaticResource infoCardText}"/>
                         </StackPanel>
                         <Icon:PackIconMaterial Kind="HandBackLeft" Style="{StaticResource infocardIcon}" />
                     </Grid>
@@ -95,23 +95,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Style="{StaticResource infoCardStack}">
-                            <TextBlock x:Name="TotalPosts" Text="45" Style="{StaticResource inforCardTitle}"/>
-                            <TextBlock Text="TotalPosts" Style="{StaticResource infoCardText}"/>
-                        </StackPanel>
-                        <Icon:PackIconMaterial Kind="HandBackLeft" Style="{StaticResource infocardIcon}" />
-                    </Grid>
-                </Border>
-                <Border Grid.Row="2" Style="{StaticResource infoCard}">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="35" Opacity="0.4"/>
-                    </Border.Effect>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Style="{StaticResource infoCardStack}">
-                            <TextBlock x:Name="TotalFollowers" Text="45" Style="{StaticResource inforCardTitle}"/>
+                            <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=BlogTotalFollowers}" Style="{StaticResource inforCardTitle}"/>
                             <TextBlock Text="TotalFollowers" Style="{StaticResource infoCardText}"/>
                         </StackPanel>
                         <Icon:PackIconMaterial Kind="HandBackLeft" Style="{StaticResource infocardIcon}" />

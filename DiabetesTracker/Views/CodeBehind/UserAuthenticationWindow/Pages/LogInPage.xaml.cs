@@ -1,5 +1,4 @@
 ﻿using BusinessLogicLayer;
-using DiabetesTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,7 +28,7 @@ namespace DiabetesTracker.ViewModels
         public LogInPage(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
-            if(UserAuthenticationWindowModel.CheckCookies())
+            if(UserBusinessLogic.CheckCookies())
             {
                 _userAuthentication.OpenMainWindow();
             }
@@ -49,7 +48,7 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                UserAuthenticationWindowModel.LogIn(userName, password, doRememberMe);
+                UserBusinessLogic.LogIn(userName, password, doRememberMe);
             }
             catch (WrongCredentialsException exception)
             {

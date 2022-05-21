@@ -34,25 +34,42 @@ namespace BusinessLogicLayer
 
             return newPost;
         }
-        public static List<int> GetPostIds(int skipCount)
+        public static List<Post> GetPost(int skipCount)
         {
-            List<int> Ids = DbContext.Posts.OrderByDescending(post => post.PostId).Skip(skipCount).Select(post => post.PostId).Take(10).ToList();
-            if(Ids.Count != 0)
-                return Ids;
+            List<Post> posts = DbContext.Posts.OrderByDescending(post => post.PostId).Skip(skipCount).Take(10).ToList();
+            if(posts.Count != 0)
+                return posts;
 
             throw new ArgumentNullException("No more posts");
         }
-        public static byte[] GetPostImage(int id)
+        public static byte[] GetPostImage(int postId)
         {
-            return DbContext.Posts.Where(post => post.PostId == id).OrderBy(post => post.PostId).First().Image;
+            return DbContext.Posts.Where(post => post.PostId == postId).OrderBy(post => post.PostId).First().Image;
         }
-        public static string GetPostContent(int id)
+        public static string GetPostContent(int postId)
         {
-            return DbContext.Posts.Where(post => post.PostId == id).OrderBy(post => post.PostId).First().Content;
+            return DbContext.Posts.Where(post => post.PostId == postId).OrderBy(post => post.PostId).First().Content;
         }
-        public static string GetPostBlogName(int id)
+        public static string GetPostBlogName(int postId)
         {
-            return DbContext.Posts.Where(post => post.PostId == id).Include(post => post.Blog).Select(post => post.Blog).First().Name;
+            return DbContext.Posts.Where(post => post.PostId == postId).Include(post => post.Blog).Select(post => post.Blog).First().Name;
+        }
+        public static List<Tuple<string, string, byte[]>> GetPosts(int skipCount)
+        {
+            List<Post> posts = GetPost(skipCount);
+
+            List<Tuple<string, string, byte[]>> postsInformation = new List<Tuple<string, string, byte[]>>();
+
+            foreach (Post post in posts)
+            {
+                postsInformation.Add(new Tuple<string, string, byte[]>(
+                    GetPostBlogName(post.PostId),
+                    post.Content,
+                    post.Image
+                ));
+            }
+
+            return postsInformation;
         }
     }
 }

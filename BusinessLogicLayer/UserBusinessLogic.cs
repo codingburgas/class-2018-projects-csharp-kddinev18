@@ -3,9 +3,11 @@ using DataAccessLayer.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 #nullable disable
 
@@ -100,7 +102,7 @@ namespace BusinessLogicLayer
             throw new WrongCredentialsException("Password must contain at least 1 special character");
         }
 
-        public static string LogIn(string username, string password)
+        private static string LogIn(string username, string password)
         {
             List<User> users = DbContext.Users
                 .Where(u => u.UserName == username)
@@ -119,7 +121,7 @@ namespace BusinessLogicLayer
             }
             throw new WrongCredentialsException("Your password or username is incorrect");
         }
-        public static void LogInWithPreHashedPassword(string username, string preHashedPassword)
+        private static void LogInWithPreHashedPassword(string username, string preHashedPassword)
         {
             List<User> users = DbContext.Users
                 .Where(u => u.UserName == username)
@@ -141,6 +143,46 @@ namespace BusinessLogicLayer
         public static bool CheckUserProfile(int userId)
         {
             return DbContext.UserProfiles.Where(userProfile => userProfile.UserId == userId).Count() == 1;
+        }
+
+        public class UserCredentials
+        {
+            public string UserName { get; set; }
+            public string Password { get; set; }
+        }
+        private readonly static string _userCredentialsPath = @$"{Directory.GetCurrentDirectory()}/DiabetesTrackerCredentials.txt";
+        public static void LogIn(string userName, string password, bool doRememberMe)
+        {
+            string hashedPassword = LogIn(userName, password);
+
+            if (doRememberMe)
+                AddCookies(userName, hashedPassword);
+            else
+                RemoveCookies();
+
+            if (CheckUserProfile(GetCurrentUserId()) == false)
+                throw new ArgumentNullException(" You need to finish your refistration first");
+        }
+        public static void AddCookies(string userName, string hashedPassword)
+        {
+            File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { UserName = userName, Password = hashedPassword }));
+        }
+        public static bool CheckCookies()
+        {
+            if (!File.Exists(_userCredentialsPath))
+                return false;
+
+            string credentials = File.ReadAllText(_userCredentialsPath);
+            UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
+            LogInWithPreHashedPassword(userCredentials.UserName, userCredentials.Password);
+            return true;
+        }
+        public static void RemoveCookies()
+        {
+            if (!File.Exists(_userCredentialsPath))
+                return;
+
+            File.Delete(_userCredentialsPath);
         }
     }
 }

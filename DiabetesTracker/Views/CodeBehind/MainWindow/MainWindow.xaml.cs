@@ -1,4 +1,4 @@
-﻿using DiabetesTracker.Models;
+﻿using BusinessLogicLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +45,7 @@ namespace DiabetesTracker.ViewModels
         }
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAuthenticationWindowModel.RemoveCookies();
+            UserBusinessLogic.RemoveCookies();
             new UserAuthenticationWindow().Show();
             this.Close();
         }

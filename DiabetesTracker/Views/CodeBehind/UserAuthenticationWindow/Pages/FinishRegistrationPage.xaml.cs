@@ -1,5 +1,4 @@
 ﻿using BusinessLogicLayer;
-using DiabetesTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +36,7 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                UserAuthenticationWindowModel.FinishRegistration(gender, about, country, city);
+                UserProfileBusinessLogic.ConfigureUserProfile(UserBusinessLogic.GetCurrentUserId(),gender, about, country, city);
             }
             catch (WrongCredentialsException exception)
             {

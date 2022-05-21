@@ -17,14 +17,14 @@
             <Border Background="#FDFDFD" BorderThickness="1" BorderBrush="#DBDBDB" Margin="25 10 0 0" Width="850" CornerRadius="20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="BlogNameTextBlock" Style="{StaticResource postUserText}" Text="BlogName"/>
-                        <TextBlock x:Name="ContentTextBlock" Style="{StaticResource postUserText}" Text="Content"/>
+                        <TextBlock Text="{Binding Path=BlogName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource postUserText}"/>
+                        <TextBlock Text="{Binding Path=PostContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource postUserText}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Style="{StaticResource postActionButton}" Click="PrevButton_Click">
                             <materialDesign:PackIcon Kind="NavigateBefore" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
                         </Button>
-                        <Image x:Name="PostImage" Height="350" Width="630" Margin="10"/>
+                        <Image Source="{Binding Path=PostImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="350" Width="630" Margin="10"/>
                         <Button Style="{StaticResource postActionButton}" Click="NextButton_Click">
                             <materialDesign:PackIcon Kind="NavigateNext" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
                         </Button>

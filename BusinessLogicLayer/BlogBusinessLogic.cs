@@ -28,18 +28,15 @@ namespace BusinessLogicLayer
 
             return newBlog;
         }
-        public static List<int> GetBlogsIdByName(string blogName)
+        public static List<Blog> GetBlogsByName(string blogName)
         {
-            return DbContext.Blogs.Where(blog=>blog.Name==blogName).Select(blod => blod.BlogId).ToList();
+            return DbContext.Blogs.Where(blog=>blog.Name==blogName).ToList();
         }
-        public static List<int> GetCurrentUserBlogs()
+        public static List<Blog> GetCurrentUserBlogs()
         {
-            return DbContext.Blogs.Where(blog => blog.UserId == UserBusinessLogic.GetCurrentUserId()).Select(blog => blog.BlogId).ToList();
+            return DbContext.Blogs.Where(blog => blog.UserId == UserBusinessLogic.GetCurrentUserId()).ToList();
         }
-        public static string GetBlogName(int blogId)
-        {
-            return DbContext.Blogs.Where(blog => blog.BlogId == blogId).OrderBy(blog => blog.BlogId).First().Name;
-        }
+
         public static int GetBlogPostsCount(int blogId)
         {
             return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == blogId).Select(blog => blog.Posts).First().Count();
@@ -48,9 +45,44 @@ namespace BusinessLogicLayer
         {
             return DbContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == blogId).Count();
         }
+
         public static ICollection<Post> GetAllPosts(int blogId)
         {
             return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == blogId).Select(blog => blog.Posts).First().ToList();
+        }
+
+
+        public static List<Tuple<byte[], string, int, int>> GetCurrentUserBlogsInformation()
+        {
+            List<Blog> currentUserBlogs = GetCurrentUserBlogs();
+
+            List<Tuple<byte[], string, int, int>> currentUserBlogsInformation = new List<Tuple<byte[], string, int, int>>();
+            foreach (Blog currentUserBlog in currentUserBlogs)
+            {
+                currentUserBlogsInformation.Add(new Tuple<byte[], string, int, int>(
+                    currentUserBlog.Image,
+                    currentUserBlog.Name,
+                    GetBlogPostsCount(currentUserBlog.BlogId),
+                    GetBlogFollowingCount(currentUserBlog.BlogId)
+                ));
+            }
+            return currentUserBlogsInformation;
+        }
+        public static List<Tuple<byte[], string, int, int>> GetBlogsInformationByName(string blogName)
+        {
+            List<Blog> blogsByName = GetBlogsByName(blogName);
+
+            List<Tuple<byte[], string, int, int>> blogsInformationByName = new List<Tuple<byte[], string, int, int>>();
+            foreach (Blog blogByName in blogsByName)
+            {
+                blogsInformationByName.Add(new Tuple<byte[], string, int, int>(
+                    blogByName.Image,
+                    blogByName.Name,
+                    GetBlogPostsCount(blogByName.BlogId),
+                    GetBlogFollowingCount(blogByName.BlogId)
+                ));
+            }
+            return blogsInformationByName;
         }
     }
 }
