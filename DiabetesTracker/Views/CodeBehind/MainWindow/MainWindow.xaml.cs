@@ -23,7 +23,7 @@ namespace DiabetesTracker.ViewModels
         public SocialMediaPage SocialMediaPage { get; set; }
         public MainWindow()
         {
-            SocialMediaPage = new SocialMediaPage();
+            SocialMediaPage = new SocialMediaPage(this);
             InitializeComponent();
             ShowPage(SocialMediaPage);
         }

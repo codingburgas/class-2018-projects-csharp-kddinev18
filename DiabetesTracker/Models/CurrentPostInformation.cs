@@ -10,20 +10,8 @@ using System.Windows.Media.Imaging;
 
 namespace DiabetesTracker.Models
 {
-    public class PostInformation : INotifyPropertyChanged
+    public class CurrentPostInformation : INotifyPropertyChanged
     {
-        public static PostInformation operator+(PostInformation postInformation, Tuple<int, string, string, byte[], bool, bool> tuple)
-        {
-            postInformation = new PostInformation()
-            {
-                BlogName = tuple.Item2,
-                PostContent = tuple.Item3,
-                PostImage = PostsPage.ConvertByteArrayToBitMapImage(tuple.Item4),
-                IsPostLiked = tuple.Item5,
-                IsPostFavourited = tuple.Item6,
-            };
-            return postInformation;
-        }
         private string _blogName;
         public string BlogName
         {

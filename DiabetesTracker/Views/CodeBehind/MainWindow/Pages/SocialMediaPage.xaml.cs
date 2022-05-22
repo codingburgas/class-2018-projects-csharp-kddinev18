@@ -29,8 +29,11 @@ namespace DiabetesTracker.ViewModels
         public FollowingPage FollowingPage { get; set; }
         public TagsPage TagsPage { get; set; }
         public AnalyticsPage AnalyticsPage { get; set; }
-        public SocialMediaPage()
+
+        private MainWindow _mainWindow;
+        public SocialMediaPage(MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
             PostsPage = new PostsPage();
             InitializeComponent();
             ShowPage(PostsPage);
@@ -54,7 +57,7 @@ namespace DiabetesTracker.ViewModels
         }
         private void BlogsButton_Click(object sender, RoutedEventArgs e)
         {
-            BlogsPage = new BlogsPage();
+            BlogsPage = new BlogsPage(this);
             FavouritesPage = null;
             FollowingPage = null;
             TagsPage = null;

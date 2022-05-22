@@ -26,6 +26,7 @@ namespace BusinessLogicLayer
         public static void UnfavouritePost(int postId, int userId)
         {
             DbContext.FavouritePosts.Remove(DbContext.FavouritePosts.Where(favouritePost => favouritePost.UserId==userId && favouritePost.PostId == postId).First());
+            DbContext.SaveChanges();
         }
         public static ICollection<Post> GetFavouritePosts(int userId)
         {

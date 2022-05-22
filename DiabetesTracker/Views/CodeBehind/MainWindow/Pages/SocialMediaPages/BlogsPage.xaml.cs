@@ -27,8 +27,11 @@ namespace DiabetesTracker.ViewModels
         public ObservableCollection<BlogInformation> YourBlogsInformation { get; set; } = new ObservableCollection<BlogInformation>();
         public ObservableCollection<BlogInformation> SearchBlogsInformation { get; set; } = new ObservableCollection<BlogInformation>();
         public BlogInformation SelectedBlogInformation { get; set; } = new BlogInformation();
-        public BlogsPage()
+
+        private SocialMediaPage _socialMediaPage;
+        public BlogsPage(SocialMediaPage socialMediaPage)
         {
+            _socialMediaPage = socialMediaPage;
             LoadBlogsInformation();
             InitializeComponent();
             DataContext = this;
@@ -77,10 +80,6 @@ namespace DiabetesTracker.ViewModels
                 LoadBlogsInformation(blogName);
             }
         }
-        private void BlogButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             BlogInformation blogInformation = (sender as ListBox).SelectedItem as BlogInformation;
@@ -91,6 +90,7 @@ namespace DiabetesTracker.ViewModels
                 BlogTotalFollowers = blogInformation.FollowingCount,
                 BlogTotalPosts = blogInformation.PostCount,
             };
+            _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent));
         }
     }
 }
