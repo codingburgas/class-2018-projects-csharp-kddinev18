@@ -12,7 +12,7 @@ namespace BusinessLogicLayer
     public static class FavouritePostLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static void Favourite(int postId, int userId)
+        public static void FavouritePost(int postId, int userId)
         {
             DbContext.FavouritePosts.Add(new FavouritePost()
             {
@@ -20,6 +20,12 @@ namespace BusinessLogicLayer
                 PostId = postId,
                 SavedOn = DateTime.Now,
             });
+
+            DbContext.SaveChanges();
+        }
+        public static void UnfavouritePost(int postId, int userId)
+        {
+            DbContext.FavouritePosts.Remove(DbContext.FavouritePosts.Where(favouritePost => favouritePost.UserId==userId && favouritePost.PostId == postId).First());
         }
         public static ICollection<Post> GetFavouritePosts(int userId)
         {
@@ -30,5 +36,6 @@ namespace BusinessLogicLayer
         {
             return DbContext.FavouritePosts.Where(favouritePost => favouritePost.PostId == postId && favouritePost.UserId == userId).FirstOrDefault() != null;
         }
+
     }
 }

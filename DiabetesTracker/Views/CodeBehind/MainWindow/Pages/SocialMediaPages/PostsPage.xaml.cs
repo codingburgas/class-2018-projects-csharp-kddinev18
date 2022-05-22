@@ -115,7 +115,14 @@ namespace DiabetesTracker.ViewModels
         }
         private void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_posts[_index].Item6 == false)
+            {
+                FavouritePostLogic.FavouritePost(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
+            }
+            else
+            {
+                FavouritePostLogic.UnfavouritePost(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
+            }
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {
