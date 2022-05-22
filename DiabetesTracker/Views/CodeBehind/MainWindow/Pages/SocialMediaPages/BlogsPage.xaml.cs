@@ -63,20 +63,6 @@ namespace DiabetesTracker.ViewModels
             }
         }
 
-        private static BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
-        {
-            BitmapImage img = new BitmapImage();
-            using (MemoryStream memStream = new MemoryStream(imageByteArray))
-            {
-                img.BeginInit();
-                img.CacheOption = BitmapCacheOption.OnLoad;
-                img.StreamSource = memStream;
-                img.EndInit();
-                img.Freeze();
-            }
-            return img;
-        }
-
         //Event handlers
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {

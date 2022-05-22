@@ -27,9 +27,6 @@ namespace DiabetesTracker.ViewModels
         private List<Tuple<int, string, string, byte[], bool, bool>> _posts;
         private int _index = 0;
 
-        private bool isLiked = false;
-        private bool isFavourited = false;
-
         public PostsPage()
         {
             _postInformation = new PostInformation();
@@ -58,12 +55,10 @@ namespace DiabetesTracker.ViewModels
                 FavouriteButton.Background = new SolidColorBrush(Colors.LightGray);
             }
 
-            _postInformation.BlogName = _posts.ElementAt(index).Item2;
-            _postInformation.PostContent = _posts.ElementAt(index).Item3;
-            _postInformation.PostImage = ConvertByteArrayToBitMapImage(_posts.ElementAt(index).Item4);
+            _postInformation = _postInformation + _posts.ElementAt(index);
         }
 
-        private static BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
+        public static BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
         {
             BitmapImage img = new BitmapImage();
             using (MemoryStream memStream = new MemoryStream(imageByteArray))
@@ -120,14 +115,7 @@ namespace DiabetesTracker.ViewModels
         }
         private void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_posts[_index].Item6 == false)
-            {
-                PostLikeLogic.Like(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
-            }
-            else
-            {
-                PostLikeLogic.Unlike(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
-            }
+
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {
