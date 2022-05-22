@@ -11,11 +11,11 @@ namespace BusinessLogicLayer
     public static class RecipeBusinessLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static Recipe CreateRecipe(string name, string content)
+        public static Recipe CreateRecipe(int userId, string name, string content)
         {
             Recipe newRecipe = new Recipe() 
             {
-                UserId = UserBusinessLogic.GetCurrentUserId(),
+                UserId = userId,
                 Name = name,
                 Content = content,
                 CreatedOn = DateTime.Now,

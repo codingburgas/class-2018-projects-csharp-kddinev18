@@ -35,7 +35,7 @@ namespace DiabetesTracker.ViewModels
         }
         private void LoadBlogsInformation()
         {
-            List<Tuple<byte[], string, int, int>> currentUserblogsInformation = BlogBusinessLogic.GetCurrentUserBlogsInformation();
+            List<Tuple<byte[], string, int, int>> currentUserblogsInformation = BlogBusinessLogic.GetCurrentUserBlogsInformation(CurrentUser.CurrentUserId.Value);
             foreach (Tuple<byte[], string, int, int> currentUserblogInformation in currentUserblogsInformation)
             {
                 YourBlogsInformation.Add(new BlogInformation() 
@@ -93,7 +93,7 @@ namespace DiabetesTracker.ViewModels
         }
         private void BlogButton_Click(object sender, RoutedEventArgs e)
         {
-            //*Button button = sender as Button;
+            
         }
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {

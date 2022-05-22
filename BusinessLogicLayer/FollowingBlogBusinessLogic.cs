@@ -12,19 +12,19 @@ namespace BusinessLogicLayer
     public static class FollowingBlogBusinessLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static void Follow(Blog blog)
+        public static void Follow(int blogId, int userId)
         {
             DbContext.FollowingBlogs.Add(new FollowingBlog() 
             {
-                BlogId = blog.BlogId,
-                UserId = UserBusinessLogic.GetCurrentUserId(),
+                BlogId = blogId,
+                UserId = userId,
             });
 
             DbContext.SaveChanges();
         }
-        public static ICollection<Blog> GetFollowingBlogs()
+        public static ICollection<Blog> GetFollowingBlogs(int userId)
         {
-            return DbContext.FollowingBlogs.Where(followingBlogs => followingBlogs.UserId == UserBusinessLogic.GetCurrentUserId()).Include(followingBlogs => followingBlogs.Blog).Select(followingBlogs => followingBlogs.Blog).ToList();
+            return DbContext.FollowingBlogs.Where(followingBlogs => followingBlogs.UserId == userId).Include(followingBlogs => followingBlogs.Blog).Select(followingBlogs => followingBlogs.Blog).ToList();
         }
     }
 }

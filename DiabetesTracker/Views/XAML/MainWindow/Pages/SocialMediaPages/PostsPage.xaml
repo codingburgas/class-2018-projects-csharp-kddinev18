@@ -30,10 +30,10 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10 0 0 10">
-                        <Button Style="{StaticResource postActionButton}" Click="LikeButton_Click">
+                        <Button Style="{StaticResource postActionButton}" x:Name="LikeButton" Click="LikeButton_Click">
                             <materialDesign:PackIcon Kind="Like" Style="{StaticResource postActionIcon}" />
                         </Button>
-                        <Button Style="{StaticResource postActionButton}" Click="FavouriteButton_Click">
+                        <Button Style="{StaticResource postActionButton}" x:Name="FavouriteButton" Click="FavouriteButton_Click">
                             <materialDesign:PackIcon Kind="Favorite" Style="{StaticResource postActionIcon}" />
                         </Button>
                         <Button Style="{StaticResource postActionButton}" Click="CommentButton_Click">

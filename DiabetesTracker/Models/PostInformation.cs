@@ -53,6 +53,32 @@ namespace DiabetesTracker.Models
                 NotifyPropertyChanged();
             }
         }
+        private bool _isPostLiked;
+        public bool IsPostLiked
+        {
+            get
+            {
+                return this._isPostLiked;
+            }
+            set
+            {
+                this._isPostLiked = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool _isPostFavourited;
+        public bool IsPostFavourited
+        {
+            get
+            {
+                return this._isPostFavourited;
+            }
+            set
+            {
+                this._isPostFavourited = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

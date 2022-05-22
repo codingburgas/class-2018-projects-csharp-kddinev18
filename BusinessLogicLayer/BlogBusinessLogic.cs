@@ -12,11 +12,11 @@ namespace BusinessLogicLayer
     public static class BlogBusinessLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static Blog CreateBlog(string name, byte[] image)
+        public static Blog CreateBlog(int userId, string name, byte[] image)
         {
             Blog newBlog = new Blog() 
             {
-                UserId = UserBusinessLogic.GetCurrentUserId(),
+                UserId = userId,
                 Name = name,
                 Image = image,
                 CreatedOn = DateTime.Now
@@ -32,9 +32,9 @@ namespace BusinessLogicLayer
         {
             return DbContext.Blogs.Where(blog=>blog.Name==blogName).ToList();
         }
-        public static List<Blog> GetCurrentUserBlogs()
+        public static List<Blog> GetCurrentUserBlogs(int userId)
         {
-            return DbContext.Blogs.Where(blog => blog.UserId == UserBusinessLogic.GetCurrentUserId()).ToList();
+            return DbContext.Blogs.Where(blog => blog.UserId == userId).ToList();
         }
 
         public static int GetBlogPostsCount(int blogId)
@@ -52,9 +52,9 @@ namespace BusinessLogicLayer
         }
 
 
-        public static List<Tuple<byte[], string, int, int>> GetCurrentUserBlogsInformation()
+        public static List<Tuple<byte[], string, int, int>> GetCurrentUserBlogsInformation(int userId)
         {
-            List<Blog> currentUserBlogs = GetCurrentUserBlogs();
+            List<Blog> currentUserBlogs = GetCurrentUserBlogs(userId);
 
             List<Tuple<byte[], string, int, int>> currentUserBlogsInformation = new List<Tuple<byte[], string, int, int>>();
             foreach (Blog currentUserBlog in currentUserBlogs)

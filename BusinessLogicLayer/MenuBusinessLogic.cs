@@ -10,11 +10,11 @@ namespace BusinessLogicLayer
     public static class MenuBusinessLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static Menu CreateMenu(string name, Recipe[] recipes)
+        public static Menu CreateMenu(string name, Recipe[] recipes, int userId)
         {
             Menu newMenu = new Menu()
             {
-                UserId = UserBusinessLogic.GetCurrentUserId(),
+                UserId = userId,
                 Name = name,
                 CreatedOn = DateTime.Now
             };

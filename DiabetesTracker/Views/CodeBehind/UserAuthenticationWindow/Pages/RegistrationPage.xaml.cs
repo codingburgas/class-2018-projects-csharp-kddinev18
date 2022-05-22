@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using DiabetesTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                UserBusinessLogic.Register(userName, email, password);
+                CurrentUser.CurrentUserId = UserBusinessLogic.Register(userName, email, password);
             }
             catch (WrongCredentialsException exception)
             {
@@ -48,7 +49,7 @@ namespace DiabetesTracker.ViewModels
                 return;
             }
 
-            _userAuthentication.ShowPage(_userAuthentication.RegistrationPage);
+            _userAuthentication.ShowPage(_userAuthentication.FinishRegistrationPage);
         }
     }
 }

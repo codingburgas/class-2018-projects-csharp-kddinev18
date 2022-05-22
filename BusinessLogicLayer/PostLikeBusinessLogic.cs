@@ -12,23 +12,27 @@ namespace BusinessLogicLayer
     public static class PostLikeBusinessLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static void Like(Post post)
+        public static void Like(int postId, int userId)
         {
             DbContext.PostLikes.Add(new PostLike() 
             {
-                UserId = UserBusinessLogic.GetCurrentUserId(),
-                PostId = post.PostId,
+                UserId = userId,
+                PostId = postId,
             });
-            post.LikeCount++;
+            DbContext.Posts.Where(post=>post.PostId == postId).First().LikeCount++;
 
             DbContext.SaveChanges();
         }
-
-        public static int UpdateLikeCount(Post post)
+        public static void Unlike(int postId, int userId)
         {
-            int likesCount = DbContext.PostLikes.Where(postLike => postLike.PostId == post.PostId).Count();
-            post.LikeCount = likesCount;
-            return likesCount;
+            DbContext.PostLikes.Remove(DbContext.PostLikes.Where(postLike => postLike.PostId == postId && postLike.UserId == userId).First());
+            DbContext.Posts.Where(post => post.PostId == postId).First().LikeCount--;
+
+            DbContext.SaveChanges();
+        }
+        public static bool IsCurrentUserLiked(int postId, int userId)
+        {
+            return DbContext.PostLikes.Where(postLike => postLike.PostId == postId && postLike.UserId == userId).FirstOrDefault() != null;
         }
     }
 }

@@ -24,21 +24,43 @@ namespace DiabetesTracker.ViewModels
     {
         private PostInformation _postInformation;
 
-        private List<Tuple<string, string, byte[]>> _posts;
+        private List<Tuple<int, string, string, byte[], bool, bool>> _posts;
         private int _index = 0;
+
+        private bool isLiked = false;
+        private bool isFavourited = false;
+
         public PostsPage()
         {
             _postInformation = new PostInformation();
-            _posts = PostBusinessLogic.GetPosts(0);
+            _posts = PostBusinessLogic.GetPosts(CurrentUser.CurrentUserId.Value, 0);
             InitializeComponent();
             this.DataContext = _postInformation;
             SetPost(_index);
         }
         private void SetPost(int index)
         {
-            _postInformation.BlogName = _posts.ElementAt(index).Item1;
-            _postInformation.PostContent = _posts.ElementAt(index).Item2;
-            _postInformation.PostImage = ConvertByteArrayToBitMapImage(_posts.ElementAt(index).Item3);
+            if(_posts[_index].Item5 == true)
+            {
+                LikeButton.Background = new SolidColorBrush(Colors.LightGreen);
+            }
+            else
+            {
+                LikeButton.Background = new SolidColorBrush(Colors.LightGray);
+            }
+
+            if (_posts[_index].Item6 == true)
+            {
+                FavouriteButton.Background = new SolidColorBrush(Colors.LightGreen);
+            }
+            else
+            {
+                FavouriteButton.Background = new SolidColorBrush(Colors.LightGray);
+            }
+
+            _postInformation.BlogName = _posts.ElementAt(index).Item2;
+            _postInformation.PostContent = _posts.ElementAt(index).Item3;
+            _postInformation.PostImage = ConvertByteArrayToBitMapImage(_posts.ElementAt(index).Item4);
         }
 
         private static BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
@@ -64,7 +86,7 @@ namespace DiabetesTracker.ViewModels
             }
             if(_index % 10 == 0)
             {
-                _posts = PostBusinessLogic.GetPosts(_index - 10);
+                _posts = PostBusinessLogic.GetPosts(CurrentUser.CurrentUserId.Value ,_index - 10);
             }
             _index--;
             SetPost(_index % 10);
@@ -75,7 +97,7 @@ namespace DiabetesTracker.ViewModels
             {
                 try
                 {
-                    _posts = PostBusinessLogic.GetPosts(_index+1);
+                    _posts = PostBusinessLogic.GetPosts(CurrentUser.CurrentUserId.Value, _index + 1);
                 }
                 catch (ArgumentNullException)
                 {
@@ -87,11 +109,25 @@ namespace DiabetesTracker.ViewModels
         }
         private void LikeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_posts[_index].Item5 == false)
+            {
+                PostLikeBusinessLogic.Like(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
+            }
+            else
+            {
+                PostLikeBusinessLogic.Unlike(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
+            }
         }
         private void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (_posts[_index].Item6 == false)
+            {
+                PostLikeBusinessLogic.Like(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
+            }
+            else
+            {
+                PostLikeBusinessLogic.Unlike(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
+            }
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {
