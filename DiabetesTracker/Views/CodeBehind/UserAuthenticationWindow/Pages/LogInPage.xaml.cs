@@ -29,7 +29,7 @@ namespace DiabetesTracker.ViewModels
         public LogInPage(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
-            CurrentUser.CurrentUserId = UserBusinessLogic.CheckCookies();
+            CurrentUser.CurrentUserId = UserLogic.CheckCookies();
             if (CurrentUser.CurrentUserId != -1)
             {
                 _userAuthentication.OpenMainWindow();
@@ -54,7 +54,7 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                CurrentUser.CurrentUserId = UserBusinessLogic.LogIn(userName, password, doRememberMe);
+                CurrentUser.CurrentUserId = UserLogic.LogIn(userName, password, doRememberMe);
 
             }
             catch (WrongCredentialsException exception)

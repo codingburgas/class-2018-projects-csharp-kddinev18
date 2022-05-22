@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace BusinessLogicLayer
 {
-    public static class TagBusinessLogic
+    public static class TagLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
         public static Tag AddTag(string tagName)

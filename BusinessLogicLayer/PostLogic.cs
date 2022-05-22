@@ -10,7 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BusinessLogicLayer
 {
-    public static class PostBusinessLogic
+    public static class PostLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
         public static Post AddPost(int blogId, Tag[] tags, string content, byte[] image, int userId)
@@ -27,7 +27,7 @@ namespace BusinessLogicLayer
 
             foreach (Tag tag in tags)
 	        {
-                PostTagBusinessLogic.AddPostTag(newPost, tag);
+                PostTagLogic.AddPostTag(newPost, tag);
 	        }
 
             DbContext.SaveChanges();
@@ -61,8 +61,8 @@ namespace BusinessLogicLayer
                     GetPostBlogName(post.PostId),
                     post.Content,
                     post.Image,
-                    PostLikeBusinessLogic.IsCurrentUserLiked(post.PostId, userId),
-                    FavouritePostBusinessLogic.IsCurrentUserFavourited(post.PostId, userId)
+                    PostLikeLogic.IsCurrentUserLiked(post.PostId, userId),
+                    FavouritePostLogic.IsCurrentUserFavourited(post.PostId, userId)
                 ));
             }
 

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public static class UserProfileBusinessLogic
+    public static class UserProfileLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
         public static void ConfigureUserProfile(int userId, char gender, string about, string country, string city)

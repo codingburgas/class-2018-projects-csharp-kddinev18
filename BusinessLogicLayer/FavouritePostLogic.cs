@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace BusinessLogicLayer
 {
-    public static class FavouritePostBusinessLogic
+    public static class FavouritePostLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
         public static void Favourite(int postId, int userId)

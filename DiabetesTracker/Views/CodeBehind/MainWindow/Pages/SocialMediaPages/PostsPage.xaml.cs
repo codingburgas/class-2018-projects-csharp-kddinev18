@@ -33,7 +33,7 @@ namespace DiabetesTracker.ViewModels
         public PostsPage()
         {
             _postInformation = new PostInformation();
-            _posts = PostBusinessLogic.GetPosts(CurrentUser.CurrentUserId.Value, 0);
+            _posts = PostLogic.GetPosts(CurrentUser.CurrentUserId.Value, 0);
             InitializeComponent();
             this.DataContext = _postInformation;
             SetPost(_index);
@@ -86,7 +86,7 @@ namespace DiabetesTracker.ViewModels
             }
             if(_index % 10 == 0)
             {
-                _posts = PostBusinessLogic.GetPosts(CurrentUser.CurrentUserId.Value ,_index - 10);
+                _posts = PostLogic.GetPosts(CurrentUser.CurrentUserId.Value ,_index - 10);
             }
             _index--;
             SetPost(_index % 10);
@@ -97,7 +97,7 @@ namespace DiabetesTracker.ViewModels
             {
                 try
                 {
-                    _posts = PostBusinessLogic.GetPosts(CurrentUser.CurrentUserId.Value, _index + 1);
+                    _posts = PostLogic.GetPosts(CurrentUser.CurrentUserId.Value, _index + 1);
                 }
                 catch (ArgumentNullException)
                 {
@@ -111,22 +111,22 @@ namespace DiabetesTracker.ViewModels
         {
             if (_posts[_index].Item5 == false)
             {
-                PostLikeBusinessLogic.Like(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
+                PostLikeLogic.Like(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
             }
             else
             {
-                PostLikeBusinessLogic.Unlike(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
+                PostLikeLogic.Unlike(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
             }
         }
         private void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
             if (_posts[_index].Item6 == false)
             {
-                PostLikeBusinessLogic.Like(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
+                PostLikeLogic.Like(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
             }
             else
             {
-                PostLikeBusinessLogic.Unlike(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
+                PostLikeLogic.Unlike(_posts[_index % 10].Item1, CurrentUser.CurrentUserId.Value);
             }
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)

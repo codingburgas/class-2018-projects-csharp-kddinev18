@@ -37,7 +37,7 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                UserProfileBusinessLogic.ConfigureUserProfile(CurrentUser.CurrentUserId.Value, gender, about, country, city);
+                UserProfileLogic.ConfigureUserProfile(CurrentUser.CurrentUserId.Value, gender, about, country, city);
             }
             catch (WrongCredentialsException exception)
             {

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace BusinessLogicLayer
 {
-    public static class BlogBusinessLogic
+    public static class BlogLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
         public static Blog CreateBlog(int userId, string name, byte[] image)

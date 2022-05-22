@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public static class PostCommentBusinessLogic
+    public static class PostCommentLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
         public static void Comment(int postId, int userId, string comment)

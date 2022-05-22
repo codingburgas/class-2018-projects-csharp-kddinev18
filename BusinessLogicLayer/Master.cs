@@ -12,36 +12,36 @@ namespace BusinessLogicLayer
         public static void OpenConnection()
         {
             DiabetesTrackerDbContext dbContext = new DiabetesTrackerDbContext();
-            BlogBusinessLogic.DbContext = dbContext;
-            FavouritePostBusinessLogic.DbContext = dbContext;
-            FollowingBlogBusinessLogic.DbContext = dbContext;
-            MenuBusinessLogic.DbContext = dbContext;
-            MenuRecipeBusinessLogic.DbContext = dbContext;
-            PostBusinessLogic.DbContext = dbContext;
-            PostCommentBusinessLogic.DbContext = dbContext;
-            PostLikeBusinessLogic.DbContext = dbContext;
-            PostTagBusinessLogic.DbContext = dbContext;
-            RecipeBusinessLogic.DbContext = dbContext;
-            TagBusinessLogic.DbContext = dbContext;
-            UserBusinessLogic.DbContext = dbContext;
-            UserProfileBusinessLogic.DbContext = dbContext;
+            BlogLogic.DbContext = dbContext;
+            FavouritePostLogic.DbContext = dbContext;
+            FollowingBlogLogic.DbContext = dbContext;
+            MenuLogic.DbContext = dbContext;
+            MenuRecipeLogic.DbContext = dbContext;
+            PostLogic.DbContext = dbContext;
+            PostCommentLogic.DbContext = dbContext;
+            PostLikeLogic.DbContext = dbContext;
+            PostTagLogic.DbContext = dbContext;
+            RecipeLogic.DbContext = dbContext;
+            TagLogic.DbContext = dbContext;
+            UserLogic.DbContext = dbContext;
+            UserProfileLogic.DbContext = dbContext;
         }
 
         public static void CloseConnection()
         {
-            BlogBusinessLogic.DbContext = null;
-            FavouritePostBusinessLogic.DbContext = null;
-            FollowingBlogBusinessLogic.DbContext = null;
-            MenuBusinessLogic.DbContext = null;
-            MenuRecipeBusinessLogic.DbContext = null;
-            PostBusinessLogic.DbContext = null;
-            PostCommentBusinessLogic.DbContext = null;
-            PostLikeBusinessLogic.DbContext = null;
-            PostTagBusinessLogic.DbContext = null;
-            RecipeBusinessLogic.DbContext = null;
-            TagBusinessLogic.DbContext = null;
-            UserBusinessLogic.DbContext = null;
-            UserProfileBusinessLogic.DbContext = null;
+            BlogLogic.DbContext = null;
+            FavouritePostLogic.DbContext = null;
+            FollowingBlogLogic.DbContext = null;
+            MenuLogic.DbContext = null;
+            MenuRecipeLogic.DbContext = null;
+            PostLogic.DbContext = null;
+            PostCommentLogic.DbContext = null;
+            PostLikeLogic.DbContext = null;
+            PostTagLogic.DbContext = null;
+            RecipeLogic.DbContext = null;
+            TagLogic.DbContext = null;
+            UserLogic.DbContext = null;
+            UserProfileLogic.DbContext = null;
         }
     }
 }

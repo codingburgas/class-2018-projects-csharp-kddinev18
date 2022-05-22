@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public class MenuRecipeBusinessLogic
+    public class MenuRecipeLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
         public static void AddMenuRecipes(Menu menu, Recipe recipe)

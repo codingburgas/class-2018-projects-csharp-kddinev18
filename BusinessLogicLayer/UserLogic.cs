@@ -27,7 +27,7 @@ namespace BusinessLogicLayer
         public string UserName { get; set; }
         public string HashedPassword { get; set; }
     }
-    public static class UserBusinessLogic
+    public static class UserLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
         private static string Hash(string data)

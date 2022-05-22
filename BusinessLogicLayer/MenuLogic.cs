@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public static class MenuBusinessLogic
+    public static class MenuLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
         public static Menu CreateMenu(string name, Recipe[] recipes, int userId)
@@ -22,7 +22,7 @@ namespace BusinessLogicLayer
 
             foreach (Recipe recipe in recipes)
             {
-                MenuRecipeBusinessLogic.AddMenuRecipes(newMenu, recipe);
+                MenuRecipeLogic.AddMenuRecipes(newMenu, recipe);
             }
 
             DbContext.SaveChanges();

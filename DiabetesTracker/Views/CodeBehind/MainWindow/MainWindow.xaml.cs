@@ -45,7 +45,7 @@ namespace DiabetesTracker.ViewModels
         }
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {
-            UserBusinessLogic.RemoveCookies();
+            UserLogic.RemoveCookies();
             new UserAuthenticationWindow().Show();
             this.Close();
         }

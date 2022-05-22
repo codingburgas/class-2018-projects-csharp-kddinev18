@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
-    public static class PostTagBusinessLogic
+    public static class PostTagLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
         public static void AddPostTag(Post post, Tag tag)

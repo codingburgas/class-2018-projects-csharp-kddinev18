@@ -35,7 +35,7 @@ namespace DiabetesTracker.ViewModels
         }
         private void LoadBlogsInformation()
         {
-            List<Tuple<byte[], string, int, int>> currentUserblogsInformation = BlogBusinessLogic.GetCurrentUserBlogsInformation(CurrentUser.CurrentUserId.Value);
+            List<Tuple<byte[], string, int, int>> currentUserblogsInformation = BlogLogic.GetCurrentUserBlogsInformation(CurrentUser.CurrentUserId.Value);
             foreach (Tuple<byte[], string, int, int> currentUserblogInformation in currentUserblogsInformation)
             {
                 YourBlogsInformation.Add(new BlogInformation() 
@@ -50,7 +50,7 @@ namespace DiabetesTracker.ViewModels
         private void LoadBlogsInformation(string blogName)
         {
             SearchBlogsInformation = new ObservableCollection<BlogInformation>();
-            List<Tuple<byte[], string, int, int>> searchBlogsInformation = BlogBusinessLogic.GetBlogsInformationByName(blogName);
+            List<Tuple<byte[], string, int, int>> searchBlogsInformation = BlogLogic.GetBlogsInformationByName(blogName);
             foreach (Tuple<byte[], string, int, int> searchBlogInformation in searchBlogsInformation)
             {
                 SearchBlogsInformation.Add(new BlogInformation()
