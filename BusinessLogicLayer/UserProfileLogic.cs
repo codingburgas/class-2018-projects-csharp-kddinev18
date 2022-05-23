@@ -13,7 +13,7 @@ namespace BusinessLogicLayer
         public static void ConfigureUserProfile(int userId, char gender, string about, string country, string city)
         {
             if(gender == ' ' || about == String.Empty || country == String.Empty || city == String.Empty)
-                throw new WrongCredentialsException("You nust fill all of the boxes");
+                throw new ArgumentNullException("You nust fill all of the boxes");
 
             DbContext.UserProfiles.Add(new UserProfile()
             {
