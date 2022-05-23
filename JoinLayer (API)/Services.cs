@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer;
 using System;
+using System.Collections.Generic;
 
 namespace ServiceLayer
 {
@@ -19,7 +20,17 @@ namespace ServiceLayer
 
         public NotFilledRequiredFieldsException(string message, Exception inner) : base(message, inner) { }
     }
-    public static class UserAuthentication
+
+    public class PostInformation
+    {
+        public int PostId { get; set; }
+        public string BlogName { get; set; }
+        public string PostContent { get; set; }
+        public byte[] PostImage { get; set; }
+        public bool IsPostLiked { get; set; }
+        public bool IsPostFavourited { get; set; }
+    }
+    public static class Services
     {
         public static void FinishRegistration(int userId, char gender, string about, string country, string city)
         {
@@ -70,6 +81,28 @@ namespace ServiceLayer
             }
 
             return userId.Value;
+        }
+
+        public static List<PostInformation> GetPosts(int userId, int skipCount)
+        {
+            List<Tuple<int, string, string, byte[], bool, bool>> posts = PostLogic.ArrangePosts(userId, skipCount);
+
+            List<PostInformation> postsInformation = new List<PostInformation>();
+
+            foreach (Tuple<int, string, string, byte[], bool, bool> post in posts)
+            {
+                postsInformation.Add(new PostInformation()
+                {
+                    PostId = post.Item1,
+                    BlogName = post.Item2,
+                    PostContent = post.Item3,
+                    PostImage = post.Item4,
+                    IsPostLiked = post.Item5,
+                    IsPostFavourited = post.Item6
+                });
+            }
+
+            return postsInformation;
         }
     }
 }

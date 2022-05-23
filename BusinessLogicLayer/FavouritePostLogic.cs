@@ -36,11 +36,5 @@ namespace BusinessLogicLayer
         {
             return DbContext.FavouritePosts.Where(favouritePost => favouritePost.UserId == userId).Include(favouritePost => favouritePost.Post).Select(favouritePost => favouritePost.Post).Skip(skipCount).Take(10).ToList();
         }
-
-
-        public static List<PostInformation> GetFavouritePosts(int userId, int skipCount)
-        {
-            List<Post> favouritePosts = GetFavouritePosts(userId, skipCount);
-        }
     }
 }

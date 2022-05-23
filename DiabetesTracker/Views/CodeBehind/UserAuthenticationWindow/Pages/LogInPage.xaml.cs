@@ -29,7 +29,7 @@ namespace DiabetesTracker.ViewModels
         public LogInPage(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
-            CurrentUser.CurrentUserId = UserAuthentication.LogInWithCookies();
+            CurrentUser.CurrentUserId = Services.LogInWithCookies();
             if(CurrentUser.CurrentUserId is not null)
             {
                 _userAuthentication.OpenMainWindow();
@@ -50,7 +50,7 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                UserAuthentication.LogIn(userName, password, doRememberMe);
+                Services.LogIn(userName, password, doRememberMe);
             }
             catch(NotFilledRequiredFieldsException exception)
             {

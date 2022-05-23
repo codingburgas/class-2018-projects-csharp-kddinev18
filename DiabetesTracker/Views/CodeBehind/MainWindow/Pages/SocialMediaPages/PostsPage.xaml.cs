@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer;
 using DiabetesTracker.Models;
+using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace DiabetesTracker.ViewModels
         public PostsPage()
         {
             _postInformation = new CurrentPostInformation();
-            _posts = PostLogic.GetPosts(CurrentUser.CurrentUserId.Value, 0);
+            _posts = Services.GetPosts(CurrentUser.CurrentUserId.Value, 0);
             InitializeComponent();
             this.DataContext = _postInformation;
             SetPost(_index);
@@ -84,7 +85,7 @@ namespace DiabetesTracker.ViewModels
             }
             if(_index % _pagingCount == 0)
             {
-                _posts = PostLogic.GetPosts(CurrentUser.CurrentUserId.Value ,_index - 10);
+                _posts = Services.GetPosts(CurrentUser.CurrentUserId.Value ,_index - 10);
             }
             _index--;
             SetPost(_index % _pagingCount);
@@ -95,7 +96,7 @@ namespace DiabetesTracker.ViewModels
             {
                 try
                 {
-                    _posts = PostLogic.GetPosts(CurrentUser.CurrentUserId.Value, _index + 1);
+                    _posts = Services.GetPosts(CurrentUser.CurrentUserId.Value, _index + 1);
                 }
                 catch (ArgumentNullException)
                 {
