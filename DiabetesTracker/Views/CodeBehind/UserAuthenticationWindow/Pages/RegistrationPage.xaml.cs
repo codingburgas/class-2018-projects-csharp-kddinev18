@@ -42,15 +42,19 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                CurrentUser.CurrentUserId = UserLogic.Register(userName, email, password);
+                CurrentUserInformation.CurrentUserId = Services.Register(userName, email, password);
+                _userAuthentication.ShowPage(_userAuthentication.FinishRegistrationPage);
             }
             catch (WrongCredentialsException exception)
             {
                 MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
-            _userAuthentication.ShowPage(_userAuthentication.FinishRegistrationPage);
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
     }
 }

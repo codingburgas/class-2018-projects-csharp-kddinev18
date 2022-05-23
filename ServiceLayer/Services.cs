@@ -30,8 +30,31 @@ namespace ServiceLayer
         public bool IsPostLiked { get; set; }
         public bool IsPostFavourited { get; set; }
     }
+    public class BlogInformation
+    {
+        public int BlogId { get; set; }
+        public byte[] BlogImage { get; set; }
+        public string BlogName { get; set; }
+        public int PostCount { get; set; }
+        public int FollowingCount { get; set; }
+    }
     public static class Services
     {
+        public static int Register(string userName, string email, string password)
+        {
+            try
+            {
+                return UserLogic.Register(userName, email, password);
+            }
+            catch (ArgumentException exception)
+            {
+                throw new WrongCredentialsException(exception.Message);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Fatal error!");
+            }
+        }
         public static void FinishRegistration(int userId, char gender, string about, string country, string city)
         {
             try
@@ -104,5 +127,48 @@ namespace ServiceLayer
 
             return postsInformation;
         }
+
+        public static List<BlogInformation> GetBlogs(int userId)
+        {
+            List<Tuple<int, byte[], string, int, int>> blogs = BlogLogic.ArrangeBlogsInformation(userId);
+
+            List<BlogInformation> blogInformation = new List<BlogInformation>();
+
+            foreach (Tuple<int, byte[], string, int, int> blog in blogs)
+            {
+                blogInformation.Add(new BlogInformation()
+                {
+                    BlogId = blog.Item1,
+                    BlogImage = blog.Item2,
+                    BlogName = blog.Item3,
+                    PostCount = blog.Item4,
+                    FollowingCount = blog.Item5,
+                });
+            }
+
+            return blogInformation;
+        }
+
+        public static List<BlogInformation> GetBlogs(string blogName)
+        {
+            List<Tuple<int, byte[], string, int, int>> blogs = BlogLogic.ArrangeBlogsInformation(blogName);
+
+            List<BlogInformation> blogInformation = new List<BlogInformation>();
+
+            foreach (Tuple<int, byte[], string, int, int> blog in blogs)
+            {
+                blogInformation.Add(new BlogInformation()
+                {
+                    BlogId = blog.Item1,
+                    BlogImage = blog.Item2,
+                    BlogName = blog.Item3,
+                    PostCount = blog.Item4,
+                    FollowingCount = blog.Item5,
+                });
+            }
+
+            return blogInformation;
+        }
+
     }
 }

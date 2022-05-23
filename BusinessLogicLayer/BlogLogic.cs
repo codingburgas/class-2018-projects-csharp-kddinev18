@@ -52,14 +52,15 @@ namespace BusinessLogicLayer
         }
 
 
-        public static List<Tuple<byte[], string, int, int>> GetCurrentUserBlogsInformation(int userId)
+        public static List<Tuple<int, byte[], string, int, int>> ArrangeBlogsInformation(int userId)
         {
             List<Blog> currentUserBlogs = GetCurrentUserBlogs(userId);
 
-            List<Tuple<byte[], string, int, int>> currentUserBlogsInformation = new List<Tuple<byte[], string, int, int>>();
+            List<Tuple<int, byte[], string, int, int>> currentUserBlogsInformation = new List<Tuple<int, byte[], string, int, int>>();
             foreach (Blog currentUserBlog in currentUserBlogs)
             {
-                currentUserBlogsInformation.Add(new Tuple<byte[], string, int, int>(
+                currentUserBlogsInformation.Add(new Tuple<int, byte[], string, int, int>(
+                    currentUserBlog.BlogId,
                     currentUserBlog.Image,
                     currentUserBlog.Name,
                     GetBlogPostsCount(currentUserBlog.BlogId),
@@ -68,14 +69,15 @@ namespace BusinessLogicLayer
             }
             return currentUserBlogsInformation;
         }
-        public static List<Tuple<byte[], string, int, int>> GetBlogsInformationByName(string blogName)
+        public static List<Tuple<int, byte[], string, int, int>> ArrangeBlogsInformation(string blogName)
         {
             List<Blog> blogsByName = GetBlogsByName(blogName);
 
-            List<Tuple<byte[], string, int, int>> blogsInformationByName = new List<Tuple<byte[], string, int, int>>();
+            List<Tuple<int, byte[], string, int, int>> blogsInformationByName = new List<Tuple<int, byte[], string, int, int>>();
             foreach (Blog blogByName in blogsByName)
             {
-                blogsInformationByName.Add(new Tuple<byte[], string, int, int>(
+                blogsInformationByName.Add(new Tuple<int, byte[], string, int, int>(
+                    blogByName.BlogId,
                     blogByName.Image,
                     blogByName.Name,
                     GetBlogPostsCount(blogByName.BlogId),

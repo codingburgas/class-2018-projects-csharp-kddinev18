@@ -32,7 +32,7 @@ namespace DiabetesTracker.ViewModels
         public PostsPage()
         {
             _postInformation = new CurrentPostInformation();
-            _posts = Services.GetPosts(CurrentUser.CurrentUserId.Value, 0);
+            _posts = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, 0);
             InitializeComponent();
             this.DataContext = _postInformation;
             SetPost(_index);
@@ -85,7 +85,7 @@ namespace DiabetesTracker.ViewModels
             }
             if(_index % _pagingCount == 0)
             {
-                _posts = Services.GetPosts(CurrentUser.CurrentUserId.Value, _index - 10);
+                _posts = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10);
             }
             _index--;
             SetPost(_index % _pagingCount);
@@ -96,7 +96,7 @@ namespace DiabetesTracker.ViewModels
             {
                 try
                 {
-                    _posts = Services.GetPosts(CurrentUser.CurrentUserId.Value, _index + 1);
+                    _posts = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1);
                 }
                 catch (ArgumentNullException)
                 {
@@ -110,13 +110,13 @@ namespace DiabetesTracker.ViewModels
         {
             if (_posts[_index].IsPostLiked == false)
             {
-                PostLikeLogic.Like(_posts[_index % _pagingCount].PostId, CurrentUser.CurrentUserId.Value);
+                PostLikeLogic.Like(_posts[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 LikeIcon.Foreground = new SolidColorBrush(Colors.DeepSkyBlue);
                 _posts[_index].IsPostLiked = true;
             }
             else
             {
-                PostLikeLogic.Unlike(_posts[_index % _pagingCount].PostId, CurrentUser.CurrentUserId.Value);
+                PostLikeLogic.Unlike(_posts[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 LikeIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
                 _posts[_index].IsPostLiked = false;
             }
@@ -125,13 +125,13 @@ namespace DiabetesTracker.ViewModels
         {
             if (_posts[_index].IsPostFavourited == false)
             {
-                FavouritePostLogic.FavouritePost(_posts[_index % _pagingCount].PostId, CurrentUser.CurrentUserId.Value);
+                FavouritePostLogic.FavouritePost(_posts[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 FavouriteIcon.Foreground = new SolidColorBrush(Colors.Red);
                 _posts[_index].IsPostFavourited = true;
             }
             else
             {
-                FavouritePostLogic.UnfavouritePost(_posts[_index % _pagingCount].PostId, CurrentUser.CurrentUserId.Value);
+                FavouritePostLogic.UnfavouritePost(_posts[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 FavouriteIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
                 _posts[_index].IsPostFavourited = false;
             }

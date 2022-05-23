@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer;
 using DiabetesTracker.Models;
+using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,9 +25,9 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class BlogsPage : Page
     {
-        public ObservableCollection<BlogInformation> YourBlogsInformation { get; set; } = new ObservableCollection<BlogInformation>();
-        public ObservableCollection<BlogInformation> SearchBlogsInformation { get; set; } = new ObservableCollection<BlogInformation>();
-        public BlogInformation SelectedBlogInformation { get; set; } = new BlogInformation();
+        public ObservableCollection<CurrentBlogInformation> YourBlogsInformation { get; set; } = new ObservableCollection<CurrentBlogInformation>();
+        public ObservableCollection<CurrentBlogInformation> SearchBlogsInformation { get; set; } = new ObservableCollection<CurrentBlogInformation>();
+        public CurrentBlogInformation SelectedBlogInformation { get; set; } = new CurrentBlogInformation();
 
         private SocialMediaPage _socialMediaPage;
         public BlogsPage(SocialMediaPage socialMediaPage)
@@ -38,30 +39,32 @@ namespace DiabetesTracker.ViewModels
         }
         private void LoadBlogsInformation()
         {
-            List<Tuple<byte[], string, int, int>> currentUserblogsInformation = BlogLogic.GetCurrentUserBlogsInformation(CurrentUser.CurrentUserId.Value);
-            foreach (Tuple<byte[], string, int, int> currentUserblogInformation in currentUserblogsInformation)
+            List<BlogInformation> currentUserblogsInformation = Services.GetBlogs(CurrentUserInformation.CurrentUserId.Value);
+            foreach (BlogInformation currentUserblogInformation in currentUserblogsInformation)
             {
-                YourBlogsInformation.Add(new BlogInformation() 
+                YourBlogsInformation.Add(new CurrentBlogInformation() 
                 {
-                    BlogImage = new BitmapImage(),//ConvertByteArrayToBitMapImage(currentUserblogInformation.Item1),
-                    BlogName = currentUserblogInformation.Item2,
-                    PostCount = currentUserblogInformation.Item3,
-                    FollowingCount = currentUserblogInformation.Item4,
+                    BlogId = currentUserblogInformation.BlogId,
+                    BlogImage = new BitmapImage(),//ConvertByteArrayToBitMapImage(searchBlogInformation.BlogImage),
+                    BlogName = currentUserblogInformation.BlogName,
+                    PostCount = currentUserblogInformation.PostCount,
+                    FollowingCount = currentUserblogInformation.FollowingCount,
                 });
             }
         }
         private void LoadBlogsInformation(string blogName)
         {
-            SearchBlogsInformation = new ObservableCollection<BlogInformation>();
-            List<Tuple<byte[], string, int, int>> searchBlogsInformation = BlogLogic.GetBlogsInformationByName(blogName);
-            foreach (Tuple<byte[], string, int, int> searchBlogInformation in searchBlogsInformation)
+            SearchBlogsInformation = new ObservableCollection<CurrentBlogInformation>();
+            List<BlogInformation> searchBlogsInformation = Services.GetBlogs(blogName);
+            foreach (BlogInformation searchBlogInformation in searchBlogsInformation)
             {
-                SearchBlogsInformation.Add(new BlogInformation()
+                SearchBlogsInformation.Add(new CurrentBlogInformation()
                 {
-                    BlogImage = new BitmapImage(),//ConvertByteArrayToBitMapImage(searchBlogInformation.Item1),
-                    BlogName = searchBlogInformation.Item2,
-                    PostCount = searchBlogInformation.Item3,
-                    FollowingCount = searchBlogInformation.Item4,
+                    BlogId = searchBlogInformation.BlogId,
+                    BlogImage = new BitmapImage(),//ConvertByteArrayToBitMapImage(searchBlogInformation.BlogImage),
+                    BlogName = searchBlogInformation.BlogName,
+                    PostCount = searchBlogInformation.PostCount,
+                    FollowingCount = searchBlogInformation.FollowingCount,
                 });
             }
         }
@@ -71,7 +74,7 @@ namespace DiabetesTracker.ViewModels
         {
             if (BlogName.TextBox.Text == "")
             {
-                SearchBlogsInformation = new ObservableCollection<BlogInformation>();
+                SearchBlogsInformation = new ObservableCollection<CurrentBlogInformation>();
             }
             else
             {
@@ -82,7 +85,7 @@ namespace DiabetesTracker.ViewModels
         }
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
-            BlogInformation blogInformation = (sender as ListBox).SelectedItem as BlogInformation;
+            CurrentBlogInformation blogInformation = (sender as ListBox).SelectedItem as CurrentBlogInformation;
             BlogContent blogContent = new BlogContent() 
             {
                 BlogName = blogInformation.BlogName,

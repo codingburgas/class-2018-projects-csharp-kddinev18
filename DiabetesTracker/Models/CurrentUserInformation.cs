@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DiabetesTracker.Models
 {
-    public static class CurrentUser
+    public static class CurrentUserInformation
     {
         public static int? CurrentUserId { get; set; }
     }

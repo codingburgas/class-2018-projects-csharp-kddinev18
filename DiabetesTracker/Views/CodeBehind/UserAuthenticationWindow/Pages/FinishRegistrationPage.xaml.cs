@@ -33,11 +33,12 @@ namespace DiabetesTracker.ViewModels
             string country = Country.TextBox.Text;
             string city = City.TextBox.Text;
             string about = About.TextBox.Text;
-            char gender = MeleCheckBox.IsChecked == true? 'M' : 'F';
+            char gender = MeleCheckBox.IsChecked == true ? 'M' : 'F';
 
             try
             {
-                Services.FinishRegistration(CurrentUser.CurrentUserId.Value, gender, about, country, city);
+                Services.FinishRegistration(CurrentUserInformation.CurrentUserId.Value, gender, about, country, city);
+                _userAuthentication.OpenMainWindow();
             }
             catch (WrongCredentialsException exception)
             {
@@ -54,7 +55,6 @@ namespace DiabetesTracker.ViewModels
                 MessageBox.Show(exception.Message, exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            _userAuthentication.OpenMainWindow();
         }
         private void MeleCheckBox_Ckecked(object sender, RoutedEventArgs e)
         {

@@ -29,8 +29,8 @@ namespace DiabetesTracker.ViewModels
         public LogInPage(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
-            CurrentUser.CurrentUserId = Services.LogInWithCookies();
-            if(CurrentUser.CurrentUserId is not null)
+            CurrentUserInformation.CurrentUserId = Services.LogInWithCookies();
+            if (CurrentUserInformation.CurrentUserId is not null)
             {
                 _userAuthentication.OpenMainWindow();
             }
@@ -51,24 +51,24 @@ namespace DiabetesTracker.ViewModels
             try
             {
                 Services.LogIn(userName, password, doRememberMe);
+                _userAuthentication.OpenMainWindow();
             }
-            catch(NotFilledRequiredFieldsException exception)
+            catch (NotFilledRequiredFieldsException exception)
             {
                 MessageBox.Show(exception.Message, "User Profile data is not entered", MessageBoxButton.OK, MessageBoxImage.Information);
                 _userAuthentication.ShowPage(_userAuthentication.FinishRegistrationPage);
                 return;
             }
-            catch(WrongCredentialsException exception)
+            catch (WrongCredentialsException exception)
             {
                 MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            _userAuthentication.OpenMainWindow();
         }
     }
 }
