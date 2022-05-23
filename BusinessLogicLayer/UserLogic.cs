@@ -158,10 +158,10 @@ namespace BusinessLogicLayer
         {
             File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { Id = userId, UserName = userName, HashedPassword = hashedPassword }));
         }
-        public static int CheckCookies()
+        public static int? CheckCookies()
         {
             if (!File.Exists(_userCredentialsPath))
-                return -1;
+                return null;
 
             string credentials = File.ReadAllText(_userCredentialsPath);
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);

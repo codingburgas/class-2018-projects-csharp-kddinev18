@@ -1,5 +1,5 @@
 ﻿using DiabetesTracker.Models;
-using JoinLayer_API_;
+using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,14 +29,10 @@ namespace DiabetesTracker.ViewModels
         public LogInPage(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
-            CurrentUser.CurrentUserId = UserLogic.CheckCookies();
-            if (CurrentUser.CurrentUserId != -1)
+            CurrentUser.CurrentUserId = UserAuthentication.LogInWithCookies();
+            if(CurrentUser.CurrentUserId is not null)
             {
                 _userAuthentication.OpenMainWindow();
-            }
-            else
-            {
-                CurrentUser.CurrentUserId = null;
             }
             InitializeComponent();
         }

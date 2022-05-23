@@ -1,7 +1,7 @@
 ﻿using BusinessLogicLayer;
 using System;
 
-namespace JoinLayer_API_
+namespace ServiceLayer
 {
     public class WrongCredentialsException : Exception
     {
@@ -59,6 +59,17 @@ namespace JoinLayer_API_
             {
                 throw new Exception("Fatal error!");
             }
+        }
+
+        public static int? LogInWithCookies()
+        {
+            int? userId = UserLogic.CheckCookies();
+            if (userId is null)
+            {
+                return null;
+            }
+
+            return userId.Value;
         }
     }
 }
