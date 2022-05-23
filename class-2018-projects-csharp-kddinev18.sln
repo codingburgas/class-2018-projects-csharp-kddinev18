@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32421.90
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiabetesTracker", "DiabetesTracker\DiabetesTracker.csproj", "{9D763B7F-5ECD-42E9-BD28-E2AB464275FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{D5909795-9754-46BE-8B89-06D2A40BC8C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{D5909795-9754-46BE-8B89-06D2A40BC8C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{686C2480-B309-4E9C-8CA6-EAC13ECD1CFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{686C2480-B309-4E9C-8CA6-EAC13ECD1CFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoinLayer (API)", "JoinLayer (API)\JoinLayer (API).csproj", "{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,26 @@ Global
 		{686C2480-B309-4E9C-8CA6-EAC13ECD1CFD}.Release|x64.Build.0 = Release|Any CPU
 		{686C2480-B309-4E9C-8CA6-EAC13ECD1CFD}.Release|x86.ActiveCfg = Release|Any CPU
 		{686C2480-B309-4E9C-8CA6-EAC13ECD1CFD}.Release|x86.Build.0 = Release|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Debug|ARM.Build.0 = Debug|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Debug|x64.Build.0 = Debug|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Debug|x86.Build.0 = Debug|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Release|ARM.ActiveCfg = Release|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Release|ARM.Build.0 = Release|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Release|ARM64.Build.0 = Release|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Release|x64.ActiveCfg = Release|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Release|x64.Build.0 = Release|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Release|x86.ActiveCfg = Release|Any CPU
+		{F01ECE61-CA01-48B5-99DF-39593C9C6DD6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
