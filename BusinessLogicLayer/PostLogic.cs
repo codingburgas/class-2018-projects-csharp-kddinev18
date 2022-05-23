@@ -44,7 +44,7 @@ namespace BusinessLogicLayer
             throw new ArgumentNullException("There are no more posts");
         }
 
-        private static List<Post> GetPagedFavouritePostsIds(int userId, int skipCount)
+        private static List<Post> GetPagedFavouritePosts(int userId, int skipCount)
         {
             List<Post> favouritePostsIds = DbContext.FavouritePosts
                 .Where(favouritePost => favouritePost.UserId == userId)
@@ -57,6 +57,15 @@ namespace BusinessLogicLayer
 
             if (favouritePostsIds.Count != 0)
                 return favouritePostsIds;
+
+            throw new ArgumentNullException("There are no more posts");
+        }
+
+        private static List<Post> GetPagedBlogPosts(int blogId, int skipCount)
+        {
+            List<Post> posts = DbContext.Posts.Where(post => post.BlogId == blogId).OrderByDescending(post => post.PostId).Skip(skipCount).Take(10).ToList();
+            if (posts.Count != 0)
+                return posts;
 
             throw new ArgumentNullException("There are no more posts");
         }
@@ -89,7 +98,28 @@ namespace BusinessLogicLayer
 
         public static List<Tuple<int, string, string, byte[], bool, bool>> ArrangeFavouritePosts(int userId, int skipCount)
         {
-            List<Post> posts = GetPagedFavouritePostsIds(userId,skipCount);
+            List<Post> posts = GetPagedFavouritePosts(userId,skipCount);
+
+            List<Tuple<int, string, string, byte[], bool, bool>> postsInformation = new List<Tuple<int, string, string, byte[], bool, bool>>();
+
+            foreach (Post post in posts)
+            {
+                postsInformation.Add(new Tuple<int, string, string, byte[], bool, bool>(
+                    post.PostId,
+                    GetPostBlogName(post.PostId),
+                    post.Content,
+                    post.Image,
+                    PostLikeLogic.IsCurrentUserLiked(post.PostId, userId),
+                    FavouritePostLogic.IsCurrentUserFavourited(post.PostId, userId)
+                ));
+            }
+
+            return postsInformation;
+        }
+
+        public static List<Tuple<int, string, string, byte[], bool, bool>> ArrangeBlogPosts(int userId, int skipCount, int blogId)
+        {
+            List<Post> posts = GetPagedBlogPosts(blogId, skipCount);
 
             List<Tuple<int, string, string, byte[], bool, bool>> postsInformation = new List<Tuple<int, string, string, byte[], bool, bool>>();
 

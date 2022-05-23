@@ -21,22 +21,22 @@
                         <TextBlock Text="{Binding Path=PostContent, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource postUserText}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Style="{StaticResource postActionButton}" Click="PrevButton_Click">
+                        <Button x:Name="PrevButton" Style="{StaticResource postActionButton}" Click="PrevButton_Click">
                             <materialDesign:PackIcon Kind="NavigateBefore" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
                         </Button>
                         <Image Source="{Binding Path=PostImage, UpdateSourceTrigger=PropertyChanged}" Height="350" Width="630" Margin="10"/>
-                        <Button Style="{StaticResource postActionButton}" Click="NextButton_Click">
+                        <Button x:Name="NextButton" Style="{StaticResource postActionButton}" Click="NextButton_Click">
                             <materialDesign:PackIcon Kind="NavigateNext" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10 0 0 10">
-                        <Button Style="{StaticResource postActionButton}" Click="LikeButton_Click">
+                        <Button x:Name="LikeButton" Style="{StaticResource postActionButton}" Click="LikeButton_Click">
                             <materialDesign:PackIcon x:Name="LikeIcon" Kind="Like" Style="{StaticResource postActionIcon}" />
                         </Button>
-                        <Button Style="{StaticResource postActionButton}" Click="FavouriteButton_Click">
+                        <Button x:Name="FavouriteButton" Style="{StaticResource postActionButton}" Click="FavouriteButton_Click">
                             <materialDesign:PackIcon x:Name="FavouriteIcon" Kind="Favorite" Style="{StaticResource postActionIcon}" />
                         </Button>
-                        <Button Style="{StaticResource postActionButton}" Click="CommentButton_Click">
+                        <Button x:Name="CommentButton" Style="{StaticResource postActionButton}" Click="CommentButton_Click">
                             <materialDesign:PackIcon Kind="Comment" Style="{StaticResource postActionIcon}" />
                         </Button>
                     </StackPanel>

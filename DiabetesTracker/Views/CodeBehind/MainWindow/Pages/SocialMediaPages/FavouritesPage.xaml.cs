@@ -29,10 +29,21 @@ namespace DiabetesTracker.ViewModels
 
         public FavouritesPage()
         {
-            _favouritePostsInformation = Services.GetFavouritedPosts(CurrentUserInformation.CurrentUserId.Value, 0);
             InitializeComponent();
             DataContext = _favouritePostInformation;
-            SetPost(0);
+            try
+            {
+                _favouritePostsInformation = Services.GetFavouritedPosts(CurrentUserInformation.CurrentUserId.Value, 0);
+                SetPost(_index);
+            }
+            catch (NoContentException ex)
+            {
+                PrevButton.IsEnabled = false;
+                NextButton.IsEnabled = false;
+                LikeButton.IsEnabled = false;
+                FavouriteButton.IsEnabled = false;
+                CommentButton.IsEnabled = false;
+            }
         }
 
         private void SetPost(int index)
@@ -80,7 +91,7 @@ namespace DiabetesTracker.ViewModels
                 {
                     _favouritePostsInformation = Services.GetFavouritedPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1);
                 }
-                catch (ArgumentNullException)
+                catch (NoContentException)
                 {
                     return;
                 }

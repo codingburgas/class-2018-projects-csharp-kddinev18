@@ -93,7 +93,7 @@ namespace DiabetesTracker.ViewModels
                 BlogTotalFollowers = blogInformation.FollowingCount,
                 BlogTotalPosts = blogInformation.PostCount,
             };
-            _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent));
+            _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent, blogInformation.BlogId));
         }
     }
 }

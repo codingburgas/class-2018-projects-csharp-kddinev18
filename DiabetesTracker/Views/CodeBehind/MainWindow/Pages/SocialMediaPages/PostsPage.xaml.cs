@@ -31,10 +31,21 @@ namespace DiabetesTracker.ViewModels
         public PostsPage()
         {
             _postInformation = new CurrentPostInformation();
-            _postsInformation = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, 0);
             InitializeComponent();
-            this.DataContext = _postInformation;
-            SetPost(_index);
+            DataContext = _postInformation;
+            try
+            {
+                _postsInformation = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, 0);
+                SetPost(_index);
+            }
+            catch (NoContentException ex)
+            {
+                PrevButton.IsEnabled = false;
+                NextButton.IsEnabled = false;
+                LikeButton.IsEnabled = false;
+                FavouriteButton.IsEnabled = false;
+                CommentButton.IsEnabled = false;
+            }
         }
         private void SetPost(int index)
         {
@@ -97,7 +108,7 @@ namespace DiabetesTracker.ViewModels
                 {
                     _postsInformation = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1);
                 }
-                catch (ArgumentNullException)
+                catch (NoContentException)
                 {
                     return;
                 }
