@@ -33,9 +33,6 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0" Style="{StaticResource infoCard}">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="35" Opacity="0.4"/>
-                </Border.Effect>
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=PostContent}" Style="{StaticResource postUserText}"/>
@@ -70,9 +67,6 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" Style="{StaticResource infoCard}">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="35" Opacity="0.4"/>
-                    </Border.Effect>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -86,9 +80,6 @@
                     </Grid>
                 </Border>
                 <Border Grid.Row="1" Style="{StaticResource infoCard}">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="35" Opacity="0.4"/>
-                    </Border.Effect>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -101,6 +92,14 @@
                         <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource infocardIcon}" />
                     </Grid>
                 </Border>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="FollowButton" Grid.Column="0" Content="Follow" Style="{StaticResource contentButton}"/>
+                    <Button x:Name="PostButton" Grid.Column="1" Content="Post" Style="{StaticResource contentButton}"/>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

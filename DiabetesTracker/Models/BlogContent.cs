@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace DiabetesTracker.Models
 {
-    public  class BlogContent
+    public  class BlogContent : INotifyPropertyChanged
     {
         private string _blogName;
         public string BlogName 
