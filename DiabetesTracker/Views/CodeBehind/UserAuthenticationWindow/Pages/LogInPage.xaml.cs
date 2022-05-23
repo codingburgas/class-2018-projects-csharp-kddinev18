@@ -1,4 +1,5 @@
 ﻿using DiabetesTracker.Models;
+using JoinLayer_API_;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,8 +52,26 @@ namespace DiabetesTracker.ViewModels
             string password = PasswordTextBox.Password;
             bool doRememberMe = RememberMeCheckBox.IsChecked == true ? true : false;
 
-
-
+            try
+            {
+                UserAuthentication.LogIn(userName, password, doRememberMe);
+            }
+            catch(NotFilledRequiredFieldsException exception)
+            {
+                MessageBox.Show(exception.Message, "User Profile data is not entered", MessageBoxButton.OK, MessageBoxImage.Information);
+                _userAuthentication.ShowPage(_userAuthentication.FinishRegistrationPage);
+                return;
+            }
+            catch(WrongCredentialsException exception)
+            {
+                MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message, exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             _userAuthentication.OpenMainWindow();
         }
     }

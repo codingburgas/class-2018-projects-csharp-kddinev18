@@ -41,6 +41,24 @@ namespace JoinLayer_API_
             }
         }
 
-
+        public static int LogIn(string userName, string password, bool doRememberMe)
+        {
+            try
+            {
+                return UserLogic.LogIn(userName, password, doRememberMe);
+            }
+            catch (ArgumentNullException exception)
+            {
+                throw new NotFilledRequiredFieldsException(exception.Message);
+            }
+            catch (ArgumentException exception)
+            {
+                throw new WrongCredentialsException(exception.Message);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Fatal error!");
+            }
+        }
     }
 }
