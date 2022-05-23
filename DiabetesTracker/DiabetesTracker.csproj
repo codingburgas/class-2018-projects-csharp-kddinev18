@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
+    <ProjectReference Include="..\JoinLayer (API)\JoinLayer (API).csproj" />
   </ItemGroup>
 
 </Project>

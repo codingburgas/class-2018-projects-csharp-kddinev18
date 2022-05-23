@@ -5,4 +5,8 @@
     <RootNamespace>JoinLayer__API_</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,5 @@
-﻿using BusinessLogicLayer;
-using DiabetesTracker.Models;
+﻿using DiabetesTracker.Models;
+using JoinLayer_API_;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,11 +37,21 @@ namespace DiabetesTracker.ViewModels
 
             try
             {
-                UserProfileLogic.ConfigureUserProfile(CurrentUser.CurrentUserId.Value, gender, about, country, city);
+                UserAuthentication.FinishRegistration(CurrentUser.CurrentUserId.Value, gender, about, country, city);
             }
             catch (WrongCredentialsException exception)
             {
                 MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch (NotFilledRequiredFieldsException exception)
+            {
+                MessageBox.Show(exception.Message, "You must fill all fields", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             _userAuthentication.OpenMainWindow();

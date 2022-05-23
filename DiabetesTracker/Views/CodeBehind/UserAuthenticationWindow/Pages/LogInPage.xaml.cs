@@ -1,5 +1,4 @@
-﻿using BusinessLogicLayer;
-using DiabetesTracker.Models;
+﻿using DiabetesTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,22 +51,7 @@ namespace DiabetesTracker.ViewModels
             string password = PasswordTextBox.Password;
             bool doRememberMe = RememberMeCheckBox.IsChecked == true ? true : false;
 
-            try
-            {
-                CurrentUser.CurrentUserId = UserLogic.LogIn(userName, password, doRememberMe);
 
-            }
-            catch (WrongCredentialsException exception)
-            {
-                MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            catch (ArgumentNullException exception)
-            {
-                MessageBox.Show(exception.Message, "User Profile data is not entered", MessageBoxButton.OK, MessageBoxImage.Information);
-                _userAuthentication.ShowPage(_userAuthentication.FinishRegistrationPage);
-                return;
-            }
 
             _userAuthentication.OpenMainWindow();
         }
