@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogicLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,31 @@ namespace DiabetesTracker.ViewModels
     /// </summary>
     public partial class FavouritesPage : Page
     {
+        private List<PostInformation> _favouritePostInformation;
         public FavouritesPage()
         {
             InitializeComponent();
+        }
+
+        private void PrevButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void LikeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void FavouriteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void CommentButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

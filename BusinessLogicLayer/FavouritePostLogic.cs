@@ -28,15 +28,19 @@ namespace BusinessLogicLayer
             DbContext.FavouritePosts.Remove(DbContext.FavouritePosts.Where(favouritePost => favouritePost.UserId==userId && favouritePost.PostId == postId).First());
             DbContext.SaveChanges();
         }
-        public static ICollection<Post> GetFavouritePosts(int userId)
-        {
-            return DbContext.FavouritePosts.Where(favouritePost => favouritePost.UserId == userId).Include(favouritePost => favouritePost.Post).Select(favouritePost => favouritePost.Post).ToList();
-        }
-
         public static bool IsCurrentUserFavourited(int postId, int userId)
         {
             return DbContext.FavouritePosts.Where(favouritePost => favouritePost.PostId == postId && favouritePost.UserId == userId).FirstOrDefault() != null;
         }
+        public static ICollection<Post> GetFavouritePosts(int userId, int skipCount)
+        {
+            return DbContext.FavouritePosts.Where(favouritePost => favouritePost.UserId == userId).Include(favouritePost => favouritePost.Post).Select(favouritePost => favouritePost.Post).Skip(skipCount).Take(10).ToList();
+        }
 
+
+        public static List<PostInformation> GetFavouritePosts(int userId, int skipCount)
+        {
+            List<Post> favouritePosts = GetFavouritePosts(userId, skipCount);
+        }
     }
 }

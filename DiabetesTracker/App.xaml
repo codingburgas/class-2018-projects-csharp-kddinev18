@@ -7,7 +7,6 @@
              StartupUri="Views\XAML\UserAuthenticationWindow\UserAuthenticationWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-
             <Style x:Key="buttonStyleNoHighlighting" TargetType="Button">
                 <Setter Property="Template">
                     <Setter.Value>

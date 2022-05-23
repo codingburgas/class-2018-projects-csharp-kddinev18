@@ -82,7 +82,7 @@
                             <TextBlock Text="{Binding Path=BlogTotalPosts, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource inforCardTitle}"/>
                             <TextBlock Text="TotalPosts" Style="{StaticResource infoCardText}"/>
                         </StackPanel>
-                        <Icon:PackIconMaterial Kind="HandBackLeft" Style="{StaticResource infocardIcon}" />
+                        <Icon:PackIconMaterial Kind="Post" Style="{StaticResource infocardIcon}" />
                     </Grid>
                 </Border>
                 <Border Grid.Row="1" Style="{StaticResource infoCard}">
@@ -98,7 +98,7 @@
                             <TextBlock Text="{Binding Path=BlogTotalFollowers, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource inforCardTitle}"/>
                             <TextBlock Text="TotalFollowers" Style="{StaticResource infoCardText}"/>
                         </StackPanel>
-                        <Icon:PackIconMaterial Kind="HandBackLeft" Style="{StaticResource infocardIcon}" />
+                        <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource infocardIcon}" />
                     </Grid>
                 </Border>
             </Grid>
