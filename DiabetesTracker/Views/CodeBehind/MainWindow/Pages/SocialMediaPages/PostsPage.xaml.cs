@@ -1,5 +1,4 @@
-﻿using BusinessLogicLayer;
-using DiabetesTracker.Models;
+﻿using DiabetesTracker.Models;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -110,13 +109,13 @@ namespace DiabetesTracker.ViewModels
         {
             if (_postsInformation[_index].IsPostLiked == false)
             {
-                PostLikeLogic.Like(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
+                Services.Like(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 LikeIcon.Foreground = new SolidColorBrush(Colors.DeepSkyBlue);
                 _postsInformation[_index].IsPostLiked = true;
             }
             else
             {
-                PostLikeLogic.Unlike(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
+                Services.Unlike(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 LikeIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
                 _postsInformation[_index].IsPostLiked = false;
             }
@@ -125,13 +124,13 @@ namespace DiabetesTracker.ViewModels
         {
             if (_postsInformation[_index].IsPostFavourited == false)
             {
-                FavouritePostLogic.FavouritePost(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
+                Services.Favourite(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 FavouriteIcon.Foreground = new SolidColorBrush(Colors.Red);
                 _postsInformation[_index].IsPostFavourited = true;
             }
             else
             {
-                FavouritePostLogic.UnfavouritePost(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
+                Services.Unfavourite(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 FavouriteIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
                 _postsInformation[_index].IsPostFavourited = false;
             }

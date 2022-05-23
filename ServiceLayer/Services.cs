@@ -20,6 +20,14 @@ namespace ServiceLayer
 
         public NotFilledRequiredFieldsException(string message, Exception inner) : base(message, inner) { }
     }
+    public class NoContentException : Exception
+    {
+        public NoContentException() { }
+
+        public NoContentException(string message) : base(message) { }
+
+        public NoContentException(string message, Exception inner) : base(message, inner) { }
+    }
 
     public class PostInformation
     {
@@ -129,24 +137,31 @@ namespace ServiceLayer
         
         public static List<PostInformation> GetFavouritedPosts(int userId, int skipCount)
         {
-            List<Tuple<int, string, string, byte[], bool, bool>> posts = PostLogic.ArrangeFavouritePosts(userId, skipCount);
-
-            List<PostInformation> postsInformation = new List<PostInformation>();
-
-            foreach (Tuple<int, string, string, byte[], bool, bool> post in posts)
+            try
             {
-                postsInformation.Add(new PostInformation()
-                {
-                    PostId = post.Item1,
-                    BlogName = post.Item2,
-                    PostContent = post.Item3,
-                    PostImage = post.Item4,
-                    IsPostLiked = post.Item5,
-                    IsPostFavourited = post.Item6
-                });
-            }
+                List<Tuple<int, string, string, byte[], bool, bool>> posts = PostLogic.ArrangeFavouritePosts(userId, skipCount);
 
-            return postsInformation;
+                List<PostInformation> postsInformation = new List<PostInformation>();
+
+                foreach (Tuple<int, string, string, byte[], bool, bool> post in posts)
+                {
+                    postsInformation.Add(new PostInformation()
+                    {
+                        PostId = post.Item1,
+                        BlogName = post.Item2,
+                        PostContent = post.Item3,
+                        PostImage = post.Item4,
+                        IsPostLiked = post.Item5,
+                        IsPostFavourited = post.Item6
+                    });
+                }
+
+                return postsInformation;
+            }
+            catch (ArgumentNullException exceprion)
+            {
+                throw new NoContentException(exceprion.Message);
+            }
         }
 
         public static List<BlogInformation> GetBlogs(int userId)
@@ -191,5 +206,25 @@ namespace ServiceLayer
             return blogInformation;
         }
 
+        public static void Like(int userId, int PostId)
+        {
+            PostLikeLogic.Like(userId, PostId);
+        }
+
+        public static void Unlike(int userId, int PostId)
+        {
+            PostLikeLogic.Unlike(userId, PostId);
+        }
+
+        public static void Favourite(int userId, int PostId)
+        {
+            FavouritePostLogic.Favourite(userId, PostId);
+        }
+
+        public static void Unfavourite(int userId, int PostId)
+        {
+            FavouritePostLogic.Unfavourite(userId, PostId);
+
+        }
     }
 }
