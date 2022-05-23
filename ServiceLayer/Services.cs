@@ -105,10 +105,31 @@ namespace ServiceLayer
 
             return userId.Value;
         }
-
         public static List<PostInformation> GetPosts(int userId, int skipCount)
         {
             List<Tuple<int, string, string, byte[], bool, bool>> posts = PostLogic.ArrangePosts(userId, skipCount);
+
+            List<PostInformation> postsInformation = new List<PostInformation>();
+
+            foreach (Tuple<int, string, string, byte[], bool, bool> post in posts)
+            {
+                postsInformation.Add(new PostInformation()
+                {
+                    PostId = post.Item1,
+                    BlogName = post.Item2,
+                    PostContent = post.Item3,
+                    PostImage = post.Item4,
+                    IsPostLiked = post.Item5,
+                    IsPostFavourited = post.Item6
+                });
+            }
+
+            return postsInformation;
+        }
+        
+        public static List<PostInformation> GetFavouritedPosts(int userId, int skipCount)
+        {
+            List<Tuple<int, string, string, byte[], bool, bool>> posts = PostLogic.ArrangeFavouritePosts(userId, skipCount);
 
             List<PostInformation> postsInformation = new List<PostInformation>();
 
