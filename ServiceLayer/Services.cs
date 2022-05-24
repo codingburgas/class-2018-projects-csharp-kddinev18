@@ -1,6 +1,8 @@
 ﻿using BusinessLogicLayer;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
 
 namespace ServiceLayer
 {
@@ -48,6 +50,17 @@ namespace ServiceLayer
     }
     public static class Services
     {
+        private static TcpClient _tcpClient;
+        public static void SetUpConnection()
+        {
+            _tcpClient = new TcpClient("127.0.0.1", 5400);
+        }
+        public static void RemoveConnection()
+        {
+            _tcpClient.Client.Shutdown(SocketShutdown.Both);
+            _tcpClient.Close();
+        }
+
         public static int Register(string userName, string email, string password)
         {
             try
