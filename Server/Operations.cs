@@ -26,5 +26,10 @@ namespace Server
             UserCredentials userCredentials = UserLogic.LogIn(userName, password);
             return JsonSerializer.Serialize(userCredentials);
         }
+
+        public static void LogInWithCookies(string userName, string password)
+        {
+            UserLogic.LogInWithPreHashedPassword(userName, password);
+        }
     }
 }

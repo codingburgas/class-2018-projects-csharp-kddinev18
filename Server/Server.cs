@@ -118,6 +118,8 @@ namespace Server
                     client.Client.Send(Encoding.ASCII.GetBytes(response));
                     break;
                 case UserOperation.LogInWithCookies:
+                    response = $"{_success}";
+                    client.Client.Send(Encoding.ASCII.GetBytes(response));
                     break;
                 case UserOperation.GetPosts:
                     break;

@@ -86,15 +86,23 @@ namespace ServiceLayer
             _tcpClient.Client.Shutdown(SocketShutdown.Both);
             _tcpClient.Close();
         }
-
+        public static string FormatData()
+        {
+            return Encoding.ASCII.GetString(_data).Replace("\0", String.Empty);
+        }
+        public static void ResetBuffer()
+        {
+            Array.Clear(_data, 0, _data.Length);
+        }
 
 
 
         public static int Register(string userName, string email, string password)
         {
+            ResetBuffer();
             _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.Register}|{userName}, {email}, {password}"));
             _tcpClient.Client.Receive(_data);
-            string serialisedData = Encoding.ASCII.GetString(_data);
+            string serialisedData = FormatData();
             if (serialisedData.Split('|')[0] == "1")
                 throw new Exception(serialisedData.Split('|')[1]);
 
@@ -102,16 +110,18 @@ namespace ServiceLayer
         }
         public static void FinishRegistration(int userId, char gender, string about, string country, string city)
         {
+            ResetBuffer();
             _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.FinishRegistration}|{userId}, {gender}, {about}, {country}, {city}"));
-            string serialisedData = Encoding.ASCII.GetString(_data);
+            string serialisedData = FormatData();
             if (serialisedData.Split('|')[0] == "1")
                 throw new Exception(serialisedData.Split('|')[1]);
         }
         public static int LogIn(string userName, string password, bool doRememberMe)
         {
-            _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.Register}|{userName}, {password}, {doRememberMe}"));
+            ResetBuffer();
+            _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.LogIn}|{userName}, {password}, {doRememberMe}"));
             _tcpClient.Client.Receive(_data);
-            string serialisedData = Encoding.ASCII.GetString(_data);
+            string serialisedData = FormatData();
             if (serialisedData.Split('|')[0] == "1")
                 throw new Exception(serialisedData.Split('|')[1]);
 
@@ -123,6 +133,29 @@ namespace ServiceLayer
                 RemoveCookies();
 
             return userCredentials.Id;
+        }
+        public static int? CheckCookies()
+        {
+            ResetBuffer();
+            if (!File.Exists(_userCredentialsPath))
+                return null;
+
+            string credentials = File.ReadAllText(_userCredentialsPath);
+            UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
+            _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.LogInWithCookies}|{userCredentials.UserName}, {userCredentials.HashedPassword}"));
+            _tcpClient.Client.Receive(_data);
+            string serialisedData = FormatData();
+            if (serialisedData.Split('|')[0] == "1")
+                throw new Exception(serialisedData.Split('|')[1]);
+
+            return userCredentials.Id;
+        }
+        public static void RemoveCookies()
+        {
+            if (!File.Exists(_userCredentialsPath))
+                return;
+
+            File.Delete(_userCredentialsPath);
         }
         public static int? LogInWithCookies()
         {
@@ -138,24 +171,6 @@ namespace ServiceLayer
         {
             File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { Id = userCredentials.Id, UserName = userCredentials.UserName, HashedPassword = userCredentials.HashedPassword }));
         }
-        public static int? CheckCookies()
-        {
-            if (!File.Exists(_userCredentialsPath))
-                return null;
-
-            string credentials = File.ReadAllText(_userCredentialsPath);
-            UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
-            //LogInWithPreHashedPassword(userCredentials.UserName, userCredentials.HashedPassword);
-            return userCredentials.Id;
-        }
-        public static void RemoveCookies()
-        {
-            if (!File.Exists(_userCredentialsPath))
-                return;
-
-            File.Delete(_userCredentialsPath);
-        }
-
 
 
 

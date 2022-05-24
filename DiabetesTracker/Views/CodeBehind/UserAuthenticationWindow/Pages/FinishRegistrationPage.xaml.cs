@@ -42,7 +42,7 @@ namespace DiabetesTracker.ViewModels
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Fatal error", exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(exception.Message, "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }
