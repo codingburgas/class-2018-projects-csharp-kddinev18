@@ -44,5 +44,31 @@ namespace Server
             client.Client.BeginReceive(_data, 0, _data.Length, SocketFlags.None, new AsyncCallback(ReciveUserInput), client);
             _tcpListener.BeginAcceptTcpClient(new AsyncCallback(AcceptClients), null);
         }
+
+        public static void ReciveUserInput(IAsyncResult asyncResult)
+        {
+            TcpClient client = asyncResult.AsyncState as TcpClient;
+            int reciever;
+            try
+            {
+                reciever = client.Client.EndReceive(asyncResult);
+                if (reciever == 0)
+                {
+                    client.Client.Shutdown(SocketShutdown.Both);
+                    client.Close();
+                    _clients.Remove(client);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                client.Client.Shutdown(SocketShutdown.Both);
+                client.Client.Close();
+                _clients.Remove(client);
+                throw;
+            }
+            client.Client.BeginReceive(_data, 0, _data.Length, SocketFlags.None, new AsyncCallback(ReciveUserInput), client);
+
+        }
     }
 }
