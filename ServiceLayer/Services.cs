@@ -94,36 +94,35 @@ namespace ServiceLayer
         {
             Array.Clear(_data, 0, _data.Length);
         }
+        private static string ClientToServerComunication(string message)
+        {
+            _tcpClient.Client.Send(Encoding.ASCII.GetBytes(message));
+            _tcpClient.Client.Receive(_data);
+            string serialisedData = FormatData();
+            if (serialisedData.Split('|')[0] == "1")
+                throw new Exception(serialisedData.Split('|')[1]);
+            return serialisedData;
+        }
+
 
 
 
         public static int Register(string userName, string email, string password)
         {
             ResetBuffer();
-            _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.Register}|{userName}, {email}, {password}"));
-            _tcpClient.Client.Receive(_data);
-            string serialisedData = FormatData();
-            if (serialisedData.Split('|')[0] == "1")
-                throw new Exception(serialisedData.Split('|')[1]);
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.Register}|{userName}, {email}, {password}");
 
             return int.Parse(serialisedData.Split('|')[1]);
         }
         public static void FinishRegistration(int userId, char gender, string about, string country, string city)
         {
             ResetBuffer();
-            _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.FinishRegistration}|{userId}, {gender}, {about}, {country}, {city}"));
-            string serialisedData = FormatData();
-            if (serialisedData.Split('|')[0] == "1")
-                throw new Exception(serialisedData.Split('|')[1]);
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.FinishRegistration}|{userId}, {gender}, {about}, {country}, {city}");
         }
         public static int LogIn(string userName, string password, bool doRememberMe)
         {
             ResetBuffer();
-            _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.LogIn}|{userName}, {password}, {doRememberMe}"));
-            _tcpClient.Client.Receive(_data);
-            string serialisedData = FormatData();
-            if (serialisedData.Split('|')[0] == "1")
-                throw new Exception(serialisedData.Split('|')[1]);
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.LogIn}|{userName}, {password}, {doRememberMe}");
 
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(serialisedData.Split('|')[1]);
 
@@ -134,6 +133,7 @@ namespace ServiceLayer
 
             return userCredentials.Id;
         }
+
         public static int? CheckCookies()
         {
             ResetBuffer();
@@ -142,11 +142,8 @@ namespace ServiceLayer
 
             string credentials = File.ReadAllText(_userCredentialsPath);
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
-            _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.LogInWithCookies}|{userCredentials.UserName}, {userCredentials.HashedPassword}"));
             _tcpClient.Client.Receive(_data);
-            string serialisedData = FormatData();
-            if (serialisedData.Split('|')[0] == "1")
-                throw new Exception(serialisedData.Split('|')[1]);
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.LogInWithCookies}|{userCredentials.UserName}, {userCredentials.HashedPassword}");
 
             return userCredentials.Id;
         }
@@ -171,6 +168,8 @@ namespace ServiceLayer
         {
             File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { Id = userCredentials.Id, UserName = userCredentials.UserName, HashedPassword = userCredentials.HashedPassword }));
         }
+
+
 
 
 
