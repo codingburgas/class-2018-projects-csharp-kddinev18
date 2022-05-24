@@ -6,6 +6,21 @@ using System.Net.Sockets;
 
 namespace ServiceLayer
 {
+    enum UserOperation
+    {
+        Register = 0,
+        FinishRegistration = 1,
+        LogIn = 2,
+        LogInWithCookies = 3,
+        GetPosts = 4,
+        GetFavouritedPosts = 5,
+        GetBlogPosts = 7,
+        GetBlogs = 8,
+        Like = 9,
+        Unlike = 10,
+        Favourite = 11,
+        Unfavourite = 12,
+    }
     public class WrongCredentialsException : Exception
     {
         public WrongCredentialsException() { }
