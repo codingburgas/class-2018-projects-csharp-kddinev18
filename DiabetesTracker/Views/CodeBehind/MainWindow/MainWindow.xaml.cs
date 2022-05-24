@@ -43,11 +43,5 @@ namespace DiabetesTracker.ViewModels
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
-        private void SignOutButton_Click(object sender, RoutedEventArgs e)
-        {
-            UserLogic.RemoveCookies();
-            new UserAuthenticationWindow().Show();
-            this.Close();
-        }
     }
 }

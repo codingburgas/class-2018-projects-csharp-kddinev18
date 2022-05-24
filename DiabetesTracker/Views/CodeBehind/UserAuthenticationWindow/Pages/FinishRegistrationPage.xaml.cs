@@ -40,19 +40,9 @@ namespace DiabetesTracker.ViewModels
                 Services.FinishRegistration(CurrentUserInformation.CurrentUserId.Value, gender, about, country, city);
                 _userAuthentication.OpenMainWindow();
             }
-            catch (WrongCredentialsException exception)
-            {
-                MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            catch (NotFilledRequiredFieldsException exception)
-            {
-                MessageBox.Show(exception.Message, "You must fill all fields", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Fatal error", exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }

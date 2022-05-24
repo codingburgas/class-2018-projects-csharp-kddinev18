@@ -88,31 +88,7 @@ namespace BusinessLogicLayer
             }
             throw new ArgumentException("Password must contain at least 1 special character");
         }
-
-        private static UserCredentials LogIn(string username, string password)
-        {
-            List<User> users = DbContext.Users
-                .Where(u => u.UserName == username)
-                .ToList();
-
-            if (users.Count == 0)
-                throw new ArgumentException("Your password or username is incorrect");
-
-            foreach (User user in users)
-            {
-                if (Hash(password + user.Salt.ToString()) == user.Password)
-                {
-                    return new UserCredentials() 
-                    {
-                        Id = user.UserId,
-                        UserName = user.UserName,
-                        HashedPassword = user.Password,
-                    };
-                }
-            }
-            throw new ArgumentException("Your password or username is incorrect");
-        }
-        private static UserCredentials LogInWithPreHashedPassword(string username, string preHashedPassword)
+        public static UserCredentials LogInWithPreHashedPassword(string username, string preHashedPassword)
         {
             List<User> users = DbContext.Users
                 .Where(u => u.UserName == username)
@@ -139,41 +115,34 @@ namespace BusinessLogicLayer
         {
             return DbContext.UserProfiles.Where(userProfile => userProfile.UserId == userId).Count() == 1;
         }
-        private readonly static string _userCredentialsPath = @$"{Directory.GetCurrentDirectory()}/DiabetesTrackerCredentials.txt";
-        public static int LogIn(string userName, string password, bool doRememberMe)
+        public static UserCredentials LogIn(string userName, string password)
         {
-            UserCredentials userCredentials = LogIn(userName, password);
+            UserCredentials userCredentials;
+            List<User> users = DbContext.Users
+                .Where(u => u.UserName == userName)
+                .ToList();
 
-            if (CheckUserProfile(userCredentials.Id) == false)
-                throw new ArgumentNullException("You need to finish your registration first");
+            if (users.Count == 0)
+                throw new ArgumentException("Your password or username is incorrect");
 
-            if (doRememberMe)
-                AddCookies(userCredentials.Id, userCredentials.UserName, userCredentials.HashedPassword);
-            else
-                RemoveCookies();
+            foreach (User user in users)
+            {
+                if (Hash(password + user.Salt.ToString()) == user.Password)
+                {
+                    userCredentials = new UserCredentials()
+                    {
+                        Id = user.UserId,
+                        UserName = user.UserName,
+                        HashedPassword = user.Password,
+                    };
 
-            return userCredentials.Id;
-        }
-        public static void AddCookies(int userId ,string userName, string hashedPassword)
-        {
-            File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { Id = userId, UserName = userName, HashedPassword = hashedPassword }));
-        }
-        public static int? CheckCookies()
-        {
-            if (!File.Exists(_userCredentialsPath))
-                return null;
+                    if (CheckUserProfile(userCredentials.Id) == false)
+                        throw new ArgumentNullException("You need to finish your registration first");
 
-            string credentials = File.ReadAllText(_userCredentialsPath);
-            UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
-            LogInWithPreHashedPassword(userCredentials.UserName, userCredentials.HashedPassword);
-            return userCredentials.Id;
-        }
-        public static void RemoveCookies()
-        {
-            if (!File.Exists(_userCredentialsPath))
-                return;
-
-            File.Delete(_userCredentialsPath);
+                    return userCredentials;
+                }
+            }
+            throw new ArgumentException("Your password or username is incorrect");
         }
     }
 }

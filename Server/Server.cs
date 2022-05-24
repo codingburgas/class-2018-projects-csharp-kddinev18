@@ -114,6 +114,8 @@ namespace Server
                     client.Client.Send(Encoding.ASCII.GetBytes(response));
                     break;
                 case UserOperation.LogIn:
+                    response = $"{_success}|{Operations.LogIn(args[0], args[1])}";
+                    client.Client.Send(Encoding.ASCII.GetBytes(response));
                     break;
                 case UserOperation.LogInWithCookies:
                     break;

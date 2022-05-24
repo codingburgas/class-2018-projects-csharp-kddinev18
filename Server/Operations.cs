@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Server
 {
@@ -19,5 +21,10 @@ namespace Server
             UserProfileLogic.ConfigureUserProfile(userId, gender, about, country, city);
         }
 
+        public static string LogIn(string userName, string password)
+        {
+            UserCredentials userCredentials = UserLogic.LogIn(userName, password);
+            return JsonSerializer.Serialize(userCredentials);
+        }
     }
 }

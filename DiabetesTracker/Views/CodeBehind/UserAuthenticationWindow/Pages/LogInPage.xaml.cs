@@ -53,20 +53,9 @@ namespace DiabetesTracker.ViewModels
                 Services.LogIn(userName, password, doRememberMe);
                 _userAuthentication.OpenMainWindow();
             }
-            catch (NotFilledRequiredFieldsException exception)
-            {
-                MessageBox.Show(exception.Message, "User Profile data is not entered", MessageBoxButton.OK, MessageBoxImage.Information);
-                _userAuthentication.ShowPage(_userAuthentication.FinishRegistrationPage);
-                return;
-            }
-            catch (WrongCredentialsException exception)
-            {
-                MessageBox.Show(exception.Message, "Wrong Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Fatal error", exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }

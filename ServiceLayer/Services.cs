@@ -1,12 +1,20 @@
 ﻿using BusinessLogicLayer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 
 namespace ServiceLayer
 {
+    public class UserCredentials
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string HashedPassword { get; set; }
+    }
     enum UserOperation
     {
         Register = 0,
@@ -68,6 +76,7 @@ namespace ServiceLayer
     {
         private static byte[] _data = new byte[8192];
         private static TcpClient _tcpClient;
+        private readonly static string _userCredentialsPath = @$"{Directory.GetCurrentDirectory()}/DiabetesTrackerCredentials.txt";
         public static void SetUpConnection()
         {
             _tcpClient = new TcpClient("127.0.0.1", 5400);
@@ -77,6 +86,9 @@ namespace ServiceLayer
             _tcpClient.Client.Shutdown(SocketShutdown.Both);
             _tcpClient.Close();
         }
+
+
+
 
         public static int Register(string userName, string email, string password)
         {
@@ -95,7 +107,6 @@ namespace ServiceLayer
             if (serialisedData.Split('|')[0] == "1")
                 throw new Exception(serialisedData.Split('|')[1]);
         }
-
         public static int LogIn(string userName, string password, bool doRememberMe)
         {
             _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.Register}|{userName}, {password}, {doRememberMe}"));
@@ -104,13 +115,18 @@ namespace ServiceLayer
             if (serialisedData.Split('|')[0] == "1")
                 throw new Exception(serialisedData.Split('|')[1]);
 
-            return int.Parse(serialisedData.Split('|')[1]);
-            //return UserLogic.LogIn(userName, password, doRememberMe);
-        }
+            UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(serialisedData.Split('|')[1]);
 
+            if (doRememberMe == true)
+                AddCookies(userCredentials);
+            else
+                RemoveCookies();
+
+            return userCredentials.Id;
+        }
         public static int? LogInWithCookies()
         {
-            int? userId = UserLogic.CheckCookies();
+            int? userId = CheckCookies();
             if (userId is null)
             {
                 return null;
@@ -118,6 +134,31 @@ namespace ServiceLayer
 
             return userId.Value;
         }
+        public static void AddCookies(UserCredentials userCredentials)
+        {
+            File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { Id = userCredentials.Id, UserName = userCredentials.UserName, HashedPassword = userCredentials.HashedPassword }));
+        }
+        public static int? CheckCookies()
+        {
+            if (!File.Exists(_userCredentialsPath))
+                return null;
+
+            string credentials = File.ReadAllText(_userCredentialsPath);
+            UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
+            //LogInWithPreHashedPassword(userCredentials.UserName, userCredentials.HashedPassword);
+            return userCredentials.Id;
+        }
+        public static void RemoveCookies()
+        {
+            if (!File.Exists(_userCredentialsPath))
+                return;
+
+            File.Delete(_userCredentialsPath);
+        }
+
+
+
+
         public static List<PostInformation> GetPosts(int userId, int skipCount)
         {
             try
