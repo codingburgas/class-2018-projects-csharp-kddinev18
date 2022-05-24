@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace ServiceLayer
 {
@@ -78,9 +79,14 @@ namespace ServiceLayer
 
         public static int Register(string userName, string email, string password)
         {
+            byte[] data = new byte[8192];
             try
             {
-                return UserLogic.Register(userName, email, password);
+                _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.Register}|{userName}, {email}, {password}"));
+                _tcpClient.Client.Receive(data);
+                string serialisedData = Encoding.ASCII.GetString(data);
+                return int.Parse(serialisedData);
+                //return UserLogic.Register(userName, email, password);
             }
             catch (ArgumentException exception)
             {
@@ -289,7 +295,6 @@ namespace ServiceLayer
         public static void Unfavourite(int userId, int PostId)
         {
             FavouritePostLogic.Unfavourite(userId, PostId);
-
         }
     }
 }

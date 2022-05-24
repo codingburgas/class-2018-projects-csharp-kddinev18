@@ -1,4 +1,4 @@
-﻿using BusinessLogicLayer;
+﻿using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace DiabetesTracker.ViewModels
         public FinishRegistrationPage FinishRegistrationPage { get; set; }
         public UserAuthenticationWindow()
         {
-            Master.OpenConnection();
+            Services.SetUpConnection();
             LogInPage = new LogInPage(this);
             RegistrationPage = new RegistrationPage(this);
             FinishRegistrationPage = new FinishRegistrationPage(this);
