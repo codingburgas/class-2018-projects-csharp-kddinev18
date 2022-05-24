@@ -66,6 +66,7 @@ namespace ServiceLayer
     }
     public static class Services
     {
+        private static byte[] _data = new byte[8192];
         private static TcpClient _tcpClient;
         public static void SetUpConnection()
         {
@@ -79,62 +80,32 @@ namespace ServiceLayer
 
         public static int Register(string userName, string email, string password)
         {
-            byte[] data = new byte[8192];
-            try
-            {
-                _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.Register}|{userName}, {email}, {password}"));
-                _tcpClient.Client.Receive(data);
-                string serialisedData = Encoding.ASCII.GetString(data);
-                return int.Parse(serialisedData);
-                //return UserLogic.Register(userName, email, password);
-            }
-            catch (ArgumentException exception)
-            {
-                throw new WrongCredentialsException(exception.Message);
-            }
-            catch (Exception)
-            {
-                throw new Exception("Fatal error!");
-            }
+            _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.Register}|{userName}, {email}, {password}"));
+            _tcpClient.Client.Receive(_data);
+            string serialisedData = Encoding.ASCII.GetString(_data);
+            if (serialisedData.Split('|')[0] == "1")
+                throw new Exception(serialisedData.Split('|')[1]);
+
+            return int.Parse(serialisedData.Split('|')[1]);
         }
         public static void FinishRegistration(int userId, char gender, string about, string country, string city)
         {
-            try
-            {
-                UserProfileLogic.ConfigureUserProfile(userId, gender, about, country, city);
-            }
-            catch (ArgumentNullException exception)
-            {
-                throw new NotFilledRequiredFieldsException(exception.Message);
-            }
-            catch (ArgumentException exception)
-            {
-                throw new WrongCredentialsException(exception.Message);
-            }
-            catch (Exception)
-            {
-                throw new Exception("Fatal error!");
-            }
+            _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.FinishRegistration}|{userId}, {gender}, {about}, {country}, {city}"));
+            string serialisedData = Encoding.ASCII.GetString(_data);
+            if (serialisedData.Split('|')[0] == "1")
+                throw new Exception(serialisedData.Split('|')[1]);
         }
 
         public static int LogIn(string userName, string password, bool doRememberMe)
         {
-            try
-            {
-                return UserLogic.LogIn(userName, password, doRememberMe);
-            }
-            catch (ArgumentNullException exception)
-            {
-                throw new NotFilledRequiredFieldsException(exception.Message);
-            }
-            catch (ArgumentException exception)
-            {
-                throw new WrongCredentialsException(exception.Message);
-            }
-            catch (Exception)
-            {
-                throw new Exception("Fatal error!");
-            }
+            _tcpClient.Client.Send(Encoding.ASCII.GetBytes($"{(int)UserOperation.Register}|{userName}, {password}, {doRememberMe}"));
+            _tcpClient.Client.Receive(_data);
+            string serialisedData = Encoding.ASCII.GetString(_data);
+            if (serialisedData.Split('|')[0] == "1")
+                throw new Exception(serialisedData.Split('|')[1]);
+
+            return int.Parse(serialisedData.Split('|')[1]);
+            //return UserLogic.LogIn(userName, password, doRememberMe);
         }
 
         public static int? LogInWithCookies()
@@ -176,7 +147,7 @@ namespace ServiceLayer
             }
 
         }
-        
+
         public static List<PostInformation> GetFavouritedPosts(int userId, int skipCount)
         {
             try

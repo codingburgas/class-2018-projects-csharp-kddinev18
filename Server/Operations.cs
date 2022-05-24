@@ -13,5 +13,11 @@ namespace Server
         {
             return UserLogic.Register(userName, email, password);
         }
+
+        public static void FinishRegistration(int userId, char gender, string about, string country, string city)
+        {
+            UserProfileLogic.ConfigureUserProfile(userId, gender, about, country, city);
+        }
+
     }
 }

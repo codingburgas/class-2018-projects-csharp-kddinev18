@@ -30,6 +30,9 @@ namespace Server
         private static List<TcpClient> _clients = new List<TcpClient>();
         private static byte[] _data = new byte[1024];
         private int _port;
+        private static int _success = 0;
+        private static int _error = 1;
+
         public Server(int port)
         {
             _port = port;
@@ -79,7 +82,9 @@ namespace Server
             }
             catch (Exception ex)
             {
-                DisconnectClient(client);
+                Console.WriteLine(ex.Message);
+                string response = $"{_error}|{ex.Message}";
+                client.Client.Send(Encoding.ASCII.GetBytes(response));
                 throw;
             }
             client.Client.BeginReceive(_data, 0, _data.Length, SocketFlags.None, new AsyncCallback(ReciveUserInput), client);
@@ -95,14 +100,18 @@ namespace Server
         public static void SendCorrenspodingResponse(TcpClient client, int operationNumber, string[] args)
         {
             UserOperation operation = (UserOperation)operationNumber;
-
+            string response = String.Empty;
             switch (operation)
             {
                 case UserOperation.Register:
                     int userId = Operations.Register(args[0], args[1], args[2]);
-                    client.Client.Send(Encoding.ASCII.GetBytes(userId.ToString()));
+                    response = $"{_success}|{userId}";
+                    client.Client.Send(Encoding.ASCII.GetBytes(response));
                     break;
                 case UserOperation.FinishRegistration:
+                    Operations.FinishRegistration(int.Parse(args[0]), args[1].ToCharArray()[0], args[2], args[3], args[4]);
+                    response = $"{_success}";
+                    client.Client.Send(Encoding.ASCII.GetBytes(response));
                     break;
                 case UserOperation.LogIn:
                     break;
