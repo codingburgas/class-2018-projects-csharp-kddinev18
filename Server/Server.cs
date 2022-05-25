@@ -19,10 +19,11 @@ namespace Server
         GetFavouritedPosts = 5,
         GetBlogPosts = 7,
         GetBlogs = 8,
-        Like = 9,
-        Unlike = 10,
-        Favourite = 11,
-        Unfavourite = 12,
+        GetBlogsByName = 9,
+        Like = 10,
+        Unlike = 11,
+        Favourite = 12,
+        Unfavourite = 13,
     }
     public class Server
     {
@@ -111,38 +112,60 @@ namespace Server
                 case UserOperation.Register:
                     int userId = Operations.Register(args[0], args[1], args[2]);
                     response = $"{_success}|{userId}";
-                    client.Client.Send(Encoding.ASCII.GetBytes(response));
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.FinishRegistration:
                     Operations.FinishRegistration(int.Parse(args[0]), args[1].ToCharArray()[0], args[2], args[3], args[4]);
                     response = $"{_success}";
-                    client.Client.Send(Encoding.ASCII.GetBytes(response));
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.LogIn:
                     response = $"{_success}|{Operations.LogIn(args[0], args[1])}";
-                    client.Client.Send(Encoding.ASCII.GetBytes(response));
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.LogInWithCookies:
                     response = $"{_success}|{Operations.LogInWithCookies(args[0], args[1])}";
-                    client.Client.Send(Encoding.ASCII.GetBytes(response));
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.GetPosts:
                     response = $"{_success}|{Operations.GetPosts(int.Parse(args[0]), int.Parse(args[1]))}";
-                    client.Client.Send(Encoding.ASCII.GetBytes(response));
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.GetFavouritedPosts:
+                    response = $"{_success}|{Operations.GetFavouritePosts(int.Parse(args[0]), int.Parse(args[1]))}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.GetBlogPosts:
+                    response = $"{_success}|{Operations.GetBlogPosts(int.Parse(args[0]), int.Parse(args[1]), int.Parse(args[2]))}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.GetBlogs:
+                    response = $"{_success}|{Operations.GetBlogs(int.Parse(args[0]))}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.GetBlogsByName:
+                    response = $"{_success}|{Operations.GetBlogs(args[0])}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.Like:
+                    Operations.Like(int.Parse(args[0]), int.Parse(args[1]));
+                    response = $"{_success}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.Unlike:
+                    Operations.Unlike(int.Parse(args[0]), int.Parse(args[1]));
+                    response = $"{_success}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.Favourite:
+                    Operations.Favourite(int.Parse(args[0]), int.Parse(args[1]));
+                    response = $"{_success}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.Unfavourite:
+                    Operations.Unfavourite(int.Parse(args[0]), int.Parse(args[1]));
+                    response = $"{_success}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 default:
                     break;

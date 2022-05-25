@@ -9,6 +9,14 @@ using System.Linq;
 
 namespace BusinessLogicLayer
 {
+    public class BlogInformation
+    {
+        public int BlogId { get; set; }
+        public byte[] BlogImage { get; set; }
+        public string BlogName { get; set; }
+        public int PostCount { get; set; }
+        public int FollowingCount { get; set; }
+    }
     public static class BlogLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
@@ -51,40 +59,35 @@ namespace BusinessLogicLayer
             return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == blogId).Select(blog => blog.Posts).First().ToList();
         }
 
-
-        public static List<Tuple<int, byte[], string, int, int>> ArrangeBlogsInformation(int userId)
+        private static List<BlogInformation> LoadBlogInformation(List<Blog> currentUserBlogs)
         {
-            List<Blog> currentUserBlogs = GetCurrentUserBlogs(userId);
-
-            List<Tuple<int, byte[], string, int, int>> currentUserBlogsInformation = new List<Tuple<int, byte[], string, int, int>>();
+            List<BlogInformation> currentUserBlogsInformation = new List<BlogInformation>();
             foreach (Blog currentUserBlog in currentUserBlogs)
             {
-                currentUserBlogsInformation.Add(new Tuple<int, byte[], string, int, int>(
-                    currentUserBlog.BlogId,
-                    currentUserBlog.Image,
-                    currentUserBlog.Name,
-                    GetBlogPostsCount(currentUserBlog.BlogId),
-                    GetBlogFollowingCount(currentUserBlog.BlogId)
-                ));
+                currentUserBlogsInformation.Add(new BlogInformation()
+                {
+                    BlogId = currentUserBlog.BlogId,
+                    BlogImage = currentUserBlog.Image,
+                    BlogName = currentUserBlog.Name,
+                    PostCount = GetBlogPostsCount(currentUserBlog.BlogId),
+                    FollowingCount = GetBlogFollowingCount(currentUserBlog.BlogId)
+                });
             }
             return currentUserBlogsInformation;
         }
-        public static List<Tuple<int, byte[], string, int, int>> ArrangeBlogsInformation(string blogName)
+
+        public static List<BlogInformation> ArrangeBlogsInformation(int userId)
+        {
+            List<Blog> currentUserBlogs = GetCurrentUserBlogs(userId);
+
+            return LoadBlogInformation(currentUserBlogs);
+        }
+
+        public static List<BlogInformation> ArrangeBlogsInformation(string blogName)
         {
             List<Blog> blogsByName = GetBlogsByName(blogName);
 
-            List<Tuple<int, byte[], string, int, int>> blogsInformationByName = new List<Tuple<int, byte[], string, int, int>>();
-            foreach (Blog blogByName in blogsByName)
-            {
-                blogsInformationByName.Add(new Tuple<int, byte[], string, int, int>(
-                    blogByName.BlogId,
-                    blogByName.Image,
-                    blogByName.Name,
-                    GetBlogPostsCount(blogByName.BlogId),
-                    GetBlogFollowingCount(blogByName.BlogId)
-                ));
-            }
-            return blogsInformationByName;
+            return LoadBlogInformation(blogsByName);
         }
     }
 }

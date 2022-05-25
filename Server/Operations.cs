@@ -35,5 +35,45 @@ namespace Server
         {
             return JsonSerializer.Serialize(PostLogic.ArrangePosts(userId, skipCount));
         }
+
+        public static string GetFavouritePosts(int userId, int skipCount)
+        {
+            return JsonSerializer.Serialize(PostLogic.ArrangeFavouritePosts(userId, skipCount));
+        }
+
+        public static string GetBlogPosts(int userId, int skipCount, int blogId)
+        {
+            return JsonSerializer.Serialize(PostLogic.ArrangeBlogPosts(userId, skipCount, blogId));
+        }
+
+        public static string GetBlogs(int userId)
+        {
+            return JsonSerializer.Serialize(BlogLogic.ArrangeBlogsInformation(userId));
+        }
+
+        public static string GetBlogs(string blogName)
+        {
+            return JsonSerializer.Serialize(BlogLogic.ArrangeBlogsInformation(blogName));
+        }
+
+        public static void Like(int userId, int postId)
+        {
+            PostLikeLogic.Like(userId, postId);
+        }
+
+        public static void Unlike(int userId, int postId)
+        {
+            PostLikeLogic.Unlike(userId, postId);
+        }
+
+        public static void Favourite(int userId, int postId)
+        {
+            FavouritePostLogic.Favourite(userId, postId);
+        }
+
+        public static void Unfavourite(int userId, int postId)
+        {
+            FavouritePostLogic.Unfavourite(userId, postId);
+        }
     }
 }

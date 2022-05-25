@@ -118,32 +118,32 @@ namespace DiabetesTracker.ViewModels
         }
         private void LikeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_postsInformation[_index].IsPostLiked == false)
+            if (_postsInformation[_index % _pagingCount].IsPostLiked == false)
             {
                 Services.Like(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 LikeIcon.Foreground = new SolidColorBrush(Colors.DeepSkyBlue);
-                _postsInformation[_index].IsPostLiked = true;
+                _postsInformation[_index % _pagingCount].IsPostLiked = true;
             }
             else
             {
                 Services.Unlike(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 LikeIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-                _postsInformation[_index].IsPostLiked = false;
+                _postsInformation[_index % _pagingCount].IsPostLiked = false;
             }
         }
         private void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_postsInformation[_index].IsPostFavourited == false)
+            if (_postsInformation[_index % _pagingCount].IsPostFavourited == false)
             {
                 Services.Favourite(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 FavouriteIcon.Foreground = new SolidColorBrush(Colors.Red);
-                _postsInformation[_index].IsPostFavourited = true;
+                _postsInformation[_index % _pagingCount].IsPostFavourited = true;
             }
             else
             {
                 Services.Unfavourite(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 FavouriteIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-                _postsInformation[_index].IsPostFavourited = false;
+                _postsInformation[_index % _pagingCount].IsPostFavourited = false;
             }
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)

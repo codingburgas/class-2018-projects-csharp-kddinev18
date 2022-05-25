@@ -28,7 +28,7 @@ namespace DiabetesTracker.ViewModels
         private int _index = 0;
         private int _pagingCount = 10;
         private int _blogId;
-        public BlogTemplatePage(BlogContent BlogContent, int blogId, bool belongsToUser)
+        public BlogTemplatePage(BlogContent BlogContent, int blogId)
         {
             _blogId = blogId;
             _blogContent = BlogContent;
@@ -36,7 +36,7 @@ namespace DiabetesTracker.ViewModels
             DataContext = _blogContent;
             try
             {
-                //_blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, 0, _blogId);
+                _blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, 0, _blogId);
                 SetPost(_index);
             }
             catch (Exception)
@@ -48,7 +48,7 @@ namespace DiabetesTracker.ViewModels
                 CommentButton.IsEnabled = false;
             }
 
-            FollowButton.IsEnabled = belongsToUser;
+            //FollowButton.IsEnabled = belongsToUser;
         }
 
         private void SetPost(int index)
@@ -84,7 +84,7 @@ namespace DiabetesTracker.ViewModels
             }
             if(_index % _pagingCount == 0)
             {
-                //_blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10, _blogId);
+                _blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10, _blogId);
             }
             _index--;
             SetPost(_index % _pagingCount);
@@ -95,7 +95,7 @@ namespace DiabetesTracker.ViewModels
             {
                 try
                 {
-                    //_blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1, _blogId);
+                    _blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1, _blogId);
                 }
                 catch (Exception)
                 {
@@ -107,32 +107,32 @@ namespace DiabetesTracker.ViewModels
         }
         private void LikeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_blogPostsInformation[_index].IsPostLiked == false)
+            if (_blogPostsInformation[_index % _pagingCount].IsPostLiked == false)
             {
                 Services.Like(_blogPostsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 LikeIcon.Foreground = new SolidColorBrush(Colors.DeepSkyBlue);
-                _blogPostsInformation[_index].IsPostLiked = true;
+                _blogPostsInformation[_index % _pagingCount].IsPostLiked = true;
             }
             else
             {
                 Services.Unlike(_blogPostsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 LikeIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-                _blogPostsInformation[_index].IsPostLiked = false;
+                _blogPostsInformation[_index % _pagingCount].IsPostLiked = false;
             }
         }
         private void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_blogPostsInformation[_index].IsPostFavourited == false)
+            if (_blogPostsInformation[_index % _pagingCount].IsPostFavourited == false)
             {
                 Services.Favourite(_blogPostsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 FavouriteIcon.Foreground = new SolidColorBrush(Colors.Red);
-                _blogPostsInformation[_index].IsPostFavourited = true;
+                _blogPostsInformation[_index % _pagingCount].IsPostFavourited = true;
             }
             else
             {
                 Services.Unfavourite(_blogPostsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 FavouriteIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-                _blogPostsInformation[_index].IsPostFavourited = false;
+                _blogPostsInformation[_index % _pagingCount].IsPostFavourited = false;
             }
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)

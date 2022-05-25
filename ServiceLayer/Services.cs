@@ -19,10 +19,11 @@ namespace ServiceLayer
         GetFavouritedPosts = 5,
         GetBlogPosts = 7,
         GetBlogs = 8,
-        Like = 9,
-        Unlike = 10,
-        Favourite = 11,
-        Unfavourite = 12,
+        GetBlogsByName = 9,
+        Like = 10,
+        Unlike = 11,
+        Favourite = 12,
+        Unfavourite = 13,
     }
     public class UserCredentials
     {
@@ -49,7 +50,7 @@ namespace ServiceLayer
     }
     public static class Services
     {
-        private static byte[] _data = new byte[8388608];
+        private static byte[] _data = new byte[16777216];
         private static TcpClient _tcpClient;
         private readonly static string _userCredentialsPath = @$"{Directory.GetCurrentDirectory()}/DiabetesTrackerCredentials.txt";
         public static void SetUpConnection()
@@ -71,7 +72,9 @@ namespace ServiceLayer
         }
         private static string ClientToServerComunication(string message)
         {
-            _tcpClient.Client.Send(Encoding.ASCII.GetBytes(message));
+            FlushBuffer();
+
+            _tcpClient.Client.Send(Encoding.UTF8.GetBytes(message));
             _tcpClient.Client.Receive(_data);
 
             string serialisedData = FormatData();
@@ -85,19 +88,16 @@ namespace ServiceLayer
 
         public static int Register(string userName, string email, string password)
         {
-            FlushBuffer();
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.Register}|{userName}, {email}, {password}");
 
             return int.Parse(serialisedData.Split('|')[1]);
         }
         public static void FinishRegistration(int userId, char gender, string about, string country, string city)
         {
-            FlushBuffer();
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.FinishRegistration}|{userId}, {gender}, {about}, {country}, {city}");
         }
         public static int LogIn(string userName, string password, bool doRememberMe)
         {
-            FlushBuffer();
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.LogIn}|{userName}, {password}");
 
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(serialisedData.Split('|')[1]);
@@ -112,13 +112,11 @@ namespace ServiceLayer
 
         public static int? CheckCookies()
         {
-            FlushBuffer();
             if (!File.Exists(_userCredentialsPath))
                 return null;
 
             string credentials = File.ReadAllText(_userCredentialsPath);
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
-            _tcpClient.Client.Receive(_data);
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.LogInWithCookies}|{userCredentials.UserName}, {userCredentials.HashedPassword}");
             if (int.Parse(serialisedData.Split('|')[1]) != userCredentials.Id)
                 throw new Exception("Fatal error");
@@ -153,130 +151,60 @@ namespace ServiceLayer
 
         public static List<PostInformation> GetPosts(int userId, int skipCount)
         {
-            FlushBuffer();
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetPosts}|{userId}, {skipCount}");
 
             return JsonSerializer.Deserialize<List<PostInformation>>(serialisedData.Split('|')[1]);
         }
 
-        /*public static List<PostInformation> GetFavouritedPosts(int userId, int skipCount)
+        public static List<PostInformation> GetFavouritedPosts(int userId, int skipCount)
         {
-            try
-            {
-                List<Tuple<int, string, string, byte[], bool, bool>> posts = PostLogic.ArrangeFavouritePosts(userId, skipCount);
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetFavouritedPosts}|{userId}, {skipCount}");
 
-                List<PostInformation> postsInformation = new List<PostInformation>();
+            return JsonSerializer.Deserialize<List<PostInformation>>(serialisedData.Split('|')[1]);
+        }
 
-                foreach (Tuple<int, string, string, byte[], bool, bool> post in posts)
-                {
-                    postsInformation.Add(new PostInformation()
-                    {
-                        PostId = post.Item1,
-                        BlogName = post.Item2,
-                        PostContent = post.Item3,
-                        PostImage = post.Item4,
-                        IsPostLiked = post.Item5,
-                        IsPostFavourited = post.Item6
-                    });
-                }
-
-                return postsInformation;
-            }
-            catch (ArgumentNullException exceprion)
-            {
-                throw new NoContentException(exceprion.Message);
-            }
-        }*/
-
-        /*public static List<PostInformation> GetBlogPosts(int userId, int skipCount, int blodId)
+        public static List<PostInformation> GetBlogPosts(int userId, int skipCount, int blodId)
         {
-            try
-            {
-                List<Tuple<int, string, string, byte[], bool, bool>> posts = PostLogic.ArrangeBlogPosts(userId, skipCount, blodId);
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetBlogPosts}|{userId}, {skipCount}, {blodId}");
 
-                List<PostInformation> postsInformation = new List<PostInformation>();
-
-                foreach (Tuple<int, string, string, byte[], bool, bool> post in posts)
-                {
-                    postsInformation.Add(new PostInformation()
-                    {
-                        PostId = post.Item1,
-                        BlogName = post.Item2,
-                        PostContent = post.Item3,
-                        PostImage = post.Item4,
-                        IsPostLiked = post.Item5,
-                        IsPostFavourited = post.Item6
-                    });
-                }
-
-                return postsInformation;
-            }
-            catch (ArgumentNullException exceprion)
-            {
-                throw new NoContentException(exceprion.Message);
-            }
-        }*/
+            return JsonSerializer.Deserialize<List<PostInformation>>(serialisedData.Split('|')[1]);
+        }
 
         public static List<BlogInformation> GetBlogs(int userId)
         {
-            List<Tuple<int, byte[], string, int, int>> blogs = BlogLogic.ArrangeBlogsInformation(userId);
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetBlogs}|{userId}");
 
-            List<BlogInformation> blogInformation = new List<BlogInformation>();
-
-            foreach (Tuple<int, byte[], string, int, int> blog in blogs)
-            {
-                blogInformation.Add(new BlogInformation()
-                {
-                    BlogId = blog.Item1,
-                    BlogImage = blog.Item2,
-                    BlogName = blog.Item3,
-                    PostCount = blog.Item4,
-                    FollowingCount = blog.Item5,
-                });
-            }
-
-            return blogInformation;
+            return JsonSerializer.Deserialize<List<BlogInformation>>(serialisedData.Split("|")[1]);
         }
 
         public static List<BlogInformation> GetBlogs(string blogName)
         {
-            List<Tuple<int, byte[], string, int, int>> blogs = BlogLogic.ArrangeBlogsInformation(blogName);
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetBlogsByName}|{blogName}");
 
-            List<BlogInformation> blogInformation = new List<BlogInformation>();
-
-            foreach (Tuple<int, byte[], string, int, int> blog in blogs)
-            {
-                blogInformation.Add(new BlogInformation()
-                {
-                    BlogId = blog.Item1,
-                    BlogImage = blog.Item2,
-                    BlogName = blog.Item3,
-                    PostCount = blog.Item4,
-                    FollowingCount = blog.Item5,
-                });
-            }
-
-            return blogInformation;
+            return JsonSerializer.Deserialize<List<BlogInformation>>(serialisedData.Split("|")[1]);
         }
 
         public static void Like(int userId, int PostId)
         {
-            PostLikeLogic.Like(userId, PostId);
+            ClientToServerComunication($"{(int)UserOperation.Like}|{userId}, {PostId}");
         }
 
         public static void Unlike(int userId, int PostId)
         {
-            PostLikeLogic.Unlike(userId, PostId);
+            ClientToServerComunication($"{(int)UserOperation.Unlike}|{userId}, {PostId}");
+
         }
 
         public static void Favourite(int userId, int PostId)
         {
-            FavouritePostLogic.Favourite(userId, PostId);
+            ClientToServerComunication($"{(int)UserOperation.Favourite}|{userId}, {PostId}");
+
         }
 
         public static void Unfavourite(int userId, int PostId)
         {
-            FavouritePostLogic.Unfavourite(userId, PostId);
+            ClientToServerComunication($"{(int)UserOperation.Unfavourite}|{userId}, {PostId}");
+
         }
     }
 }
