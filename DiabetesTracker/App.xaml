@@ -82,6 +82,9 @@
                         <Setter Property="Background" Value="#358c57"/>
                         <Setter Property="Foreground" Value="#FFFFFF"/>
                     </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="#999999"/>
+                    </Trigger>
                 </Style.Triggers>
             </Style>
 
@@ -158,6 +161,9 @@
                         <Setter Property="Background" Value="#358c57"/>
                         <Setter Property="Foreground" Value="#FFFFFF"/>
                     </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="#999999"/>
+                    </Trigger>
                 </Style.Triggers>
             </Style>
 
@@ -198,6 +204,9 @@
                         <Setter Property="Background" Value="#358c57"/>
                         <Setter Property="Foreground" Value="#FFFFFF"/>
                     </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="#999999"/>
+                    </Trigger>
                 </Style.Triggers>
             </Style>
 
@@ -231,6 +240,9 @@
                     </Trigger>
                     <Trigger Property="IsMouseCaptured" Value="True">
                         <Setter Property="Background" Value="#CCCCCC"/>
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="#999999"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>

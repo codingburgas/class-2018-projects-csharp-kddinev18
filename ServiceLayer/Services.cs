@@ -157,32 +157,6 @@ namespace ServiceLayer
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetPosts}|{userId}, {skipCount}");
 
             return JsonSerializer.Deserialize<List<PostInformation>>(serialisedData.Split('|')[1]);
-            /*try
-            {
-                List<Tuple<int, string, string, byte[], bool, bool>> posts = PostLogic.ArrangePosts(userId, skipCount);
-
-                List<PostInformation> postsInformation = new List<PostInformation>();
-
-                foreach (Tuple<int, string, string, byte[], bool, bool> post in posts)
-                {
-                    postsInformation.Add(new PostInformation()
-                    {
-                        PostId = post.Item1,
-                        BlogName = post.Item2,
-                        PostContent = post.Item3,
-                        PostImage = post.Item4,
-                        IsPostLiked = post.Item5,
-                        IsPostFavourited = post.Item6
-                    });
-                }
-
-                return postsInformation;
-            }
-            catch (ArgumentNullException exceprion)
-            {
-                throw new NoContentException(exceprion.Message);
-            }*/
-
         }
 
         /*public static List<PostInformation> GetFavouritedPosts(int userId, int skipCount)

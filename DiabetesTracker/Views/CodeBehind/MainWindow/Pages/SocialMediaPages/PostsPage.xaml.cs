@@ -38,7 +38,7 @@ namespace DiabetesTracker.ViewModels
                 _postsInformation = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, 0);
                 SetPost(_index);
             }
-            catch (NoContentException ex)
+            catch (Exception)
             {
                 PrevButton.IsEnabled = false;
                 NextButton.IsEnabled = false;
@@ -108,7 +108,7 @@ namespace DiabetesTracker.ViewModels
                 {
                     _postsInformation = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1);
                 }
-                catch (NoContentException)
+                catch (Exception)
                 {
                     return;
                 }
