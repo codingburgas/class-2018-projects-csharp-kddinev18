@@ -23,13 +23,17 @@ namespace Server
 
         public static string LogIn(string userName, string password)
         {
-            UserCredentials userCredentials = UserLogic.LogIn(userName, password);
-            return JsonSerializer.Serialize(userCredentials);
+            return JsonSerializer.Serialize(UserLogic.LogIn(userName, password));
         }
 
-        public static void LogInWithCookies(string userName, string password)
+        public static int LogInWithCookies(string userName, string password)
         {
-            UserLogic.LogInWithPreHashedPassword(userName, password);
+            return UserLogic.LogInWithPreHashedPassword(userName, password);
+        }
+
+        public static string GetPosts(int userId, int skipCount)
+        {
+            return JsonSerializer.Serialize(PostLogic.ArrangePosts(userId, skipCount));
         }
     }
 }

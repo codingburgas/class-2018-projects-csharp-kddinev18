@@ -9,12 +9,6 @@ using System.Text.Json;
 
 namespace ServiceLayer
 {
-    public class UserCredentials
-    {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string HashedPassword { get; set; }
-    }
     enum UserOperation
     {
         Register = 0,
@@ -30,31 +24,12 @@ namespace ServiceLayer
         Favourite = 11,
         Unfavourite = 12,
     }
-    public class WrongCredentialsException : Exception
+    public class UserCredentials
     {
-        public WrongCredentialsException() { }
-
-        public WrongCredentialsException(string message) : base(message) { }
-
-        public WrongCredentialsException(string message, Exception inner) : base(message, inner) { }
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string HashedPassword { get; set; }
     }
-    public class NotFilledRequiredFieldsException : Exception
-    {
-        public NotFilledRequiredFieldsException() { }
-
-        public NotFilledRequiredFieldsException(string message) : base(message) { }
-
-        public NotFilledRequiredFieldsException(string message, Exception inner) : base(message, inner) { }
-    }
-    public class NoContentException : Exception
-    {
-        public NoContentException() { }
-
-        public NoContentException(string message) : base(message) { }
-
-        public NoContentException(string message, Exception inner) : base(message, inner) { }
-    }
-
     public class PostInformation
     {
         public int PostId { get; set; }
@@ -74,7 +49,7 @@ namespace ServiceLayer
     }
     public static class Services
     {
-        private static byte[] _data = new byte[8192];
+        private static byte[] _data = new byte[8388608];
         private static TcpClient _tcpClient;
         private readonly static string _userCredentialsPath = @$"{Directory.GetCurrentDirectory()}/DiabetesTrackerCredentials.txt";
         public static void SetUpConnection()
@@ -90,7 +65,7 @@ namespace ServiceLayer
         {
             return Encoding.ASCII.GetString(_data).Replace("\0", String.Empty);
         }
-        public static void ResetBuffer()
+        public static void FlushBuffer()
         {
             Array.Clear(_data, 0, _data.Length);
         }
@@ -98,6 +73,7 @@ namespace ServiceLayer
         {
             _tcpClient.Client.Send(Encoding.ASCII.GetBytes(message));
             _tcpClient.Client.Receive(_data);
+
             string serialisedData = FormatData();
             if (serialisedData.Split('|')[0] == "1")
                 throw new Exception(serialisedData.Split('|')[1]);
@@ -109,20 +85,20 @@ namespace ServiceLayer
 
         public static int Register(string userName, string email, string password)
         {
-            ResetBuffer();
+            FlushBuffer();
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.Register}|{userName}, {email}, {password}");
 
             return int.Parse(serialisedData.Split('|')[1]);
         }
         public static void FinishRegistration(int userId, char gender, string about, string country, string city)
         {
-            ResetBuffer();
+            FlushBuffer();
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.FinishRegistration}|{userId}, {gender}, {about}, {country}, {city}");
         }
         public static int LogIn(string userName, string password, bool doRememberMe)
         {
-            ResetBuffer();
-            string serialisedData = ClientToServerComunication($"{(int)UserOperation.LogIn}|{userName}, {password}, {doRememberMe}");
+            FlushBuffer();
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.LogIn}|{userName}, {password}");
 
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(serialisedData.Split('|')[1]);
 
@@ -136,7 +112,7 @@ namespace ServiceLayer
 
         public static int? CheckCookies()
         {
-            ResetBuffer();
+            FlushBuffer();
             if (!File.Exists(_userCredentialsPath))
                 return null;
 
@@ -144,6 +120,8 @@ namespace ServiceLayer
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
             _tcpClient.Client.Receive(_data);
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.LogInWithCookies}|{userCredentials.UserName}, {userCredentials.HashedPassword}");
+            if (int.Parse(serialisedData.Split('|')[1]) != userCredentials.Id)
+                throw new Exception("Fatal error");
 
             return userCredentials.Id;
         }
@@ -175,7 +153,11 @@ namespace ServiceLayer
 
         public static List<PostInformation> GetPosts(int userId, int skipCount)
         {
-            try
+            FlushBuffer();
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetPosts}|{userId}, {skipCount}");
+
+            return JsonSerializer.Deserialize<List<PostInformation>>(serialisedData.Split('|')[1]);
+            /*try
             {
                 List<Tuple<int, string, string, byte[], bool, bool>> posts = PostLogic.ArrangePosts(userId, skipCount);
 
@@ -199,11 +181,11 @@ namespace ServiceLayer
             catch (ArgumentNullException exceprion)
             {
                 throw new NoContentException(exceprion.Message);
-            }
+            }*/
 
         }
 
-        public static List<PostInformation> GetFavouritedPosts(int userId, int skipCount)
+        /*public static List<PostInformation> GetFavouritedPosts(int userId, int skipCount)
         {
             try
             {
@@ -230,9 +212,9 @@ namespace ServiceLayer
             {
                 throw new NoContentException(exceprion.Message);
             }
-        }
+        }*/
 
-        public static List<PostInformation> GetBlogPosts(int userId, int skipCount, int blodId)
+        /*public static List<PostInformation> GetBlogPosts(int userId, int skipCount, int blodId)
         {
             try
             {
@@ -259,7 +241,7 @@ namespace ServiceLayer
             {
                 throw new NoContentException(exceprion.Message);
             }
-        }
+        }*/
 
         public static List<BlogInformation> GetBlogs(int userId)
         {

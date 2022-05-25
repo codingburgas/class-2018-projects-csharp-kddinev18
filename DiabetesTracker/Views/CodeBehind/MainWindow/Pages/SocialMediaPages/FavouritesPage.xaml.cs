@@ -33,7 +33,7 @@ namespace DiabetesTracker.ViewModels
             DataContext = _favouritePostInformation;
             try
             {
-                _favouritePostsInformation = Services.GetFavouritedPosts(CurrentUserInformation.CurrentUserId.Value, 0);
+                //_favouritePostsInformation = Services.GetFavouritedPosts(CurrentUserInformation.CurrentUserId.Value, 0);
                 SetPost(_index);
             }
             catch (NoContentException ex)
@@ -78,7 +78,7 @@ namespace DiabetesTracker.ViewModels
             }
             if (_index % _pagingCount == 0)
             {
-                _favouritePostsInformation = Services.GetFavouritedPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10);
+                //_favouritePostsInformation = Services.GetFavouritedPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10);
             }
             _index--;
             SetPost(_index % _pagingCount);
@@ -89,7 +89,7 @@ namespace DiabetesTracker.ViewModels
             {
                 try
                 {
-                    _favouritePostsInformation = Services.GetFavouritedPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1);
+                    //_favouritePostsInformation = Services.GetFavouritedPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1);
                 }
                 catch (NoContentException)
                 {

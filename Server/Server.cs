@@ -79,15 +79,20 @@ namespace Server
                 }
                 string data = Encoding.ASCII.GetString(_data).Replace("\0", String.Empty);
                 SendCorrenspodingResponse(client, int.Parse(data.Split('|')[0]), data.Split('|')[1].Split(", "));
+                FlushBuffer();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 string response = $"{_error}|{ex.Message}";
                 client.Client.Send(Encoding.ASCII.GetBytes(response));
-                throw;
             }
             client.Client.BeginReceive(_data, 0, _data.Length, SocketFlags.None, new AsyncCallback(ReciveUserInput), client);
+        }
+
+        public static void FlushBuffer()
+        {
+            Array.Clear(_data, 0, _data.Length);
         }
 
         public static void DisconnectClient(TcpClient client)
@@ -118,10 +123,12 @@ namespace Server
                     client.Client.Send(Encoding.ASCII.GetBytes(response));
                     break;
                 case UserOperation.LogInWithCookies:
-                    response = $"{_success}";
+                    response = $"{_success}|{Operations.LogInWithCookies(args[0], args[1])}";
                     client.Client.Send(Encoding.ASCII.GetBytes(response));
                     break;
                 case UserOperation.GetPosts:
+                    response = $"{_success}|{Operations.GetPosts(int.Parse(args[0]), int.Parse(args[1]))}";
+                    client.Client.Send(Encoding.ASCII.GetBytes(response));
                     break;
                 case UserOperation.GetFavouritedPosts:
                     break;

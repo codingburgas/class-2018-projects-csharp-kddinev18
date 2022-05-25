@@ -36,7 +36,7 @@ namespace DiabetesTracker.ViewModels
             DataContext = _blogContent;
             try
             {
-                _blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, 0, _blogId);
+                //_blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, 0, _blogId);
                 SetPost(_index);
             }
             catch (NoContentException)
@@ -84,7 +84,7 @@ namespace DiabetesTracker.ViewModels
             }
             if(_index % _pagingCount == 0)
             {
-                _blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10, _blogId);
+                //_blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10, _blogId);
             }
             _index--;
             SetPost(_index % _pagingCount);
@@ -95,7 +95,7 @@ namespace DiabetesTracker.ViewModels
             {
                 try
                 {
-                    _blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1, _blogId);
+                    //_blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1, _blogId);
                 }
                 catch (NoContentException)
                 {
