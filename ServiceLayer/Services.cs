@@ -25,6 +25,8 @@ namespace ServiceLayer
         Favourite = 12,
         Unfavourite = 13,
         CheckIfBlogBelongsToUser = 14,
+        Follow = 15,
+        Unfollow = 16,
     }
     public class UserCredentials
     {
@@ -48,6 +50,7 @@ namespace ServiceLayer
         public string BlogName { get; set; }
         public int PostCount { get; set; }
         public int FollowingCount { get; set; }
+        public bool IsFollowed { get; set; }
     }
     public static class Services
     {
@@ -178,9 +181,9 @@ namespace ServiceLayer
             return JsonSerializer.Deserialize<List<BlogInformation>>(serialisedData.Split("|")[1]);
         }
 
-        public static List<BlogInformation> GetBlogs(string blogName)
+        public static List<BlogInformation> GetBlogs(int userId, string blogName)
         {
-            string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetBlogsByName}|{blogName}");
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetBlogsByName}|{userId}, {blogName}");
 
             return JsonSerializer.Deserialize<List<BlogInformation>>(serialisedData.Split("|")[1]);
         }
@@ -210,6 +213,16 @@ namespace ServiceLayer
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.CheckIfBlogBelongsToUser}|{userId}, {blogId}");
 
             return bool.Parse(serialisedData.Split('|')[1]);
+        }
+
+        public static void Follow(int userId, int blogId)
+        {
+            ClientToServerComunication($"{(int)UserOperation.Follow}|{userId}, {blogId}");
+        }
+
+        public static void Unfollow(int userId, int blogId)
+        {
+            ClientToServerComunication($"{(int)UserOperation.Unfollow}|{userId}, {blogId}");
         }
     }
 }

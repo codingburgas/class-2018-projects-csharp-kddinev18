@@ -16,6 +16,7 @@ namespace BusinessLogicLayer
         public string BlogName { get; set; }
         public int PostCount { get; set; }
         public int FollowingCount { get; set; }
+        public bool IsFollowed { get; set; }
     }
     public static class BlogLogic
     {
@@ -57,41 +58,41 @@ namespace BusinessLogicLayer
         {
             return DbContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == blogId).Count();
         }
-
         public static ICollection<Post> GetAllPosts(int blogId)
         {
             return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == blogId).Select(blog => blog.Posts).First().ToList();
         }
 
-        private static List<BlogInformation> LoadBlogInformation(List<Blog> currentUserBlogs)
+        private static List<BlogInformation> LoadBlogInformation(List<Blog> Blogs, int userId)
         {
-            List<BlogInformation> currentUserBlogsInformation = new List<BlogInformation>();
-            foreach (Blog currentUserBlog in currentUserBlogs)
+            List<BlogInformation> BlogsInformation = new List<BlogInformation>();
+            foreach (Blog Blog in Blogs)
             {
-                currentUserBlogsInformation.Add(new BlogInformation()
+                BlogsInformation.Add(new BlogInformation()
                 {
-                    BlogId = currentUserBlog.BlogId,
-                    BlogImage = currentUserBlog.Image,
-                    BlogName = currentUserBlog.Name,
-                    PostCount = GetBlogPostsCount(currentUserBlog.BlogId),
-                    FollowingCount = GetBlogFollowingCount(currentUserBlog.BlogId)
+                    BlogId = Blog.BlogId,
+                    BlogImage = Blog.Image,
+                    BlogName = Blog.Name,
+                    PostCount = GetBlogPostsCount(Blog.BlogId),
+                    FollowingCount = GetBlogFollowingCount(Blog.BlogId),
+                    IsFollowed = FollowingBlogLogic.IsCurrentUserFollowed(Blog.BlogId, userId)
                 });
             }
-            return currentUserBlogsInformation;
+            return BlogsInformation;
         }
 
         public static List<BlogInformation> ArrangeBlogsInformation(int userId)
         {
             List<Blog> currentUserBlogs = GetCurrentUserBlogs(userId);
 
-            return LoadBlogInformation(currentUserBlogs);
+            return LoadBlogInformation(currentUserBlogs, userId);
         }
 
-        public static List<BlogInformation> ArrangeBlogsInformation(string blogName)
+        public static List<BlogInformation> ArrangeBlogsInformation(int userId, string blogName)
         {
             List<Blog> blogsByName = GetBlogsByName(blogName);
 
-            return LoadBlogInformation(blogsByName);
+            return LoadBlogInformation(blogsByName, userId);
         }
     }
 }

@@ -52,6 +52,7 @@ namespace DiabetesTracker.ViewModels
         }
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
+            Services.RemoveConnection();
             Application.Current.Shutdown();
         }
     }

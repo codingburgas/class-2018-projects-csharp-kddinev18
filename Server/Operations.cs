@@ -51,9 +51,9 @@ namespace Server
             return JsonSerializer.Serialize(BlogLogic.ArrangeBlogsInformation(userId));
         }
 
-        public static string GetBlogs(string blogName)
+        public static string GetBlogs(int userId, string blogName)
         {
-            return JsonSerializer.Serialize(BlogLogic.ArrangeBlogsInformation(blogName));
+            return JsonSerializer.Serialize(BlogLogic.ArrangeBlogsInformation(userId, blogName));
         }
 
         public static void Like(int userId, int postId)
@@ -79,6 +79,16 @@ namespace Server
         public static string BelogsToUSer(int userId, int postId)
         {
             return BlogLogic.BelogsToUser(userId, postId).ToString();
+        }
+
+        public static void Follow(int userId, int blogId)
+        {
+            FollowingBlogLogic.Follow(userId, blogId);
+        }
+
+        public static void Unfollow(int userId, int blogId)
+        {
+            FollowingBlogLogic.Unfollow(userId, blogId);
         }
     }
 }

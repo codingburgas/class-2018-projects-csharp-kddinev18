@@ -20,10 +20,10 @@
                 <userControls:MenuButton MenuButtonIcon="Home" MenuButtonText="Home"/>
                 <userControls:MenuButton MenuButtonIcon="BloodBag" MenuButtonText="BoolSugar"/>
                 <userControls:MenuButton MenuButtonIcon="Reminder" MenuButtonText="Reminders"/>
-                <userControls:MenuButton MenuButtonIcon="Receipt" MenuButtonText="Recipes"/>
-                <userControls:MenuButton MenuButtonIcon="Menu" MenuButtonText="Menus"/>
+                <userControls:MenuButton MenuButtonIcon="Receipt" MenuButtonText="Menus"/>
                 <userControls:MenuButton MenuButtonIcon="Network" MenuButtonText="SocialMedia"/>
-                <userControls:MenuButton MenuButtonIcon="ExitRun" MenuButtonText="Exit"/>
+                <userControls:MenuButton MouseDoubleClick="LogOutButton_MouseDoubleClick" MenuButtonIcon="Logout" MenuButtonText="LogOut"/>
+                <userControls:MenuButton MouseDoubleClick="ExitButton_MouseDoubleClick" MenuButtonIcon="ExitRun" MenuButtonText="Exit"/> 
                 <!--
 
                 <Button Style="{StaticResource menuButton}">

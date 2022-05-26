@@ -47,6 +47,7 @@ namespace DiabetesTracker.ViewModels
         //Event handlers
         private void PostsButton_Click(object sender, RoutedEventArgs e)
         {
+            PostsPage = new PostsPage();
             BlogsPage = null;
             FavouritesPage = null;
             FollowingPage = null;

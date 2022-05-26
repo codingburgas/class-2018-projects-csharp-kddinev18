@@ -25,6 +25,8 @@ namespace Server
         Favourite = 12,
         Unfavourite = 13,
         CheckIfBlogBelongsToUser = 14,
+        Follow = 15,
+        Unfollow = 16,
     }
     public class Server
     {
@@ -85,7 +87,6 @@ namespace Server
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
                 string response = $"{_error}|{ex.Message}";
                 client.Client.Send(Encoding.ASCII.GetBytes(response));
             }
@@ -145,7 +146,7 @@ namespace Server
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.GetBlogsByName:
-                    response = $"{_success}|{Operations.GetBlogs(args[0])}";
+                    response = $"{_success}|{Operations.GetBlogs(int.Parse(args[0]), args[1])}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.Like:
@@ -170,6 +171,16 @@ namespace Server
                     break;
                 case UserOperation.CheckIfBlogBelongsToUser:
                     response = $"{_success}|{Operations.BelogsToUSer(int.Parse(args[0]), int.Parse(args[1]))}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.Follow:
+                    Operations.Follow(int.Parse(args[0]), int.Parse(args[1]));
+                    response = $"{_success}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.Unfollow:
+                    Operations.Unfollow(int.Parse(args[0]), int.Parse(args[1]));
+                    response = $"{_success}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 default:

@@ -22,6 +22,16 @@ namespace BusinessLogicLayer
 
             DbContext.SaveChanges();
         }
+        public static void Unfollow(int blogId, int userId)
+        {
+            DbContext.FollowingBlogs.Remove(DbContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == blogId && followingBlog.UserId == userId).First());
+
+            DbContext.SaveChanges();
+        }
+        public static bool IsCurrentUserFollowed(int userId, int blogId)
+        {
+            return DbContext.FollowingBlogs.Where(followingBlog => followingBlog.UserId == userId && followingBlog.BlogId == blogId).ToList().Count == 1;
+        }
         public static ICollection<Blog> GetFollowingBlogs(int userId)
         {
             return DbContext.FollowingBlogs.Where(followingBlogs => followingBlogs.UserId == userId).Include(followingBlogs => followingBlogs.Blog).Select(followingBlogs => followingBlogs.Blog).ToList();

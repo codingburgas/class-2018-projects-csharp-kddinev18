@@ -14,5 +14,6 @@ namespace DiabetesTracker.Models
         public string BlogName { get; set; }
         public int PostCount { get; set; }
         public int FollowingCount { get; set; }
+        public bool IsFollowed { get; set; }
     }
 }

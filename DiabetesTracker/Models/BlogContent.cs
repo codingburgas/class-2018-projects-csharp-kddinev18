@@ -9,11 +9,14 @@ using System.Windows.Media.Imaging;
 
 namespace DiabetesTracker.Models
 {
-    public  class BlogContent : INotifyPropertyChanged
+    public class BlogContent : INotifyPropertyChanged
     {
+        public bool BelongsToUser { get; set; }
+        public bool IsFollowed { get; set; }
+
         private string _blogName;
-        public string BlogName 
-        { 
+        public string BlogName
+        {
             get
             {
                 return this._blogName;

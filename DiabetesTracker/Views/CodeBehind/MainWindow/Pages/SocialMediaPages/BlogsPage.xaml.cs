@@ -48,13 +48,14 @@ namespace DiabetesTracker.ViewModels
                     BlogName = currentUserblogInformation.BlogName,
                     PostCount = currentUserblogInformation.PostCount,
                     FollowingCount = currentUserblogInformation.FollowingCount,
+                    IsFollowed = currentUserblogInformation.IsFollowed,
                 });
             }
         }
         private void LoadBlogsInformation(string blogName)
         {
-            SearchBlogsInformation = new ObservableCollection<CurrentBlogInformation>();
-            List<BlogInformation> searchBlogsInformation = Services.GetBlogs(blogName);
+            SearchBlogsInformation.Clear();
+            List<BlogInformation> searchBlogsInformation = Services.GetBlogs(CurrentUserInformation.CurrentUserId.Value,blogName);
             foreach (BlogInformation searchBlogInformation in searchBlogsInformation)
             {
                 SearchBlogsInformation.Add(new CurrentBlogInformation()
@@ -64,6 +65,7 @@ namespace DiabetesTracker.ViewModels
                     BlogName = searchBlogInformation.BlogName,
                     PostCount = searchBlogInformation.PostCount,
                     FollowingCount = searchBlogInformation.FollowingCount,
+                    IsFollowed = searchBlogInformation.IsFollowed,
                 });
             }
         }
@@ -73,7 +75,7 @@ namespace DiabetesTracker.ViewModels
         {
             if (BlogName.TextBox.Text == "")
             {
-                SearchBlogsInformation = new ObservableCollection<CurrentBlogInformation>();
+                SearchBlogsInformation.Clear();
             }
             else
             {
@@ -91,8 +93,10 @@ namespace DiabetesTracker.ViewModels
                 BlogImage = blogInformation.BlogImage,
                 BlogTotalFollowers = blogInformation.FollowingCount,
                 BlogTotalPosts = blogInformation.PostCount,
+                BelongsToUser = Services.BelongsToUser(CurrentUserInformation.CurrentUserId.Value, blogInformation.BlogId),
+                IsFollowed = blogInformation.IsFollowed
             };
-            _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent, blogInformation.BlogId, Services.BelongsToUser(CurrentUserInformation.CurrentUserId.Value, blogInformation.BlogId)));
+            _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent, blogInformation.BlogId));
         }
     }
 }

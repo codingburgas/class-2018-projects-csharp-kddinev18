@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +35,15 @@ namespace DiabetesTracker.ViewModels
         }
 
         //Event handlers
-        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        private void LogOutButton_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            Services.RemoveCookies();
+            new UserAuthenticationWindow().Show();
+            this.Close();
+        }
+        private void ExitButton_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Services.RemoveConnection();
             Application.Current.Shutdown();
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

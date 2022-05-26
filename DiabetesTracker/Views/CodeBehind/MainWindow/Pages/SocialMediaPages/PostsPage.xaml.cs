@@ -97,6 +97,7 @@ namespace DiabetesTracker.ViewModels
             {
                 _postsInformation = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10);
             }
+            NextButton.IsEnabled = true;
             _index--;
             SetPost(_index % _pagingCount);
         }
@@ -110,6 +111,7 @@ namespace DiabetesTracker.ViewModels
                 }
                 catch (Exception)
                 {
+                    NextButton.IsEnabled = false;
                     return;
                 }
             }

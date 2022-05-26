@@ -35,7 +35,7 @@
             <Border Grid.Row="0" Style="{StaticResource infoCard}">
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=PostContent}" Style="{StaticResource postUserText}" FontSize="11"/>
+                        <TextBlock Text="{Binding Path=PostContent, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource postUserText}" Foreground="#2b2b2b"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button x:Name="PrevButton" Style="{StaticResource postActionButton}" Click="PrevButton_Click">
                                 <materialDesign:PackIcon Kind="NavigateBefore" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
