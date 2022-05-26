@@ -36,6 +36,10 @@ namespace BusinessLogicLayer
 
             return newBlog;
         }
+        public static bool BelogsToUser(int userId, int blogId)
+        {
+            return DbContext.Blogs.Where(blog => blog.BlogId == blogId).First().UserId == userId;
+        }
         public static List<Blog> GetBlogsByName(string blogName)
         {
             return DbContext.Blogs.Where(blog=>blog.Name==blogName).ToList();

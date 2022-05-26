@@ -35,7 +35,7 @@
             <Border Grid.Row="0" Style="{StaticResource infoCard}">
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=PostContent}" Style="{StaticResource postUserText}"/>
+                        <TextBlock Text="{Binding ElementName=blogTemplatePage, Path=PostContent}" Style="{StaticResource postUserText}" FontSize="11"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button x:Name="PrevButton" Style="{StaticResource postActionButton}" Click="PrevButton_Click">
                                 <materialDesign:PackIcon Kind="NavigateBefore" Width="100" Height="100" Style="{StaticResource postActionIcon}" />
@@ -97,8 +97,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="FollowButton" Grid.Column="0" Content="Follow" Style="{StaticResource contentButton}"/>
-                    <Button x:Name="PostButton" Grid.Column="1" Content="Post" Style="{StaticResource contentButton}"/>
+                    <Button x:Name="FollowButton" Grid.Column="0" Content="Follow" Click="FollowButton_Click" Style="{StaticResource contentButton}"/>
+                    <Button x:Name="PostButton" Grid.Column="1" Content="Post" Click="PostButton_Click" Style="{StaticResource contentButton}"/>
                 </Grid>
             </Grid>
         </Grid>

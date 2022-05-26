@@ -24,6 +24,7 @@ namespace Server
         Unlike = 11,
         Favourite = 12,
         Unfavourite = 13,
+        CheckIfBlogBelongsToUser = 14,
     }
     public class Server
     {
@@ -165,6 +166,10 @@ namespace Server
                 case UserOperation.Unfavourite:
                     Operations.Unfavourite(int.Parse(args[0]), int.Parse(args[1]));
                     response = $"{_success}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.CheckIfBlogBelongsToUser:
+                    response = $"{_success}|{Operations.BelogsToUSer(int.Parse(args[0]), int.Parse(args[1]))}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 default:

@@ -28,7 +28,7 @@ namespace DiabetesTracker.ViewModels
         private int _index = 0;
         private int _pagingCount = 10;
         private int _blogId;
-        public BlogTemplatePage(BlogContent BlogContent, int blogId)
+        public BlogTemplatePage(BlogContent BlogContent, int blogId, bool belogsToUser)
         {
             _blogId = blogId;
             _blogContent = BlogContent;
@@ -48,7 +48,8 @@ namespace DiabetesTracker.ViewModels
                 CommentButton.IsEnabled = false;
             }
 
-            //FollowButton.IsEnabled = belongsToUser;
+            FollowButton.IsEnabled = belogsToUser;
+            PostButton.IsEnabled = belogsToUser;
         }
 
         private void SetPost(int index)
@@ -138,6 +139,14 @@ namespace DiabetesTracker.ViewModels
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {
             
+        }
+        private void FollowButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void PostButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

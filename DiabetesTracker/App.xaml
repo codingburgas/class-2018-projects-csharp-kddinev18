@@ -7,22 +7,7 @@
              StartupUri="Views\XAML\UserAuthenticationWindow\UserAuthenticationWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <Style x:Key="buttonStyleNoHighlighting" TargetType="Button">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Grid Background="{TemplateBinding Background}">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="CommonStates">
-                                        <VisualState x:Name="Normal"/>
-                                        <VisualState x:Name="MouseOver"/>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+
 
             <Style x:Key="textBoxIcon" TargetType="Icon:PackIconMaterial">
                 <Setter Property="Width" Value="15"/>
@@ -83,7 +68,7 @@
                         <Setter Property="Foreground" Value="#FFFFFF"/>
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Foreground" Value="#999999"/>
+                        <Setter Property="Background" Value="#999999"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -162,7 +147,7 @@
                         <Setter Property="Foreground" Value="#FFFFFF"/>
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Foreground" Value="#999999"/>
+                        <Setter Property="Background" Value="#999999"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -205,7 +190,7 @@
                         <Setter Property="Foreground" Value="#FFFFFF"/>
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Foreground" Value="#999999"/>
+                        <Setter Property="Background" Value="#999999"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -242,7 +227,7 @@
                         <Setter Property="Background" Value="#CCCCCC"/>
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Foreground" Value="#999999"/>
+                        <Setter Property="Background" Value="#999999"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>

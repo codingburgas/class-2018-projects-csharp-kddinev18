@@ -75,5 +75,10 @@ namespace Server
         {
             FavouritePostLogic.Unfavourite(userId, postId);
         }
+
+        public static string BelogsToUSer(int userId, int postId)
+        {
+            return BlogLogic.BelogsToUser(userId, postId).ToString();
+        }
     }
 }

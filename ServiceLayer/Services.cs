@@ -24,6 +24,7 @@ namespace ServiceLayer
         Unlike = 11,
         Favourite = 12,
         Unfavourite = 13,
+        CheckIfBlogBelongsToUser = 14,
     }
     public class UserCredentials
     {
@@ -192,19 +193,23 @@ namespace ServiceLayer
         public static void Unlike(int userId, int PostId)
         {
             ClientToServerComunication($"{(int)UserOperation.Unlike}|{userId}, {PostId}");
-
         }
 
         public static void Favourite(int userId, int PostId)
         {
             ClientToServerComunication($"{(int)UserOperation.Favourite}|{userId}, {PostId}");
-
         }
 
         public static void Unfavourite(int userId, int PostId)
         {
             ClientToServerComunication($"{(int)UserOperation.Unfavourite}|{userId}, {PostId}");
+        }
 
+        public static bool BelongsToUser(int userId, int blogId)
+        {
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.CheckIfBlogBelongsToUser}|{userId}, {blogId}");
+
+            return bool.Parse(serialisedData.Split('|')[1]);
         }
     }
 }
