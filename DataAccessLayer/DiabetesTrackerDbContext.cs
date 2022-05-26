@@ -82,6 +82,8 @@ namespace DataAccessLayer
                     .HasForeignKey(d => d.BlogId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FollowingBlogs.BlogId");
+
+                entity.Property(p => p.FollowedOn).HasColumnType("datetime2");
             });
 
             modelBuilder.Entity<Menu>(entity =>

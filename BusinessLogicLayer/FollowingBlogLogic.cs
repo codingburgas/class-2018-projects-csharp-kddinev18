@@ -12,7 +12,7 @@ namespace BusinessLogicLayer
     public static class FollowingBlogLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static void Follow(int blogId, int userId)
+        public static void Follow(int userId, int blogId)
         {
             DbContext.FollowingBlogs.Add(new FollowingBlog() 
             {

@@ -11,7 +11,7 @@ namespace DataAccessLayer.Data.Models
     {
         public int BlogId { get; set; }
         public int UserId { get; set; }
-        public DateTime FollowedOn { get; set; }
+        public DateTime FollowedOn { get; set; } = DateTime.Now;
 
         public virtual User User { get; set; }
         public virtual Blog Blog { get; set; }
