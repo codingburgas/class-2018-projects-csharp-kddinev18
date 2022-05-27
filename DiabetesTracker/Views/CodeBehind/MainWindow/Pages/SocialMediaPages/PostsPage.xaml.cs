@@ -18,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DiabetesTracker.ViewModels
+namespace DiabetesTracker.Views
 {
     public partial class PostsPage : Page
     {

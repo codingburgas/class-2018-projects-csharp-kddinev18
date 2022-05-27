@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DiabetesTracker.ViewModels
+namespace DiabetesTracker.Views
 {
     /// <summary>
     /// Interaction logic for UserAuthentication.xaml

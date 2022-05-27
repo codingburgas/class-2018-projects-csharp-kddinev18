@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using DiabetesTracker.Models;
 using ServiceLayer;
 
-namespace DiabetesTracker.ViewModels
+namespace DiabetesTracker.Views
 {
     /// <summary>
     /// Interaction logic for BlogTemplatePage.xaml
