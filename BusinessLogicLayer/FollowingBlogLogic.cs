@@ -32,7 +32,7 @@ namespace BusinessLogicLayer
         {
             return DbContext.FollowingBlogs.Where(followingBlog => followingBlog.UserId == userId && followingBlog.BlogId == blogId).ToList().Count == 1;
         }
-        public static ICollection<Blog> GetFollowingBlogs(int userId)
+        public static List<Blog> GetFollowingBlogs(int userId)
         {
             return DbContext.FollowingBlogs.Where(followingBlogs => followingBlogs.UserId == userId).Include(followingBlogs => followingBlogs.Blog).Select(followingBlogs => followingBlogs.Blog).ToList();
         }

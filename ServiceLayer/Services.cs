@@ -27,6 +27,7 @@ namespace ServiceLayer
         CheckIfBlogBelongsToUser = 14,
         Follow = 15,
         Unfollow = 16,
+        GetFollowingBlogs = 17,
     }
     public class UserCredentials
     {
@@ -159,14 +160,12 @@ namespace ServiceLayer
 
             return JsonSerializer.Deserialize<List<PostInformation>>(serialisedData.Split('|')[1]);
         }
-
         public static List<PostInformation> GetFavouritedPosts(int userId, int skipCount)
         {
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetFavouritedPosts}|{userId}, {skipCount}");
 
             return JsonSerializer.Deserialize<List<PostInformation>>(serialisedData.Split('|')[1]);
         }
-
         public static List<PostInformation> GetBlogPosts(int userId, int skipCount, int blodId)
         {
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetBlogPosts}|{userId}, {skipCount}, {blodId}");
@@ -174,40 +173,28 @@ namespace ServiceLayer
             return JsonSerializer.Deserialize<List<PostInformation>>(serialisedData.Split('|')[1]);
         }
 
+
+
+
+
         public static List<BlogInformation> GetBlogs(int userId)
         {
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetBlogs}|{userId}");
 
             return JsonSerializer.Deserialize<List<BlogInformation>>(serialisedData.Split("|")[1]);
         }
-
         public static List<BlogInformation> GetBlogs(int userId, string blogName)
         {
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetBlogsByName}|{userId}, {blogName}");
 
             return JsonSerializer.Deserialize<List<BlogInformation>>(serialisedData.Split("|")[1]);
         }
-
-        public static void Like(int userId, int PostId)
+        public static List<BlogInformation> GetFollowingBlogs(int userId)
         {
-            ClientToServerComunication($"{(int)UserOperation.Like}|{userId}, {PostId}");
-        }
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetFollowingBlogs}|{userId}");
 
-        public static void Unlike(int userId, int PostId)
-        {
-            ClientToServerComunication($"{(int)UserOperation.Unlike}|{userId}, {PostId}");
+            return JsonSerializer.Deserialize<List<BlogInformation>>(serialisedData.Split("|")[1]);
         }
-
-        public static void Favourite(int userId, int PostId)
-        {
-            ClientToServerComunication($"{(int)UserOperation.Favourite}|{userId}, {PostId}");
-        }
-
-        public static void Unfavourite(int userId, int PostId)
-        {
-            ClientToServerComunication($"{(int)UserOperation.Unfavourite}|{userId}, {PostId}");
-        }
-
         public static bool BelongsToUser(int userId, int blogId)
         {
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.CheckIfBlogBelongsToUser}|{userId}, {blogId}");
@@ -215,11 +202,30 @@ namespace ServiceLayer
             return bool.Parse(serialisedData.Split('|')[1]);
         }
 
+
+
+
+
+        public static void Like(int userId, int PostId)
+        {
+            ClientToServerComunication($"{(int)UserOperation.Like}|{userId}, {PostId}");
+        }
+        public static void Unlike(int userId, int PostId)
+        {
+            ClientToServerComunication($"{(int)UserOperation.Unlike}|{userId}, {PostId}");
+        }
+        public static void Favourite(int userId, int PostId)
+        {
+            ClientToServerComunication($"{(int)UserOperation.Favourite}|{userId}, {PostId}");
+        }
+        public static void Unfavourite(int userId, int PostId)
+        {
+            ClientToServerComunication($"{(int)UserOperation.Unfavourite}|{userId}, {PostId}");
+        }
         public static void Follow(int userId, int blogId)
         {
             ClientToServerComunication($"{(int)UserOperation.Follow}|{userId}, {blogId}");
         }
-
         public static void Unfollow(int userId, int blogId)
         {
             ClientToServerComunication($"{(int)UserOperation.Unfollow}|{userId}, {blogId}");

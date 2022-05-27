@@ -27,6 +27,7 @@ namespace Server
         CheckIfBlogBelongsToUser = 14,
         Follow = 15,
         Unfollow = 16,
+        GetFollowingBlogs = 17,
     }
     public class Server
     {
@@ -181,6 +182,10 @@ namespace Server
                 case UserOperation.Unfollow:
                     Operations.Unfollow(int.Parse(args[0]), int.Parse(args[1]));
                     response = $"{_success}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.GetFollowingBlogs:
+                    response = $"{_success}|{Operations.GetFollowingBlogs(int.Parse(args[0]))}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 default:

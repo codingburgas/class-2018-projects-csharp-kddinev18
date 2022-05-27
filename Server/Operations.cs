@@ -90,5 +90,10 @@ namespace Server
         {
             FollowingBlogLogic.Unfollow(userId, blogId);
         }
+
+        public static string GetFollowingBlogs(int userId)
+        {
+            return JsonSerializer.Serialize(BlogLogic.ArrangeFollowedBlogInforamtion(userId));
+        }
     }
 }

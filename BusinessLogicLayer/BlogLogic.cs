@@ -94,5 +94,12 @@ namespace BusinessLogicLayer
 
             return LoadBlogInformation(blogsByName, userId);
         }
+
+        public static List<BlogInformation> ArrangeFollowedBlogInforamtion(int userId)
+        {
+            List<Blog> followedBolgs = FollowingBlogLogic.GetFollowingBlogs(userId);
+
+            return LoadBlogInformation(followedBolgs, userId);
+        }
     }
 }
