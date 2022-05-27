@@ -36,7 +36,7 @@ namespace DiabetesTracker.Views
             _mainWindow = mainWindow;
             PostsPage = new PostsPage();
             InitializeComponent();
-            ShowPage(PostsPage);
+            ShowPage(new PostPostingPage()/*PostsPage*/);
         }
 
         public void ShowPage(Page page)
