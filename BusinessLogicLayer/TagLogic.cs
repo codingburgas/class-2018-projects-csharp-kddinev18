@@ -13,13 +13,15 @@ namespace BusinessLogicLayer
         public static DiabetesTrackerDbContext DbContext { get; set; }
         public static Tag AddTag(string tagName)
         {
+            Tag tag = DbContext.Tags.Where(tag => tag.TagName == tagName).FirstOrDefault();
+            if (tag != null) 
+                return null;
+
             Tag newTag = new Tag() 
             {
                 TagName = tagName
             };
             DbContext.Tags.Add(newTag);
-
-            DbContext.SaveChanges();
 
             return newTag;
         }

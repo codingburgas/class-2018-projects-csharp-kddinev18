@@ -22,7 +22,7 @@ namespace BusinessLogicLayer
     public static class PostLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static Post AddPost(int blogId, Tag[] tags, string content, byte[] image, int userId)
+        public static Post AddPost(int blogId, string[] tagNames, string content, byte[] image, int userId)
         {
             Post newPost = new Post() 
             {
@@ -34,10 +34,17 @@ namespace BusinessLogicLayer
             };
             DbContext.Posts.Add(newPost);
 
-            foreach (Tag tag in tags)
+            List<Tag> tags = new List<Tag>();
+
+            foreach (string tag in tagNames)
 	        {
-                PostTagLogic.AddPostTag(newPost, tag);
+                tags.Add(TagLogic.AddTag(tag));
 	        }
+
+            foreach (Tag tag in tags)
+            {
+                PostTagLogic.AddPostTag(newPost, tag);
+            }
 
             DbContext.SaveChanges();
 

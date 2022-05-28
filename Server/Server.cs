@@ -28,6 +28,7 @@ namespace Server
         Follow = 15,
         Unfollow = 16,
         GetFollowingBlogs = 17,
+        Post = 18,
     }
     public class Server
     {
@@ -186,6 +187,11 @@ namespace Server
                     break;
                 case UserOperation.GetFollowingBlogs:
                     response = $"{_success}|{Operations.GetFollowingBlogs(int.Parse(args[0]))}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.Post:
+                    Operations.Post(int.Parse(args[0]), int.Parse(args[1]), args[2], args[3], args[4]);
+                    response = $"{_success}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 default:

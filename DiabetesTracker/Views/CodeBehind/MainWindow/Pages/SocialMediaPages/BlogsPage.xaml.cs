@@ -96,7 +96,7 @@ namespace DiabetesTracker.Views
                 BelongsToUser = Services.BelongsToUser(CurrentUserInformation.CurrentUserId.Value, blogInformation.BlogId),
                 IsFollowed = blogInformation.IsFollowed
             };
-            _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent, blogInformation.BlogId));
+            _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent, _socialMediaPage, blogInformation.BlogId));
         }
     }
 }

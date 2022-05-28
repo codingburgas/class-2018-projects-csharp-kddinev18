@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using DiabetesTracker.Models;
+using Microsoft.Win32;
+using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,20 +25,24 @@ namespace DiabetesTracker.Views
     public partial class PostPostingPage : Page
     {
         private string _selectedImagePath;
-        public PostPostingPage()
+        private int _blogId;
+        public PostPostingPage(int blogId)
         {
+            _blogId = blogId;
             InitializeComponent();
         }
 
         private void PostButton_Click(object sender, RoutedEventArgs e)
         {
-            string []tags = Tags.TextBox.Text.Split(',');
+            string tags = Tags.TextBox.Text;
             string content = Content.TextBox.Text;
 
             if (_selectedImagePath == String.Empty)
                 return;
 
-            byte[] imageArray = File.ReadAllBytes(_selectedImagePath);
+            string image = string.Join(';', File.ReadAllBytes(_selectedImagePath));
+
+            Services.Post(CurrentUserInformation.CurrentUserId.Value, _blogId, tags, content, image);
         }
         private void ImagePicker_Click(object sender, RoutedEventArgs e)
         {
@@ -54,7 +60,7 @@ namespace DiabetesTracker.Views
             if (result == true)
             {
                 // Open document 
-                string _selectedImagePath = dlg.FileName;
+                _selectedImagePath = dlg.FileName;
                 Preview.Source = new BitmapImage(new Uri(_selectedImagePath));
             }
         }

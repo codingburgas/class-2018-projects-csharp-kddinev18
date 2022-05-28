@@ -95,5 +95,16 @@ namespace Server
         {
             return JsonSerializer.Serialize(BlogLogic.ArrangeFollowedBlogInforamtion(userId));
         }
+
+        public  static void Post(int blogId, int userId, string tags, string content, string image)
+        {
+            string[] imageBytes = image.Split(';');
+            byte[] bytes = new byte[imageBytes.Length];
+            for (int i = 0; i < imageBytes.Length; i++)
+            {
+                bytes[i] = byte.Parse(imageBytes[i]);
+            }
+            PostLogic.AddPost(blogId, tags.Split(';'), content, bytes, userId);
+        }
     }
 }

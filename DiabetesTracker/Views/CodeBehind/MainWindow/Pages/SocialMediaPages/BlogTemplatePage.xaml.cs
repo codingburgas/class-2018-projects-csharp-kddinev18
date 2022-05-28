@@ -23,13 +23,15 @@ namespace DiabetesTracker.Views
     public partial class BlogTemplatePage : Page
     {
         private BlogContent _blogContent;
+        private SocialMediaPage _socialMediaPage;
 
         private List<PostInformation> _blogPostsInformation;
         private int _index = 0;
         private int _pagingCount = 10;
         private int _blogId;
-        public BlogTemplatePage(BlogContent BlogContent, int blogId)
+        public BlogTemplatePage(BlogContent BlogContent, SocialMediaPage socialMediaPage, int blogId)
         {
+            _socialMediaPage = socialMediaPage;
             _blogId = blogId;
             _blogContent = BlogContent;
             InitializeComponent();
@@ -155,7 +157,7 @@ namespace DiabetesTracker.Views
         }
         private void PostButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _socialMediaPage.ShowPage(new PostPostingPage(_blogId));
         }
     }
 }

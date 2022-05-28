@@ -28,6 +28,7 @@ namespace ServiceLayer
         Follow = 15,
         Unfollow = 16,
         GetFollowingBlogs = 17,
+        Post = 18,
     }
     public class UserCredentials
     {
@@ -229,6 +230,14 @@ namespace ServiceLayer
         public static void Unfollow(int userId, int blogId)
         {
             ClientToServerComunication($"{(int)UserOperation.Unfollow}|{userId}, {blogId}");
+        }
+
+
+
+
+        public static void Post(int userId, int blogId, string tags, string content, string image)
+        {
+            ClientToServerComunication($"{(int)UserOperation.Post}|{userId}, {blogId}, {tags}, {content}, {image}");
         }
     }
 }

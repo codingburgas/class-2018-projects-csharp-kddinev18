@@ -22,7 +22,7 @@
                 <Image x:Name="Preview" Width="500" Height="380" HorizontalAlignment="Left" Margin="30 0 0 0"/>
                 <StackPanel Margin="30">
                     <userControls:TextBoxForm x:Name="Content" TextBoxHintText="Content" TextBoxIcon="Text"/>
-                    <userControls:TextBoxForm x:Name="Tags" TextBoxHintText="#tag1, #tag2, #tag3...." TextBoxIcon="Tag" Margin="0 50 0 0"/>
+                    <userControls:TextBoxForm x:Name="Tags" TextBoxHintText="tag1;tag2;tag3...." TextBoxIcon="Tag" Margin="0 50 0 0"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
