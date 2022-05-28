@@ -24,10 +24,13 @@ namespace DiabetesTracker.Views
     /// </summary>
     public partial class PostPostingPage : Page
     {
+        private SocialMediaPage _socialMediaPage;
+
         private string _selectedImagePath;
         private int _blogId;
-        public PostPostingPage(int blogId)
+        public PostPostingPage(SocialMediaPage socialMediaPage,int blogId)
         {
+            _socialMediaPage = socialMediaPage;
             _blogId = blogId;
             InitializeComponent();
         }
@@ -43,6 +46,8 @@ namespace DiabetesTracker.Views
             string image = string.Join(';', File.ReadAllBytes(_selectedImagePath));
 
             Services.Post(CurrentUserInformation.CurrentUserId.Value, _blogId, tags, content, image);
+
+            _socialMediaPage.ShowPage(new PostsPage());
         }
         private void ImagePicker_Click(object sender, RoutedEventArgs e)
         {

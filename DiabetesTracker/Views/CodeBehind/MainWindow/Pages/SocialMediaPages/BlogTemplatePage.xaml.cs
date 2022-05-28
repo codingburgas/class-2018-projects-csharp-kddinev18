@@ -157,7 +157,7 @@ namespace DiabetesTracker.Views
         }
         private void PostButton_Click(object sender, RoutedEventArgs e)
         {
-            _socialMediaPage.ShowPage(new PostPostingPage(_blogId));
+            _socialMediaPage.ShowPage(new PostPostingPage(_socialMediaPage,_blogId));
         }
     }
 }

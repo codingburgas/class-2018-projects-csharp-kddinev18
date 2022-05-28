@@ -33,6 +33,7 @@ namespace BusinessLogicLayer
                 PublishedOn = DateTime.Now
             };
             DbContext.Posts.Add(newPost);
+            DbContext.SaveChanges();
 
             List<Tag> tags = new List<Tag>();
 
@@ -40,6 +41,7 @@ namespace BusinessLogicLayer
 	        {
                 tags.Add(TagLogic.AddTag(tag));
 	        }
+            DbContext.SaveChanges();
 
             foreach (Tag tag in tags)
             {

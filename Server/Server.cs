@@ -34,7 +34,7 @@ namespace Server
     {
         private static TcpListener _tcpListener;
         private static List<TcpClient> _clients = new List<TcpClient>();
-        private static byte[] _data = new byte[1024];
+        private static byte[] _data = new byte[16777216];
         private int _port;
         private static int _success = 0;
         private static int _error = 1;
