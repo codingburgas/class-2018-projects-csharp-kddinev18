@@ -4,11 +4,28 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DiabetesTracker"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:userControls="clr-namespace:DiabetesTracker.ViewModels.UserControls"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1135"
       Title="AnalyticsPage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <userControls:InfoCard Margin="20" Grid.Column="0" Grid.Row="0" InfoCardIcon="Post" InfoCardText="32" InfoCardTitle="Post Count"/>
+        <userControls:InfoCard Margin="20" Grid.Column="1" Grid.Row="0" InfoCardIcon="Eye" InfoCardText="32" InfoCardTitle="Followers"/>
+        <userControls:InfoCard Margin="20" Grid.Column="2" Grid.Row="0" InfoCardIcon="Abacus" InfoCardText="32" InfoCardTitle="Post Count"/>
+        <userControls:InfoCard Margin="20" Grid.Column="0" Grid.Row="1" InfoCardIcon="Abacus" InfoCardText="32" InfoCardTitle="Post Count"/>
+        <userControls:InfoCard Margin="20" Grid.Column="1" Grid.Row="1" InfoCardIcon="Abacus" InfoCardText="32" InfoCardTitle="Post Count"/>
+        <userControls:InfoCard Margin="20" Grid.Column="2" Grid.Row="1" InfoCardIcon="Abacus" InfoCardText="32" InfoCardTitle="Post Count"/>
     </Grid>
 </Page>

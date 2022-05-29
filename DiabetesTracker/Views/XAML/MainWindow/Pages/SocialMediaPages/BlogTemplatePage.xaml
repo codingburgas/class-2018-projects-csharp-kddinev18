@@ -7,7 +7,7 @@
       xmlns:userControls="clr-namespace:DiabetesTracker.ViewModels.UserControls"
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
-      d:DesignHeight="720" d:DesignWidth="1180"
+      d:DesignHeight="600" d:DesignWidth="1135"
       Title="BlogTemplatePage">
 
     <Grid>
@@ -66,33 +66,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <userControls:InfoCard InfoCardIcon="Post" InfoCardTitle="Posts" InfoCardText="{Binding Path=BlogTotalPosts, UpdateSourceTrigger=PropertyChanged}"/>
-                <!--<Border Grid.Row="0" Style="{StaticResource infoCard}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Style="{StaticResource infoCardStack}">
-                            <TextBlock Text="{Binding Path=BlogTotalPosts, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource inforCardTitle}"/>
-                            <TextBlock Text="TotalPosts" Style="{StaticResource infoCardText}"/>
-                        </StackPanel>
-                        <Icon:PackIconMaterial Kind="Post" Style="{StaticResource infocardIcon}" />
-                    </Grid>
-                </Border>-->
-                <Border Grid.Row="1" Style="{StaticResource infoCard}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Style="{StaticResource infoCardStack}">
-                            <TextBlock Text="{Binding Path=BlogTotalFollowers, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource inforCardTitle}"/>
-                            <TextBlock Text="TotalFollowers" Style="{StaticResource infoCardText}"/>
-                        </StackPanel>
-                        <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource infocardIcon}" />
-                    </Grid>
-                </Border>
+                <userControls:InfoCard Grid.Row="0" InfoCardIcon="Post" InfoCardTitle="Posts" InfoCardText="{Binding Path=BlogTotalPosts, UpdateSourceTrigger=PropertyChanged}"/>
+                <userControls:InfoCard Grid.Row="1" InfoCardIcon="Eye" InfoCardTitle="Total Followers" InfoCardText="{Binding Path=BlogTotalFollowers, UpdateSourceTrigger=PropertyChanged}"/>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
