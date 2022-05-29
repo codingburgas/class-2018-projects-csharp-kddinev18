@@ -2,6 +2,7 @@
 using DataAccessLayer.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #nullable disable
 
@@ -20,6 +21,10 @@ namespace BusinessLogicLayer
                 PostId = post.PostId,
                 TagId = tag.TagId,
             });
+        }
+        public static int GetTagPostCount(int tagId)
+        {
+            return DbContext.PostTags.Where(postTag => postTag.TagId == tagId).Count();
         }
     }
 }

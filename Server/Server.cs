@@ -29,6 +29,7 @@ namespace Server
         Unfollow = 16,
         GetFollowingBlogs = 17,
         Post = 18,
+        GetTags = 19,
     }
     public class Server
     {
@@ -75,6 +76,7 @@ namespace Server
         {
             TcpClient client = asyncResult.AsyncState as TcpClient;
             int reciever;
+            List<string> args;
             try
             {
                 reciever = client.Client.EndReceive(asyncResult);
@@ -84,7 +86,15 @@ namespace Server
                     return;
                 }
                 string data = Encoding.ASCII.GetString(_data).Replace("\0", String.Empty);
-                SendCorrenspodingResponse(client, int.Parse(data.Split('|')[0]), data.Split('|')[1].Split(", "));
+                try
+                {
+                    args = data.Split('|')[1].Split(", ").ToList();
+                }
+                catch (Exception)
+                {
+                    args = null;
+                }
+                SendCorrenspodingResponse(client, int.Parse(data.Split('|')[0]), args);
                 FlushBuffer();
             }
             catch (Exception ex)
@@ -107,7 +117,7 @@ namespace Server
             _clients.Remove(client);
         }
 
-        public static void SendCorrenspodingResponse(TcpClient client, int operationNumber, string[] args)
+        public static void SendCorrenspodingResponse(TcpClient client, int operationNumber, List<string> args)
         {
             UserOperation operation = (UserOperation)operationNumber;
             string response = String.Empty;
@@ -192,6 +202,10 @@ namespace Server
                 case UserOperation.Post:
                     Operations.Post(int.Parse(args[0]), int.Parse(args[1]), args[2], args[3], args[4]);
                     response = $"{_success}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.GetTags:
+                    response = $"{_success}|{Operations.GetTags()}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 default:

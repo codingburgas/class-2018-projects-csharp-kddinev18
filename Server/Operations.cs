@@ -106,5 +106,10 @@ namespace Server
             }
             PostLogic.AddPost(blogId, tags.Split(';'), content, bytes, userId);
         }
+
+        public static string GetTags()
+        {
+            return JsonSerializer.Serialize(TagLogic.ArraingeTags());
+        }
     }
 }

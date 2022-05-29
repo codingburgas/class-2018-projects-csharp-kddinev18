@@ -29,6 +29,7 @@ namespace ServiceLayer
         Unfollow = 16,
         GetFollowingBlogs = 17,
         Post = 18,
+        GetTags = 19,
     }
     public class UserCredentials
     {
@@ -54,6 +55,13 @@ namespace ServiceLayer
         public int FollowingCount { get; set; }
         public bool IsFollowed { get; set; }
     }
+    public class TagInformation
+    {
+        public int TagId { get; set; }
+        public string TagName { get; set; }
+        public int PostCount { get; set; }
+    }
+
     public static class Services
     {
         private static byte[] _data = new byte[16777216];
@@ -238,6 +246,16 @@ namespace ServiceLayer
         public static void Post(int userId, int blogId, string tags, string content, string image)
         {
             ClientToServerComunication($"{(int)UserOperation.Post}|{userId}, {blogId}, {tags}, {content}, {image}");
+        }
+
+
+
+
+
+        public static List<TagInformation> GetTags()
+        {
+            string serilizedResponse = ClientToServerComunication($"{(int)UserOperation.GetTags}");
+            return JsonSerializer.Deserialize<List<TagInformation>>(serilizedResponse.Split('|')[1]);
         }
     }
 }

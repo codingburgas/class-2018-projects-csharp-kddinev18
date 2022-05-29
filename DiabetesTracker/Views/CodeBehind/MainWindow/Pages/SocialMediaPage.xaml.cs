@@ -88,7 +88,7 @@ namespace DiabetesTracker.Views
         }
         private void TagsButton_Click(object sender, RoutedEventArgs e)
         {
-            TagsPage = new TagsPage();
+            TagsPage = new TagsPage(this);
             BlogsPage = null;
             FavouritesPage = null;
             FollowingPage = null;
