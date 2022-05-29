@@ -38,6 +38,7 @@ namespace DiabetesTracker.Views
         private void LogOutButton_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Services.RemoveCookies();
+            Services.RemoveConnection();
             new UserAuthenticationWindow().Show();
             this.Close();
         }

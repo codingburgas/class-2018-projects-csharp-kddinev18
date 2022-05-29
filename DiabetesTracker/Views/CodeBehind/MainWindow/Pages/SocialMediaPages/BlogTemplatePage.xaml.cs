@@ -89,6 +89,7 @@ namespace DiabetesTracker.Views
             {
                 _blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10, _blogId);
             }
+            NextButton.IsEnabled = true;
             _index--;
             SetPost(_index % _pagingCount);
         }
@@ -102,6 +103,7 @@ namespace DiabetesTracker.Views
                 }
                 catch (Exception)
                 {
+                    NextButton.IsEnabled = false;
                     return;
                 }
             }

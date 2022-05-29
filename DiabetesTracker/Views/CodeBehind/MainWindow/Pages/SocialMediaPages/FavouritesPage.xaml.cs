@@ -80,6 +80,7 @@ namespace DiabetesTracker.Views
             {
                 _favouritePostsInformation = Services.GetFavouritedPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10);
             }
+            NextButton.IsEnabled = true;
             _index--;
             SetPost(_index % _pagingCount);
         }
@@ -93,6 +94,7 @@ namespace DiabetesTracker.Views
                 }
                 catch (Exception)
                 {
+                    NextButton.IsEnabled = false;
                     return;
                 }
             }
