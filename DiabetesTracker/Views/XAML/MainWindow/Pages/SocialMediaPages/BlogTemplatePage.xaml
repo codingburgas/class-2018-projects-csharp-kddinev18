@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Style="{StaticResource infoCard}">
-                <TextBlock Text="{Binding Path=BlogName, UpdateSourceTrigger=PropertyChanged}" Margin="10" FontSize="30" FontWeight="Bold" Foreground="#2b2b2b"/>
+                <TextBlock Text="{Binding Path=BlogName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10" FontSize="30" FontWeight="Bold" Foreground="#2b2b2b"/>
             </Border>
             <Border Grid.Column="1" Style="{StaticResource infoCard}">
                 <Image Source="{Binding Path=BlogImage, UpdateSourceTrigger=PropertyChanged}"/>

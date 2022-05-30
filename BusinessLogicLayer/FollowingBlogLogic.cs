@@ -20,11 +20,15 @@ namespace BusinessLogicLayer
                 UserId = userId,
             });
 
+            DbContext.Blogs.Where(blog => blog.BlogId == blogId).FirstOrDefault().FollowingCount++;
+
             DbContext.SaveChanges();
         }
         public static void Unfollow(int blogId, int userId)
         {
             DbContext.FollowingBlogs.Remove(DbContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == blogId && followingBlog.UserId == userId).First());
+
+            DbContext.Blogs.Where(blog => blog.BlogId == blogId).FirstOrDefault().FollowingCount--;
 
             DbContext.SaveChanges();
         }

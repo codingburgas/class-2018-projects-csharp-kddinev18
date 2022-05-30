@@ -131,5 +131,10 @@ namespace BusinessLogicLayer
 
             return LoadPostInformation(userId, posts);
         }
+
+        public static int GetPostCount(int userId)
+        {
+            return DbContext.Posts.Where(post => post.UserId == userId).Count();
+        }
     }
 }

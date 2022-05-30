@@ -30,6 +30,7 @@ namespace ServiceLayer
         GetFollowingBlogs = 17,
         Post = 18,
         GetTags = 19,
+        GetAnalytics = 20,
     }
     public class UserCredentials
     {
@@ -60,6 +61,15 @@ namespace ServiceLayer
         public int TagId { get; set; }
         public string TagName { get; set; }
         public int PostCount { get; set; }
+    }
+    public class AnalyticsInformation
+    {
+        public int PostCount { get; set; }
+        public int Likes { get; set; }
+        public int Followers { get; set; }
+        public int BlogCount { get; set; }
+        public string MostFollowedBlog { get; set; }
+        public string LeastFollowedBlog { get; set; }
     }
 
     public static class Services
@@ -256,6 +266,11 @@ namespace ServiceLayer
         {
             string serilizedResponse = ClientToServerComunication($"{(int)UserOperation.GetTags}");
             return JsonSerializer.Deserialize<List<TagInformation>>(serilizedResponse.Split('|')[1]);
+        }
+        public static AnalyticsInformation GetAnalyticsInformation(int userId)
+        {
+            string serilizedResponse = ClientToServerComunication($"{(int)UserOperation.GetAnalytics}|{userId}");
+            return JsonSerializer.Deserialize<AnalyticsInformation>(serilizedResponse.Split('|')[1]);
         }
     }
 }

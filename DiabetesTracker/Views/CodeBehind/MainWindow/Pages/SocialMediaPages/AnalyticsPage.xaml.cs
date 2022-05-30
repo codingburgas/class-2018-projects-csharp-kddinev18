@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiabetesTracker.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,16 @@ namespace DiabetesTracker.Views
     /// </summary>
     public partial class AnalyticsPage : Page
     {
+        public CurrentAnalyticsInformation AnalyticsInformation { get; set; }
         public AnalyticsPage()
         {
             InitializeComponent();
+            SetUpAnalyticsData(CurrentUserInformation.CurrentUserId.Value);
+        }
+
+        public void SetUpAnalyticsData(int userId)
+        {
+
         }
     }
 }

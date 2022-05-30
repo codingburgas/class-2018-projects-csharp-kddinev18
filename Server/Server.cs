@@ -30,6 +30,7 @@ namespace Server
         GetFollowingBlogs = 17,
         Post = 18,
         GetTags = 19,
+        GetAnalytics = 20,
     }
     public class Server
     {
@@ -206,6 +207,10 @@ namespace Server
                     break;
                 case UserOperation.GetTags:
                     response = $"{_success}|{Operations.GetTags()}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.GetAnalytics:
+                    response = $"{_success}|{Operations.GetAnalytics(int.Parse(args[0]))}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 default:

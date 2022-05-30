@@ -54,9 +54,9 @@ namespace BusinessLogicLayer
         {
             return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == blogId).Select(blog => blog.Posts).First().Count();
         }
-        public static int GetBlogFollowingCount(int blogId)
+        public static int GetBlogFollowingCount(int userId)
         {
-            return DbContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == blogId).Count();
+            return DbContext.Blogs.Where(blog => blog.UserId == userId).Sum(blog => blog.FollowingCount);
         }
         public static ICollection<Post> GetAllPosts(int blogId)
         {
@@ -74,7 +74,7 @@ namespace BusinessLogicLayer
                     BlogImage = Blog.Image,
                     BlogName = Blog.Name,
                     PostCount = GetBlogPostsCount(Blog.BlogId),
-                    FollowingCount = GetBlogFollowingCount(Blog.BlogId),
+                    FollowingCount = Blog.FollowingCount,
                     IsFollowed = FollowingBlogLogic.IsCurrentUserFollowed(Blog.BlogId, userId)
                 });
             }
@@ -100,6 +100,16 @@ namespace BusinessLogicLayer
             List<Blog> followedBolgs = FollowingBlogLogic.GetFollowingBlogs(userId);
 
             return LoadBlogInformation(followedBolgs, userId);
+        }
+
+        public static string GetLeastFollowedBlod(int userId)
+        {
+            return DbContext.Blogs.Where(blog=>blog.UserId == userId).OrderByDescending(blog => blog.FollowingCount).FirstOrDefault().Name;
+        }
+
+        public static string GetMostFollowedBlod(int userId)
+        {
+            return DbContext.Blogs.Where(blog => blog.UserId == userId).OrderBy(blog => blog.FollowingCount).FirstOrDefault().Name;
         }
     }
 }

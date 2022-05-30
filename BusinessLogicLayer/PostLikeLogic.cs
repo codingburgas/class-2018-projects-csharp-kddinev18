@@ -34,5 +34,9 @@ namespace BusinessLogicLayer
         {
             return DbContext.PostLikes.Where(postLike => postLike.PostId == postId && postLike.UserId == userId).FirstOrDefault() != null;
         }
+        public static int LikeCount(int userId)
+        {
+            return DbContext.PostLikes.Include(postlike => postlike.Post).Where(postlike => postlike.Post.UserId == userId).Sum(postlike => postlike.Post.LikeCount);
+        }
     }
 }

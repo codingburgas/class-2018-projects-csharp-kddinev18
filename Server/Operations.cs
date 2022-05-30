@@ -111,5 +111,10 @@ namespace Server
         {
             return JsonSerializer.Serialize(TagLogic.ArraingeTags());
         }
+
+        public static string GetAnalytics(int userId)
+        {
+            return JsonSerializer.Serialize(UserProfileLogic.ArrangeAnalyticsInformation(userId));
+        }
     }
 }

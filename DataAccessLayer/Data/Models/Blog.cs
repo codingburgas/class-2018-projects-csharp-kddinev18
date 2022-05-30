@@ -13,6 +13,7 @@ namespace DataAccessLayer.Data.Models
         public int UserId { get; set; }
         public string Name { get; set; }
         public byte[] Image { get; set; }
+        public int FollowingCount { get; set; }
         public DateTime CreatedOn { get; set; }
 
         public virtual User User { get; set; }

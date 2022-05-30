@@ -7,6 +7,15 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
+    public class AnalyticsInformation
+    {
+        public int PostCount { get; set; }
+        public int Likes { get; set; }
+        public int Followers { get; set; }
+        public int BlogCount { get; set; }
+        public string MostFollowedBlog { get; set; }
+        public string LeastFollowedBlog { get; set; }
+    }
     public static class UserProfileLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
@@ -26,6 +35,17 @@ namespace BusinessLogicLayer
             });
 
             DbContext.SaveChanges();
+        }
+        public static AnalyticsInformation ArrangeAnalyticsInformation(int userId)
+        {
+            return new AnalyticsInformation() {
+                PostCount = PostLogic.GetPostCount(userId),
+                Likes = PostLikeLogic.LikeCount(userId),
+                Followers = BlogLogic.GetBlogFollowingCount(userId),
+                BlogCount = BlogLogic.GetCurrentUserBlogs(userId).Count,
+                MostFollowedBlog = BlogLogic.GetMostFollowedBlod(userId),
+                LeastFollowedBlog = BlogLogic.GetLeastFollowedBlod(userId)
+            };
         }
     }
 }
