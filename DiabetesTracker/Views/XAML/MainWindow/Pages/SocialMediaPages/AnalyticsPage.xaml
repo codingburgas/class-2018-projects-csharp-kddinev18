@@ -21,11 +21,11 @@
             <RowDefinition Height="300"/>
             <RowDefinition Height="300"/>
         </Grid.RowDefinitions>
-        <userControls:InfoCard Margin="20" Grid.Column="0" Grid.Row="0" InfoCardIcon="Post" InfoCardText="32" InfoCardTitle="{Binding Path=PostCount}"/>
-        <userControls:InfoCard Margin="20" Grid.Column="1" Grid.Row="0" InfoCardIcon="ThumbUp" InfoCardText="32" InfoCardTitle="{Binding Path=Likes}"/>
-        <userControls:InfoCard Margin="20" Grid.Column="2" Grid.Row="0" InfoCardIcon="Eye" InfoCardText="32" InfoCardTitle="{Binding Path=Followers}"/>
-        <userControls:InfoCard Margin="20" Grid.Column="0" Grid.Row="1" InfoCardIcon="ViewAgenda" InfoCardText="32" InfoCardTitle="{Binding Path=BlogCount}"/>
-        <userControls:InfoCard Margin="20" Grid.Column="1" Grid.Row="1" InfoCardIcon="ViewAgenda" InfoCardText="32" InfoCardTitle="{Binding Path=MostFollowedBlog}"/>
-        <userControls:InfoCard Margin="20" Grid.Column="2" Grid.Row="1" InfoCardIcon="ViewAgenda" InfoCardText="32" InfoCardTitle="{Binding Path=LeastFollowedBlog}"/>
+        <userControls:InfoCard Margin="20" Grid.Column="0" Grid.Row="0" InfoCardIcon="Post" InfoCardText="{Binding Path=PostCount}" InfoCardTitle="Post count"/>
+        <userControls:InfoCard Margin="20" Grid.Column="1" Grid.Row="0" InfoCardIcon="ThumbUp" InfoCardText="{Binding Path=Likes}" InfoCardTitle="Likes"/>
+        <userControls:InfoCard Margin="20" Grid.Column="2" Grid.Row="0" InfoCardIcon="Eye" InfoCardText="{Binding Path=Followers}" InfoCardTitle="Followers"/>
+        <userControls:InfoCard Margin="20" Grid.Column="0" Grid.Row="1" InfoCardIcon="ViewAgenda" InfoCardText="{Binding Path=BlogCount}" InfoCardTitle="Blog count"/>
+        <userControls:InfoCard Margin="20" Grid.Column="1" Grid.Row="1" InfoCardIcon="ViewAgenda" InfoCardText="{Binding Path=MostFollowedBlog}" InfoCardTitle="Most followed blog"/>
+        <userControls:InfoCard Margin="20" Grid.Column="2" Grid.Row="1" InfoCardIcon="ViewAgenda" InfoCardText="{Binding Path=LeastFollowedBlog}" InfoCardTitle="Least followed blog"/>
     </Grid>
 </Page>
