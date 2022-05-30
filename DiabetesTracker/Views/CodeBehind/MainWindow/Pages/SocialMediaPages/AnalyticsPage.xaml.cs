@@ -1,4 +1,5 @@
 ﻿using DiabetesTracker.Models;
+using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,16 +22,25 @@ namespace DiabetesTracker.Views
     /// </summary>
     public partial class AnalyticsPage : Page
     {
-        public CurrentAnalyticsInformation AnalyticsInformation { get; set; }
+        public CurrentAnalyticsInformation CurrentAnalyticsInformation { get; set; }
         public AnalyticsPage()
         {
             InitializeComponent();
-            SetUpAnalyticsData(CurrentUserInformation.CurrentUserId.Value);
+            SetUpAnalyticsData();
+            DataContext = CurrentAnalyticsInformation;
         }
 
-        public void SetUpAnalyticsData(int userId)
+        public void SetUpAnalyticsData()
         {
-
+            AnalyticsInformation analyticsInformation = Services.GetAnalyticsInformation(CurrentUserInformation.CurrentUserId.Value);
+            CurrentAnalyticsInformation = new CurrentAnalyticsInformation() { 
+                PostCount = analyticsInformation.PostCount,
+                Likes = analyticsInformation.Likes,
+                Followers = analyticsInformation.Followers,
+                BlogCount = analyticsInformation.BlogCount,
+                MostFollowedBlog = analyticsInformation.MostFollowedBlog,
+                LeastFollowedBlog = analyticsInformation.LeastFollowedBlog
+            };
         }
     }
 }
