@@ -49,17 +49,10 @@ namespace DiabetesTracker.Views
         }
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
-            CurrentTagInformation blogInformation = (sender as ListBox).SelectedItem as CurrentTagInformation;
-            /*BlogContent blogContent = new BlogContent()
-            {
-                BlogName = blogInformation.BlogName,
-                BlogImage = blogInformation.BlogImage,
-                BlogTotalFollowers = blogInformation.FollowingCount,
-                BlogTotalPosts = blogInformation.PostCount,
-                BelongsToUser = Services.BelongsToUser(CurrentUserInformation.CurrentUserId.Value, blogInformation.BlogId),
-                IsFollowed = blogInformation.IsFollowed
-            };
-            _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent, _socialMediaPage, blogInformation.BlogId));*/
+            CurrentTagInformation tagInformation = (sender as ListBox).SelectedItem as CurrentTagInformation;
+            TagPostsPage tagPostsPage = new TagPostsPage(tagInformation.TagId);
+
+            _socialMediaPage.ShowPage(tagPostsPage);
         }
     }
 }

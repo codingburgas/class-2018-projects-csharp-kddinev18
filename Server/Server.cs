@@ -155,6 +155,10 @@ namespace Server
                     response = $"{_success}|{Operations.GetBlogPosts(int.Parse(args[0]), int.Parse(args[1]), int.Parse(args[2]))}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
+                case UserOperation.GetPostsByTag:
+                    response = $"{_success}|{Operations.GetPostsByTag(int.Parse(args[0]), int.Parse(args[1]), int.Parse(args[2]))}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
                 case UserOperation.GetBlogs:
                     response = $"{_success}|{Operations.GetBlogs(int.Parse(args[0]))}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));

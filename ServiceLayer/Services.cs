@@ -192,7 +192,12 @@ namespace ServiceLayer
 
             return JsonSerializer.Deserialize<List<PostInformation>>(serialisedData.Split('|')[1]);
         }
+        public static List<PostInformation> GetBlogPostsByTag(int userId, int tagId, int skipCount)
+        {
+            string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetPostsByTag}|{userId}, {tagId}, {skipCount}");
 
+            return JsonSerializer.Deserialize<List<PostInformation>>(serialisedData.Split('|')[1]);
+        }
 
 
 

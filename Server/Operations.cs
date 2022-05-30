@@ -116,5 +116,10 @@ namespace Server
         {
             return JsonSerializer.Serialize(UserProfileLogic.ArrangeAnalyticsInformation(userId));
         }
+
+        public static string GetPostsByTag(int userId, int tagId, int skipCount)
+        {
+            return JsonSerializer.Serialize(PostLogic.ArrangePostByTag(userId, tagId, skipCount));
+        }
     }
 }

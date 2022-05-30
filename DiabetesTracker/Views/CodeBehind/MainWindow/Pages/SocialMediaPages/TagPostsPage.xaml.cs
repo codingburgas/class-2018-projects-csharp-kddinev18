@@ -28,15 +28,16 @@ namespace DiabetesTracker.Views
         private List<PostInformation> _postsInformation;
         private int _index = 0;
         private int _pagingCount = 10;
-
-        public TagPostsPage()
+        private int _tagId;
+        public TagPostsPage(int tagId)
         {
+            _tagId = tagId;
             _postInformation = new CurrentPostInformation();
             InitializeComponent();
             DataContext = _postInformation;
             try
             {
-                _postsInformation = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, 0);
+                _postsInformation = Services.GetBlogPostsByTag(CurrentUserInformation.CurrentUserId.Value, tagId, 0);
                 SetPost(_index);
             }
             catch (Exception)
@@ -96,7 +97,7 @@ namespace DiabetesTracker.Views
             }
             if (_index % _pagingCount == 0)
             {
-                _postsInformation = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, _index - 10);
+                _postsInformation = Services.GetBlogPostsByTag(CurrentUserInformation.CurrentUserId.Value, _tagId, _index - 10);
             }
             NextButton.IsEnabled = true;
             _index--;
@@ -108,7 +109,7 @@ namespace DiabetesTracker.Views
             {
                 try
                 {
-                    _postsInformation = Services.GetPosts(CurrentUserInformation.CurrentUserId.Value, _index + 1);
+                    _postsInformation = Services.GetBlogPostsByTag(CurrentUserInformation.CurrentUserId.Value, _tagId, _index + 1);
                 }
                 catch (Exception)
                 {

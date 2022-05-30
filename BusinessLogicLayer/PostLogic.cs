@@ -105,6 +105,14 @@ namespace BusinessLogicLayer
 
             throw new ArgumentNullException("There are no more posts");
         }
+        private static List<Post> GetPagedPostsByTag(int tagId, int skipCount)
+        {
+            List<Post> posts = DbContext.PostTags.Where(tag => tag.TagId == tagId).Include(tag => tag.Post).Select(tag => tag.Post).Skip(skipCount).Take(10).ToList();
+            if (posts.Count != 0)
+                return posts;
+
+            throw new ArgumentNullException("There are no more posts");
+        }
 
         public static string GetPostBlogName(int postId)
         {
@@ -128,6 +136,13 @@ namespace BusinessLogicLayer
         public static List<PostInformation> ArrangeBlogPosts(int userId, int skipCount, int blogId)
         {
             List<Post> posts = GetPagedBlogPosts(blogId, skipCount);
+
+            return LoadPostInformation(userId, posts);
+        }
+
+        public static List<PostInformation> ArrangePostByTag(int userId, int tagId, int skipCount)
+        {
+            List<Post> posts = GetPagedPostsByTag(tagId, skipCount);
 
             return LoadPostInformation(userId, posts);
         }
