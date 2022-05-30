@@ -32,6 +32,7 @@ namespace Server
         Post = 19,
         GetTags = 20,
         GetAnalytics = 21,
+        Comment = 22,
     }
     public class Server
     {
@@ -69,7 +70,6 @@ namespace Server
             }
 
             _clients.Add(client);
-            //client.Client.Send(Encoding.ASCII.GetBytes("HI"));
             client.Client.BeginReceive(_data, 0, _data.Length, SocketFlags.None, new AsyncCallback(ReciveUserInput), client);
             _tcpListener.BeginAcceptTcpClient(new AsyncCallback(AcceptClients), null);
         }
@@ -217,6 +217,9 @@ namespace Server
                 case UserOperation.GetAnalytics:
                     response = $"{_success}|{Operations.GetAnalytics(int.Parse(args[0]))}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.Comment:
+
                     break;
                 default:
                     break;
