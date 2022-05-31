@@ -46,11 +46,11 @@
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <TextBlock Grid.Row="0" Text="Serarch: " Style="{StaticResource whiteText}"/>
-                    <userControls:TextBoxForm x:Name="BlogName" TextBoxIcon="GoogleLens" TextBoxHintText="BlogName"/>
+                    <TextBlock Text="Serarch: " Style="{StaticResource whiteText}"/>
+                    <userControls:TextBoxForm x:Name="BlogName" TextBoxIcon="GoogleLens" TextBoxHintText="BlogName" VerticalAlignment="Bottom"/>
                     <Button Content="Search" Click="SearchButton_Click" Foreground="#2b2b2b" Background="#FFFFFF" BorderBrush="#FFFFFF"/>
                 </StackPanel>
-                <ListView x:Name="SerchBlogsList" SelectionChanged="OnBlog_SelectionChanged" ItemsSource="{Binding SearchBlogsInformation}">
+                <ListView Grid.Row="1" x:Name="SerchBlogsList" SelectionChanged="OnBlog_SelectionChanged" ItemsSource="{Binding SearchBlogsInformation}" MaxHeight="200" HorizontalContentAlignment="Stretch">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Style="{StaticResource listViewBorder}" Height="50">
