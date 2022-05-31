@@ -11,5 +11,26 @@
       d:DesignHeight="600" d:DesignWidth="1135"
       Title="CommentPage">
 
-    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="525"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" SelectionMode="Single" ItemsSource="{Binding TagsInformation}" MaxHeight="450" HorizontalContentAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Style="{StaticResource listViewBorder}" Height="50">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="700">
+                            <TextBlock Margin="-90 0 0 0" Text="{Binding TagName}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
+                            <TextBlock Margin="20 0 0 0" Text="{Binding PostCount}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <userControls:TextBoxForm TextBoxHintText="Comment" TextBoxIcon="Comment" Margin="20"/>
+            <Button Content="Comment" Click="CommentButton_Click" Margin="50 0 0 0" Foreground="#2b2b2b" Background="#FFFFFF" BorderBrush="#FFFFFF"/>
+        </StackPanel>
+    </Grid>
 </Page>
