@@ -47,7 +47,7 @@ namespace DiabetesTracker.Views
 
             Services.Post(CurrentUserInformation.CurrentUserId.Value, _blogId, tags, content, image);
 
-            _socialMediaPage.ShowPage(new PostsPage());
+            _socialMediaPage.ShowPage(new PostsPage(_socialMediaPage));
         }
         private void ImagePicker_Click(object sender, RoutedEventArgs e)
         {

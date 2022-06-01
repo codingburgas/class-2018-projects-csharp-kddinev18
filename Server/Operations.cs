@@ -122,9 +122,9 @@ namespace Server
             return JsonSerializer.Serialize(PostLogic.ArrangePostByTag(userId, tagId, skipCount));
         }
 
-        public static void Comment(int postId, int userId, string comment)
+        public static void Comment(int userId, int postId, string comment)
         {
-            PostCommentLogic.Comment(postId, userId, comment);
+            PostCommentLogic.Comment(userId, postId, comment);
         }
     }
 }

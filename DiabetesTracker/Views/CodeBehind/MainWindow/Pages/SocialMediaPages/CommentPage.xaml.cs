@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DiabetesTracker.Models;
+using ServiceLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,21 @@ namespace DiabetesTracker.Views
     /// </summary>
     public partial class CommentPage : Page
     {
-        public CommentPage()
+        private int _postId;
+        public CommentPage(int postId)
         {
+            _postId = postId;
             InitializeComponent();
+        }
+        
+        private void CommentButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Comment.TextBox.Text is null)
+                return;
+
+            Services.Comment(CurrentUserInformation.CurrentUserId.Value, _postId, Comment.TextBox.Text);
+
+            Comment.TextBox.Text = "";
         }
     }
 }

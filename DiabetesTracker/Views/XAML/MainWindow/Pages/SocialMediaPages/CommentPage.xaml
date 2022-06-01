@@ -29,7 +29,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <userControls:TextBoxForm TextBoxHintText="Comment" TextBoxIcon="Comment" Margin="20"/>
+            <userControls:TextBoxForm x:Name="Comment" TextBoxHintText="Comment" TextBoxIcon="Comment" Margin="20"/>
             <Button Content="Comment" Click="CommentButton_Click" Margin="50 0 0 0" Foreground="#2b2b2b" Background="#FFFFFF" BorderBrush="#FFFFFF"/>
         </StackPanel>
     </Grid>

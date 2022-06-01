@@ -22,14 +22,18 @@ namespace DiabetesTracker.Views
 {
     public partial class PostsPage : Page
     {
+        private SocialMediaPage _socialMediaPage;
+
         private CurrentPostInformation _postInformation;
 
         private List<PostInformation> _postsInformation;
         private int _index = 0;
         private int _pagingCount = 10;
 
-        public PostsPage()
+        public PostsPage(SocialMediaPage socialMediaPage)
         {
+            _socialMediaPage = socialMediaPage;
+
             _postInformation = new CurrentPostInformation();
             InitializeComponent();
             DataContext = _postInformation;
@@ -150,7 +154,7 @@ namespace DiabetesTracker.Views
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            _socialMediaPage.ShowPage(new CommentPage(_postsInformation[_index % _pagingCount].PostId));
         }
     }
 }

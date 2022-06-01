@@ -219,7 +219,9 @@ namespace Server
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.Comment:
-
+                    Operations.Comment(int.Parse(args[0]), int.Parse(args[1]), args[2]);
+                    response = $"{_success}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 default:
                     break;

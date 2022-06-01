@@ -34,7 +34,7 @@ namespace DiabetesTracker.Views
         public SocialMediaPage(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
-            PostsPage = new PostsPage();
+            PostsPage = new PostsPage(this);
             InitializeComponent();
             ShowPage(PostsPage);
         }
@@ -47,7 +47,7 @@ namespace DiabetesTracker.Views
         //Event handlers
         private void PostsButton_Click(object sender, RoutedEventArgs e)
         {
-            PostsPage = new PostsPage();
+            PostsPage = new PostsPage(this);
             BlogsPage = null;
             FavouritesPage = null;
             FollowingPage = null;

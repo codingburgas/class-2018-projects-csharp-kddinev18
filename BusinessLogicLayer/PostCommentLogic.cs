@@ -10,7 +10,7 @@ namespace BusinessLogicLayer
     public static class PostCommentLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static void Comment(int postId, int userId, string comment)
+        public static void Comment(int userId, int postId, string comment)
         {
             DbContext.PostComments.Add(new PostComment() 
             {
