@@ -16,15 +16,10 @@
             <RowDefinition Height="525"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="0" SelectionMode="Single" ItemsSource="{Binding TagsInformation}" MaxHeight="450" HorizontalContentAlignment="Stretch">
+        <ListView Grid.Row="0" SelectionMode="Single" ItemsSource="{Binding Comments}" MaxHeight="500" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Style="{StaticResource listViewBorder}" Height="50">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="700">
-                            <TextBlock Margin="-90 0 0 0" Text="{Binding TagName}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
-                            <TextBlock Margin="20 0 0 0" Text="{Binding PostCount}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Border>
+                    <TextBlock Margin="-90 0 0 0" Text="{Binding Comment}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

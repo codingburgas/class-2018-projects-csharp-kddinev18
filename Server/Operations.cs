@@ -126,5 +126,10 @@ namespace Server
         {
             PostCommentLogic.Comment(userId, postId, comment);
         }
+
+        public static string GetComments(int userId, int postId)
+        {
+            return JsonSerializer.Serialize(PostCommentLogic.GetComments(userId, postId));
+        }
     }
 }

@@ -33,6 +33,7 @@ namespace Server
         GetTags = 20,
         GetAnalytics = 21,
         Comment = 22,
+        GetComments = 23,
     }
     public class Server
     {
@@ -221,6 +222,10 @@ namespace Server
                 case UserOperation.Comment:
                     Operations.Comment(int.Parse(args[0]), int.Parse(args[1]), args[2]);
                     response = $"{_success}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.GetComments:
+                    response = $"{_success}|{Operations.GetComments(int.Parse(args[0]), int.Parse(args[1]))}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 default:

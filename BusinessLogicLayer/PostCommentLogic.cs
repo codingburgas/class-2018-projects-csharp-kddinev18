@@ -2,6 +2,7 @@
 using DataAccessLayer.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #nullable disable
 
@@ -21,6 +22,10 @@ namespace BusinessLogicLayer
             });
 
             DbContext.SaveChanges();
+        }
+        public static List<string> GetComments(int userId, int postId)
+        {
+            return DbContext.PostComments.Where(postComment => postComment.UserId == userId && postComment.PostId == postId).Select(postComment => postComment.CommentContend).ToList();
         }
     }
 }

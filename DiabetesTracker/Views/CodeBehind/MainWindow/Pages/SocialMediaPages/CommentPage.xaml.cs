@@ -23,12 +23,26 @@ namespace DiabetesTracker.Views
     public partial class CommentPage : Page
     {
         private int _postId;
+        private List<CurrentCommentInformation> _comments = new List<CurrentCommentInformation>();
         public CommentPage(int postId)
         {
             _postId = postId;
+            LoadComments(_postId);
             InitializeComponent();
+            DataContext = _comments;
         }
         
+        private void LoadComments(int postId)
+        {
+            foreach (string comment in Services.GetComments(CurrentUserInformation.CurrentUserId.Value, postId))
+            {
+                _comments.Add(new CurrentCommentInformation()
+                {
+                    Comment = comment
+                }); 
+            }
+        }
+
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {
             if (Comment.TextBox.Text is null)

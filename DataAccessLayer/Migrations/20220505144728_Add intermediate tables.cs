@@ -217,7 +217,7 @@ namespace DiabetesTracker.Migrations
                 name: "PostComments",
                 columns: table => new
                 {
-                    PostCommentsId = table.Column<int>(type: "int", nullable: false),
+                    PostCommentsId = table.Column<int>(type: "int", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     PostId = table.Column<int>(type: "int", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),

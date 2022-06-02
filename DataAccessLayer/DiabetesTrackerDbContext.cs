@@ -129,10 +129,7 @@ namespace DataAccessLayer
 
             modelBuilder.Entity<PostComment>(entity =>
             {
-                entity.HasKey(e => e.PostCommentsId)
-                    .HasName("PK__PostComm__A59DBB3A861A0D1F");
-
-                entity.Property(e => e.PostCommentsId).ValueGeneratedNever();
+                entity.HasKey(e => e.PostCommentsId);
 
                 entity.Property(e => e.CommentContend)
                     .IsRequired()

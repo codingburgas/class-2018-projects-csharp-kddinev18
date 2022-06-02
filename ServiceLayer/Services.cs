@@ -33,6 +33,7 @@ namespace ServiceLayer
         GetTags = 20,
         GetAnalytics = 21,
         Comment = 22,
+        GetComments = 23,
     }
     public class UserCredentials
     {
@@ -285,6 +286,11 @@ namespace ServiceLayer
         public static void Comment(int userId, int postId, string comment)
         {
             ClientToServerComunication($"{(int)UserOperation.Comment}|{userId}, {postId}, {comment}");
+        }
+        public static List<string> GetComments(int userId,int postId)
+        {
+            string serilizedResponse = ClientToServerComunication($"{(int)UserOperation.GetComments}|{userId}, {postId}");
+            return JsonSerializer.Deserialize<List<string>>(serilizedResponse.Split('|')[1]);
         }
     }
 }
