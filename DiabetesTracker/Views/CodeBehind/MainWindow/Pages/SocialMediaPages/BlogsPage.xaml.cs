@@ -98,5 +98,18 @@ namespace DiabetesTracker.Views
             };
             _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent, _socialMediaPage, blogInformation.BlogId));
         }
+        private void CreateBlogButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (BlogName.TextBox.Text == "")
+            {
+                SearchBlogsInformation.Clear();
+            }
+            else
+            {
+                string blogName = BlogName.TextBox.Text;
+                BlogName.TextBox.Text = "";
+                LoadBlogsInformation(blogName);
+            }
+        }
     }
 }

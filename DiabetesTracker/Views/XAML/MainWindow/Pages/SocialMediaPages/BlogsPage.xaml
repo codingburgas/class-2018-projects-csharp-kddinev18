@@ -22,7 +22,10 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Your Blogs: " Style="{StaticResource whiteText}"/>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <TextBlock Text="Your Blogs: " Style="{StaticResource whiteText}" Margin="0 0 100 0"/>
+                    <Button Content="Create blog" Click="CreateBlogButton_Click" Foreground="#2b2b2b" Background="#FFFFFF" BorderBrush="#FFFFFF"/>
+                </StackPanel>
                 <Grid Grid.Row="1">
                     <ListView x:Name="YourBlogsList" SelectionChanged="OnBlog_SelectionChanged" SelectionMode="Single" ItemsSource="{Binding YourBlogsInformation}" MaxHeight="200" HorizontalContentAlignment="Stretch">
                         <ListView.ItemTemplate>
