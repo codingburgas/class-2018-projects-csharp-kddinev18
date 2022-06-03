@@ -100,16 +100,7 @@ namespace DiabetesTracker.Views
         }
         private void CreateBlogButton_Click(object sender, RoutedEventArgs e)
         {
-            if (BlogName.TextBox.Text == "")
-            {
-                SearchBlogsInformation.Clear();
-            }
-            else
-            {
-                string blogName = BlogName.TextBox.Text;
-                BlogName.TextBox.Text = "";
-                LoadBlogsInformation(blogName);
-            }
+            _socialMediaPage.ShowPage(new BlogCreationPage(_socialMediaPage));
         }
     }
 }

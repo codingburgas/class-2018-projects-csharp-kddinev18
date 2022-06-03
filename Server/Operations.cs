@@ -98,13 +98,13 @@ namespace Server
 
         public  static void Post(int blogId, int userId, string tags, string content, string image)
         {
-            string[] imageBytes = image.Split(';');
-            byte[] bytes = new byte[imageBytes.Length];
+            string[] stringBytes = image.Split(';');
+            byte[] imageBytes = new byte[stringBytes.Length];
             for (int i = 0; i < imageBytes.Length; i++)
             {
-                bytes[i] = byte.Parse(imageBytes[i]);
+                imageBytes[i] = byte.Parse(stringBytes[i]);
             }
-            PostLogic.AddPost(blogId, tags.Split(';'), content, bytes, userId);
+            PostLogic.AddPost(blogId, tags.Split(';'), content, imageBytes, userId);
         }
 
         public static string GetTags()
@@ -130,6 +130,17 @@ namespace Server
         public static string GetComments(int userId, int postId)
         {
             return JsonSerializer.Serialize(PostCommentLogic.GetComments(userId, postId));
+        }
+
+        public static void CreateBlog(int userId, string image, string blogName)
+        {
+            string[] stringBytes = image.Split(';');
+            byte[] imageBytes = new byte[stringBytes.Length];
+            for (int i = 0; i < imageBytes.Length; i++)
+            {
+                imageBytes[i] = byte.Parse(stringBytes[i]);
+            }
+            BlogLogic.CreateBlog(userId, blogName, imageBytes);
         }
     }
 }

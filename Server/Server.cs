@@ -34,6 +34,7 @@ namespace Server
         GetAnalytics = 21,
         Comment = 22,
         GetComments = 23,
+        CreateBlog = 24
     }
     public class Server
     {
@@ -226,6 +227,11 @@ namespace Server
                     break;
                 case UserOperation.GetComments:
                     response = $"{_success}|{Operations.GetComments(int.Parse(args[0]), int.Parse(args[1]))}";
+                    client.Client.Send(Encoding.UTF8.GetBytes(response));
+                    break;
+                case UserOperation.CreateBlog:
+                    Operations.CreateBlog(int.Parse(args[0]), args[1], args[2]);
+                    response = $"{_success}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 default:

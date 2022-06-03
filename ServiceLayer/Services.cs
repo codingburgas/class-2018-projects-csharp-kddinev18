@@ -34,6 +34,7 @@ namespace ServiceLayer
         GetAnalytics = 21,
         Comment = 22,
         GetComments = 23,
+        CreateBlog = 24
     }
     public class UserCredentials
     {
@@ -203,7 +204,10 @@ namespace ServiceLayer
 
 
 
-
+        public static void CreateBlog(int userId, string image, string blogName)
+        {
+            ClientToServerComunication($"{(int)UserOperation.CreateBlog}|{userId}, {image}, {blogName}");
+        }
         public static List<BlogInformation> GetBlogs(int userId)
         {
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.GetBlogs}|{userId}");
