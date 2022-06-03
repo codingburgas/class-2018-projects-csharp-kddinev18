@@ -44,7 +44,7 @@ namespace DiabetesTracker.Views
                 YourBlogsInformation.Add(new CurrentBlogInformation() 
                 {
                     BlogId = currentUserblogInformation.BlogId,
-                    BlogImage = new BitmapImage(),//ConvertByteArrayToBitMapImage(searchBlogInformation.BlogImage),
+                    BlogImage = PostsPage.ConvertByteArrayToBitMapImage(currentUserblogInformation.BlogImage),
                     BlogName = currentUserblogInformation.BlogName,
                     PostCount = currentUserblogInformation.PostCount,
                     FollowingCount = currentUserblogInformation.FollowingCount,
@@ -61,7 +61,7 @@ namespace DiabetesTracker.Views
                 SearchBlogsInformation.Add(new CurrentBlogInformation()
                 {
                     BlogId = searchBlogInformation.BlogId,
-                    BlogImage = new BitmapImage(),//ConvertByteArrayToBitMapImage(searchBlogInformation.BlogImage),
+                    BlogImage = PostsPage.ConvertByteArrayToBitMapImage(searchBlogInformation.BlogImage),
                     BlogName = searchBlogInformation.BlogName,
                     PostCount = searchBlogInformation.PostCount,
                     FollowingCount = searchBlogInformation.FollowingCount,
