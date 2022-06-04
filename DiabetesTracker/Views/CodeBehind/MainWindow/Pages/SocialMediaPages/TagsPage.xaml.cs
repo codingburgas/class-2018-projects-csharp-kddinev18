@@ -1,4 +1,5 @@
-﻿using DiabetesTracker.Models;
+﻿using DiabetesTracker.Logic;
+using DiabetesTracker.Models;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -30,22 +31,9 @@ namespace DiabetesTracker.Views
         public TagsPage(SocialMediaPage socialMediaPage)
         {
             _socialMediaPage = socialMediaPage;
-            LoadTagsInformation();
+            SocialMediaPageLogic.LoadTagsInformation(TagsInformation);
             InitializeComponent();
             DataContext = this;
-        }
-        private void LoadTagsInformation()
-        {
-            List<TagInformation> tagsInformation = Services.GetTags();
-            foreach (TagInformation tagInformation in tagsInformation)
-            {
-                TagsInformation.Add(new CurrentTagInformation()
-                {
-                    TagId = tagInformation.TagId,
-                    TagName = tagInformation.TagName,
-                    PostCount = tagInformation.PostCount,
-                });
-            }
         }
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {

@@ -1,4 +1,5 @@
-﻿using DiabetesTracker.Models;
+﻿using DiabetesTracker.Logic;
+using DiabetesTracker.Models;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -30,39 +31,27 @@ namespace DiabetesTracker.Views
         public FollowingPage(SocialMediaPage socialMediaPage)
         {
             _socialMediaPage = socialMediaPage;
-            LoadBlogsInformation();
+            SocialMediaPageLogic.LoadBlogsInformation(FollowingBlogsInformation);
             InitializeComponent();
             DataContext = this;
         }
-        private void LoadBlogsInformation()
-        {
-            List<BlogInformation> followingblogsInformation = Services.GetFollowingBlogs(CurrentUserInformation.CurrentUserId.Value);
-            foreach (BlogInformation followingblogInformation in followingblogsInformation)
-            {
-                FollowingBlogsInformation.Add(new CurrentBlogInformation()
-                {
-                    BlogId = followingblogInformation.BlogId,
-                    BlogImage = new BitmapImage(),//ConvertByteArrayToBitMapImage(searchBlogInformation.BlogImage),
-                    BlogName = followingblogInformation.BlogName,
-                    PostCount = followingblogInformation.PostCount,
-                    FollowingCount = followingblogInformation.FollowingCount,
-                    IsFollowed = followingblogInformation.IsFollowed,
-                });
-            }
-        }
+
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             CurrentBlogInformation blogInformation = (sender as ListBox).SelectedItem as CurrentBlogInformation;
-            BlogContent blogContent = new BlogContent()
-            {
-                BlogName = blogInformation.BlogName,
-                BlogImage = blogInformation.BlogImage,
-                BlogTotalFollowers = blogInformation.FollowingCount,
-                BlogTotalPosts = blogInformation.PostCount,
-                BelongsToUser = Services.BelongsToUser(CurrentUserInformation.CurrentUserId.Value, blogInformation.BlogId),
-                IsFollowed = blogInformation.IsFollowed
-            };
-            _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent, _socialMediaPage, blogInformation.BlogId));
+            _socialMediaPage.ShowPage(new BlogTemplatePage(
+                new BlogContent()
+                {
+                    BlogName = blogInformation.BlogName,
+                    BlogImage = blogInformation.BlogImage,
+                    BlogTotalFollowers = blogInformation.FollowingCount,
+                    BlogTotalPosts = blogInformation.PostCount,
+                    BelongsToUser = Services.BelongsToUser(CurrentUserInformation.CurrentUserId.Value, blogInformation.BlogId),
+                    IsFollowed = blogInformation.IsFollowed
+                }, 
+                _socialMediaPage,
+                blogInformation.BlogId)
+            );
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DiabetesTracker.Models;
+﻿using DiabetesTracker.Logic;
+using DiabetesTracker.Models;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace DiabetesTracker.Views
     public partial class TagPostsPage : Page
     {
         private CurrentPostInformation _postInformation;
-
+        private (SolidColorBrush likeIconColor, SolidColorBrush favouriteIconColor) _iconColors;
         private List<PostInformation> _postsInformation;
         private int _index = 0;
         private int _pagingCount = 10;
@@ -38,7 +39,7 @@ namespace DiabetesTracker.Views
             try
             {
                 _postsInformation = Services.GetBlogPostsByTag(CurrentUserInformation.CurrentUserId.Value, tagId, 0);
-                SetPost(_index);
+                SetPost();
             }
             catch (Exception)
             {
@@ -49,29 +50,11 @@ namespace DiabetesTracker.Views
                 CommentButton.IsEnabled = false;
             }
         }
-        private void SetPost(int index)
+        private void SetPost()
         {
-            if (_postsInformation[_index % _pagingCount].IsPostLiked == true)
-            {
-                LikeIcon.Foreground = new SolidColorBrush(Colors.DeepSkyBlue);
-            }
-            else
-            {
-                LikeIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-            }
-
-            if (_postsInformation[_index % _pagingCount].IsPostFavourited == true)
-            {
-                FavouriteIcon.Foreground = new SolidColorBrush(Colors.Red);
-            }
-            else
-            {
-                FavouriteIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-            }
-
-            _postInformation.BlogName = _postsInformation[index % _pagingCount].BlogName;
-            _postInformation.PostContent = _postsInformation[index % _pagingCount].PostContent;
-            _postInformation.PostImage = ConvertByteArrayToBitMapImage(_postsInformation[index % _pagingCount].PostImage);
+            _iconColors = SocialMediaPageLogic.SetPost(ref _postsInformation, ref _postInformation, _index, _pagingCount);
+            LikeIcon.Foreground = _iconColors.likeIconColor;
+            FavouriteIcon.Foreground = _iconColors.favouriteIconColor;
         }
 
         public static BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
@@ -101,7 +84,7 @@ namespace DiabetesTracker.Views
             }
             NextButton.IsEnabled = true;
             _index--;
-            SetPost(_index % _pagingCount);
+            SetPost();
         }
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
@@ -118,37 +101,15 @@ namespace DiabetesTracker.Views
                 }
             }
             _index++;
-            SetPost(_index % _pagingCount);
+            SetPost();
         }
         private void LikeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_postsInformation[_index % _pagingCount].IsPostLiked == false)
-            {
-                Services.Like(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
-                LikeIcon.Foreground = new SolidColorBrush(Colors.DeepSkyBlue);
-                _postsInformation[_index % _pagingCount].IsPostLiked = true;
-            }
-            else
-            {
-                Services.Unlike(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
-                LikeIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-                _postsInformation[_index % _pagingCount].IsPostLiked = false;
-            }
+            LikeIcon.Foreground = SocialMediaPageLogic.LikePost(ref _postsInformation, _index, _pagingCount);
         }
         private void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_postsInformation[_index % _pagingCount].IsPostFavourited == false)
-            {
-                Services.Favourite(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
-                FavouriteIcon.Foreground = new SolidColorBrush(Colors.Red);
-                _postsInformation[_index % _pagingCount].IsPostFavourited = true;
-            }
-            else
-            {
-                Services.Unfavourite(_postsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
-                FavouriteIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-                _postsInformation[_index % _pagingCount].IsPostFavourited = false;
-            }
+            FavouriteIcon.Foreground = SocialMediaPageLogic.FavouritePost(ref _postsInformation, _index, _pagingCount);
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {

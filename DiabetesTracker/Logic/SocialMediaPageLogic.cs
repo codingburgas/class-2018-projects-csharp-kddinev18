@@ -107,11 +107,39 @@ namespace DiabetesTracker.Logic
             }
 
             blogContent.PostContent = postsInformation[index % pagingCount].PostContent;
-            blogContent.PostImage = SocialMediaPageLogic.ConvertByteArrayToBitMapImage(postsInformation[index % pagingCount].PostImage);
+            blogContent.PostImage = ConvertByteArrayToBitMapImage(postsInformation[index % pagingCount].PostImage);
 
             return iconColors;
         }
+        public static (SolidColorBrush, SolidColorBrush) SetPost(ref List<PostInformation> postsInformation, ref CurrentPostInformation postInformation, int index, int pagingCount)
+        {
+            (SolidColorBrush likeIconColor, SolidColorBrush favouriteIconColor) iconColors;
 
+            if (postsInformation[index % pagingCount].IsPostLiked == true)
+            {
+                iconColors.likeIconColor = new SolidColorBrush(Colors.DeepSkyBlue);
+            }
+            else
+            {
+                iconColors.likeIconColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
+            }
+
+            if (postsInformation[index % pagingCount].IsPostFavourited == true)
+            {
+                iconColors.favouriteIconColor = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                iconColors.favouriteIconColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
+            }
+
+            postInformation.BlogName = postsInformation[index % pagingCount].BlogName;
+            postInformation.PostContent = postsInformation[index % pagingCount].PostContent;
+            postInformation.PostImage = ConvertByteArrayToBitMapImage(postsInformation[index % pagingCount].PostImage);
+
+            return iconColors;
+
+        }
         public static SolidColorBrush LikePost(ref List<PostInformation> postsInformation, int index, int pagingCount)
         {
             if (postsInformation[index % pagingCount].IsPostLiked == false)
@@ -155,6 +183,37 @@ namespace DiabetesTracker.Logic
             {
                 Services.Unfollow(CurrentUserInformation.CurrentUserId.Value, blogId);
                 blogContent.IsFollowed = false;
+            }
+        }
+
+        public static void LoadBlogsInformation(ref ObservableCollection<CurrentBlogInformation> FollowingBlogsInformation)
+        {
+            List<BlogInformation> followingblogsInformation = Services.GetFollowingBlogs(CurrentUserInformation.CurrentUserId.Value);
+            foreach (BlogInformation followingblogInformation in followingblogsInformation)
+            {
+                FollowingBlogsInformation.Add(new CurrentBlogInformation()
+                {
+                    BlogId = followingblogInformation.BlogId,
+                    BlogImage = ConvertByteArrayToBitMapImage(followingblogInformation.BlogImage),
+                    BlogName = followingblogInformation.BlogName,
+                    PostCount = followingblogInformation.PostCount,
+                    FollowingCount = followingblogInformation.FollowingCount,
+                    IsFollowed = followingblogInformation.IsFollowed,
+                });
+            }
+        }
+
+        public static void LoadTagsInformation(ObservableCollection<CurrentTagInformation> TagsInformation)
+        {
+            List<TagInformation> tagsInformation = Services.GetTags();
+            foreach (TagInformation tagInformation in tagsInformation)
+            {
+                TagsInformation.Add(new CurrentTagInformation()
+                {
+                    TagId = tagInformation.TagId,
+                    TagName = tagInformation.TagName,
+                    PostCount = tagInformation.PostCount,
+                });
             }
         }
     }

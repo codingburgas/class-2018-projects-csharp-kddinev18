@@ -25,6 +25,7 @@ namespace DiabetesTracker.Views
     {
         private BlogContent _blogContent;
         private SocialMediaPage _socialMediaPage;
+        private (SolidColorBrush likeIconColor, SolidColorBrush favouriteIconColor) _iconColors;
 
         private List<PostInformation> _blogPostsInformation;
         private int _index = 0;
@@ -39,8 +40,8 @@ namespace DiabetesTracker.Views
             DataContext = _blogContent;
             try
             {
-                _blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, 0, _blogId);
-                SocialMediaPageLogic.SetPost(ref _blogPostsInformation, ref _blogContent, 0, _pagingCount);
+                _blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, _index, _blogId);
+                SetPost();
             }
             catch (Exception)
             {
@@ -53,6 +54,12 @@ namespace DiabetesTracker.Views
 
             FollowButton.IsEnabled = !_blogContent.BelongsToUser;
             PostButton.IsEnabled = _blogContent.BelongsToUser;
+        }
+        private void SetPost()
+        {
+            _iconColors = SocialMediaPageLogic.SetPost(ref _blogPostsInformation, ref _blogContent, _index, _pagingCount);
+            LikeIcon.Foreground = _iconColors.likeIconColor;
+            FavouriteIcon.Foreground = _iconColors.favouriteIconColor;
         }
 
         //Event handlers
@@ -68,7 +75,7 @@ namespace DiabetesTracker.Views
             }
             NextButton.IsEnabled = true;
             _index--;
-            SocialMediaPageLogic.SetPost(ref _blogPostsInformation, ref _blogContent, _index, _pagingCount);
+            SetPost();
         }
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
@@ -85,7 +92,7 @@ namespace DiabetesTracker.Views
                 }
             }
             _index++;
-            SocialMediaPageLogic.SetPost(ref _blogPostsInformation, ref _blogContent, _index, _pagingCount);
+            SetPost();
         }
         private void LikeButton_Click(object sender, RoutedEventArgs e)
         {

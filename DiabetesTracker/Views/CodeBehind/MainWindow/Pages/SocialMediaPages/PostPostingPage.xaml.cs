@@ -1,4 +1,5 @@
-﻿using DiabetesTracker.Models;
+﻿using DiabetesTracker.Logic;
+using DiabetesTracker.Models;
 using Microsoft.Win32;
 using ServiceLayer;
 using System;
@@ -51,23 +52,7 @@ namespace DiabetesTracker.Views
         }
         private void ImagePicker_Click(object sender, RoutedEventArgs e)
         {
-            // Create OpenFileDialog 
-            OpenFileDialog dlg = new OpenFileDialog();
-
-            // Set filter for file extension and default file extension 
-            dlg.DefaultExt = ".png";
-            dlg.Filter = "PNG Files (*.png)|*.png";
-
-            // Display OpenFileDialog by calling ShowDialog method 
-            bool? result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox 
-            if (result == true)
-            {
-                // Open document 
-                _selectedImagePath = dlg.FileName;
-                Preview.Source = new BitmapImage(new Uri(_selectedImagePath));
-            }
+            Preview.Source = SocialMediaPageLogic.ImagePickerDialog(ref _selectedImagePath);
         }
     }
 }
