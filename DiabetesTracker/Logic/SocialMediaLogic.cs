@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 
 namespace DiabetesTracker.Logic
 {
-    public static class SocialMediaPageLogic
+    public static class SocialMediaLogic
     {
         public static BitmapImage ImagePickerDialog(ref string selectedImagePath)
         {

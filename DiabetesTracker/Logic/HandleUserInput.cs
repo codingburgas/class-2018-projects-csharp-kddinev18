@@ -19,5 +19,19 @@ namespace DiabetesTracker.Logic
 
             return true;
         }
+
+        public static bool GeneralHandler(params string[] userInputs)
+        {
+            foreach (string userInput in userInputs)
+            {
+                if (string.IsNullOrEmpty(userInput) || userInput.Contains(", ") || userInput.Contains('|'))
+                {
+                    MessageBox.Show("Your input must not contain \', \' or \'|\'", "Error");
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

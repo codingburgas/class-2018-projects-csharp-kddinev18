@@ -33,7 +33,7 @@ namespace DiabetesTracker.Views
         public BlogsPage(SocialMediaPage socialMediaPage)
         {
             _socialMediaPage = socialMediaPage;
-            SocialMediaPageLogic.LoadBlogsInformation(YourBlogsInformation);
+            SocialMediaLogic.LoadBlogsInformation(YourBlogsInformation);
             InitializeComponent();
             DataContext = this;
         }
@@ -47,7 +47,7 @@ namespace DiabetesTracker.Views
             {
                 string blogName = BlogName.TextBox.Text;
                 BlogName.TextBox.Text = "";
-                SocialMediaPageLogic.LoadBlogsInformation(blogName, SearchBlogsInformation);
+                SocialMediaLogic.LoadBlogsInformation(blogName, SearchBlogsInformation);
             }
         }
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)

@@ -50,7 +50,7 @@ namespace DiabetesTracker.Views
         }
         private void SetPost()
         {
-            _iconColors = SocialMediaPageLogic.SetPost(ref _favouritePostsInformation, ref _favouritePostInformation, _index, _pagingCount);
+            _iconColors = SocialMediaLogic.SetPost(ref _favouritePostsInformation, ref _favouritePostInformation, _index, _pagingCount);
             LikeIcon.Foreground = _iconColors.likeIconColor;
             FavouriteIcon.Foreground = _iconColors.favouriteIconColor;
         }
@@ -88,11 +88,11 @@ namespace DiabetesTracker.Views
 
         private void LikeButton_Click(object sender, RoutedEventArgs e)
         {
-            LikeIcon.Foreground = SocialMediaPageLogic.LikePost(ref _favouritePostsInformation, _index, _pagingCount);
+            LikeIcon.Foreground = SocialMediaLogic.LikePost(ref _favouritePostsInformation, _index, _pagingCount);
         }
         private void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
-            FavouriteIcon.Foreground = SocialMediaPageLogic.FavouritePost(ref _favouritePostsInformation, _index, _pagingCount);
+            FavouriteIcon.Foreground = SocialMediaLogic.FavouritePost(ref _favouritePostsInformation, _index, _pagingCount);
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {

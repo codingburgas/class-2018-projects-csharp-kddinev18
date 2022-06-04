@@ -1,4 +1,5 @@
-﻿using DiabetesTracker.Models;
+﻿using DiabetesTracker.Logic;
+using DiabetesTracker.Models;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -44,20 +45,7 @@ namespace DiabetesTracker.Views
         }
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
-            string userName = UserName.TextBox.Text;
-            string password = PasswordTextBox.Password;
-            bool doRememberMe = RememberMeCheckBox.IsChecked == true ? true : false;
-
-            try
-            {
-                CurrentUserInformation.CurrentUserId = Services.LogIn(userName, password, doRememberMe);
-                _userAuthentication.OpenMainWindow();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            UserAuthentocationLogic.LogIn(_userAuthentication, UserName.TextBox.Text, PasswordTextBox.Password, RememberMeCheckBox.IsChecked == true ? true : false);
         }
     }
 }

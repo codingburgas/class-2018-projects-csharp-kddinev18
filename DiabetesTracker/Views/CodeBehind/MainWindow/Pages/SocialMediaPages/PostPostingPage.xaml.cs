@@ -52,7 +52,7 @@ namespace DiabetesTracker.Views
         }
         private void ImagePicker_Click(object sender, RoutedEventArgs e)
         {
-            Preview.Source = SocialMediaPageLogic.ImagePickerDialog(ref _selectedImagePath);
+            Preview.Source = SocialMediaLogic.ImagePickerDialog(ref _selectedImagePath);
         }
     }
 }

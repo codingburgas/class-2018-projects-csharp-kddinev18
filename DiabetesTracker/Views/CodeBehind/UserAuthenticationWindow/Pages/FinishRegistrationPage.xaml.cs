@@ -1,4 +1,5 @@
-﻿using DiabetesTracker.Models;
+﻿using DiabetesTracker.Logic;
+using DiabetesTracker.Models;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -30,21 +31,7 @@ namespace DiabetesTracker.Views
         }
         private void FinishRegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            string country = Country.TextBox.Text;
-            string city = City.TextBox.Text;
-            string about = About.TextBox.Text;
-            char gender = MeleCheckBox.IsChecked == true ? 'M' : 'F';
-
-            try
-            {
-                Services.FinishRegistration(CurrentUserInformation.CurrentUserId.Value, gender, about, country, city);
-                _userAuthentication.OpenMainWindow();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            UserAuthentocationLogic.FinishRegistration(_userAuthentication,Country.TextBox.Text, City.TextBox.Text, About.TextBox.Text, MeleCheckBox.IsChecked == true ? 'M' : 'F');
         }
         private void MeleCheckBox_Ckecked(object sender, RoutedEventArgs e)
         {

@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using DiabetesTracker.Logic;
 using DiabetesTracker.Models;
 using ServiceLayer;
 using System;
@@ -36,20 +37,7 @@ namespace DiabetesTracker.Views
         }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            string userName = UserName.TextBox.Text;
-            string email = Email.TextBox.Text;
-            string password = PasswordTextBox.Password;
-
-            try
-            {
-                CurrentUserInformation.CurrentUserId = Services.Register(userName, email, password);
-                _userAuthentication.ShowPage(_userAuthentication.FinishRegistrationPage);
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            UserAuthentocationLogic.Register(_userAuthentication, UserName.TextBox.Text, Email.TextBox.Text, PasswordTextBox.Password);
         }
     }
 }
