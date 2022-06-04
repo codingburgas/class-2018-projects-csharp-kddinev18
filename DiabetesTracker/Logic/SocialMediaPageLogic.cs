@@ -4,6 +4,7 @@ using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,19 @@ namespace DiabetesTracker.Logic
             else
                 return null;
         }
+        public static BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
+        {
+            BitmapImage img = new BitmapImage();
+            using (MemoryStream memStream = new MemoryStream(imageByteArray))
+            {
+                img.BeginInit();
+                img.CacheOption = BitmapCacheOption.OnLoad;
+                img.StreamSource = memStream;
+                img.EndInit();
+                img.Freeze();
+            }
+            return img;
+        }
         public static void LoadBlogsInformation(ObservableCollection<CurrentBlogInformation> YourBlogsInformation)
         {
             List<BlogInformation> currentUserblogsInformation = Services.GetBlogs(CurrentUserInformation.CurrentUserId.Value);
@@ -43,7 +57,7 @@ namespace DiabetesTracker.Logic
                 YourBlogsInformation.Add(new CurrentBlogInformation()
                 {
                     BlogId = currentUserblogInformation.BlogId,
-                    BlogImage = PostsPage.ConvertByteArrayToBitMapImage(currentUserblogInformation.BlogImage),
+                    BlogImage = ConvertByteArrayToBitMapImage(currentUserblogInformation.BlogImage),
                     BlogName = currentUserblogInformation.BlogName,
                     PostCount = currentUserblogInformation.PostCount,
                     FollowingCount = currentUserblogInformation.FollowingCount,
@@ -60,7 +74,7 @@ namespace DiabetesTracker.Logic
                 SearchBlogsInformation.Add(new CurrentBlogInformation()
                 {
                     BlogId = searchBlogInformation.BlogId,
-                    BlogImage = PostsPage.ConvertByteArrayToBitMapImage(searchBlogInformation.BlogImage),
+                    BlogImage = ConvertByteArrayToBitMapImage(searchBlogInformation.BlogImage),
                     BlogName = searchBlogInformation.BlogName,
                     PostCount = searchBlogInformation.PostCount,
                     FollowingCount = searchBlogInformation.FollowingCount,

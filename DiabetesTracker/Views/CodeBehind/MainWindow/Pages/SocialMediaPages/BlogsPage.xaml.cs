@@ -1,4 +1,5 @@
-﻿using DiabetesTracker.Models;
+﻿using DiabetesTracker.Logic;
+using DiabetesTracker.Models;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace DiabetesTracker.Views
         public BlogsPage(SocialMediaPage socialMediaPage)
         {
             _socialMediaPage = socialMediaPage;
-            LoadBlogsInformation();
+            SocialMediaPageLogic.LoadBlogsInformation(YourBlogsInformation);
             InitializeComponent();
             DataContext = this;
         }
@@ -40,15 +41,13 @@ namespace DiabetesTracker.Views
         //Event handlers
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (BlogName.TextBox.Text == "")
-            {
-                SearchBlogsInformation.Clear();
-            }
+            if (!HandleUserInput.GeneralHandler(BlogName.TextBox.Text))
+                return;
             else
             {
                 string blogName = BlogName.TextBox.Text;
                 BlogName.TextBox.Text = "";
-                LoadBlogsInformation(blogName);
+                SocialMediaPageLogic.LoadBlogsInformation(blogName, SearchBlogsInformation);
             }
         }
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)

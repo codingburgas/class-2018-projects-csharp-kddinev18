@@ -1,4 +1,5 @@
-﻿using DiabetesTracker.Models;
+﻿using DiabetesTracker.Logic;
+using DiabetesTracker.Models;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -73,21 +74,7 @@ namespace DiabetesTracker.Views
 
             _postInformation.BlogName = _postsInformation[index % _pagingCount].BlogName;
             _postInformation.PostContent = _postsInformation[index % _pagingCount].PostContent;
-            _postInformation.PostImage = ConvertByteArrayToBitMapImage(_postsInformation[index % _pagingCount].PostImage);
-        }
-
-        public static BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
-        {
-            BitmapImage img = new BitmapImage();
-            using (MemoryStream memStream = new MemoryStream(imageByteArray))
-            {
-                img.BeginInit();
-                img.CacheOption = BitmapCacheOption.OnLoad;
-                img.StreamSource = memStream;
-                img.EndInit();
-                img.Freeze();
-            }
-            return img;
+            _postInformation.PostImage = SocialMediaPageLogic.ConvertByteArrayToBitMapImage(_postsInformation[index % _pagingCount].PostImage);
         }
 
         //Event handlers
