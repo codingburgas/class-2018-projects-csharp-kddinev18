@@ -16,10 +16,12 @@
             <RowDefinition Height="525"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="0" SelectionMode="Single" ItemsSource="{Binding Comments}" MaxHeight="500" HorizontalContentAlignment="Stretch">
+        <ListView x:Name="CommentsList" Grid.Row="0" SelectionMode="Single" MaxHeight="500" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Margin="-90 0 0 0" Text="{Binding Comment}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
+                    <Border Style="{StaticResource listViewBorder}">
+                        <TextBlock Margin="20" Text="{Binding Path=Comment}" Foreground="#2b2b2b" FontSize="15" VerticalAlignment="Center"/>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

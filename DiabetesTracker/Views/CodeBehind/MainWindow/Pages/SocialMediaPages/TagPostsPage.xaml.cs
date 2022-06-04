@@ -27,11 +27,13 @@ namespace DiabetesTracker.Views
         private CurrentPostInformation _postInformation;
         private (SolidColorBrush likeIconColor, SolidColorBrush favouriteIconColor) _iconColors;
         private List<PostInformation> _postsInformation;
+        private SocialMediaPage _socialMediaPage;
         private int _index = 0;
         private int _pagingCount = 10;
         private int _tagId;
-        public TagPostsPage(int tagId)
+        public TagPostsPage(int tagId, SocialMediaPage socialMediaPage)
         {
+            _socialMediaPage = socialMediaPage;
             _tagId = tagId;
             _postInformation = new CurrentPostInformation();
             InitializeComponent();
@@ -113,7 +115,7 @@ namespace DiabetesTracker.Views
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _socialMediaPage.ShowPage(new CommentPage(_postsInformation[_index % _pagingCount].PostId));
         }
     }
 }

@@ -216,5 +216,24 @@ namespace DiabetesTracker.Logic
                 });
             }
         }
+
+        public static void LoadComments(ObservableCollection<CurrentCommentInformation> Comments, int postId)
+        {
+            foreach (string comment in Services.GetComments(CurrentUserInformation.CurrentUserId.Value, postId))
+            {
+                Comments.Add(new CurrentCommentInformation()
+                {
+                    Comment = comment
+                });
+            }
+        }
+
+        public static void Comment(string comment, int postId)
+        {
+            if (!HandleUserInput.GeneralHandler(comment))
+                return;
+
+            Services.Comment(CurrentUserInformation.CurrentUserId.Value, postId, comment);
+        }
     }
 }

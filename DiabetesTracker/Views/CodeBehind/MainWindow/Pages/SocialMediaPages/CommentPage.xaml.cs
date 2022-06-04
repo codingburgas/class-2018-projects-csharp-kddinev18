@@ -1,7 +1,9 @@
-﻿using DiabetesTracker.Models;
+﻿using DiabetesTracker.Logic;
+using DiabetesTracker.Models;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,32 +25,22 @@ namespace DiabetesTracker.Views
     public partial class CommentPage : Page
     {
         private int _postId;
-        private List<CurrentCommentInformation> _comments = new List<CurrentCommentInformation>();
+        public ObservableCollection<CurrentCommentInformation> Comments { get; set; } = new ObservableCollection<CurrentCommentInformation>();
+
         public CommentPage(int postId)
         {
             _postId = postId;
-            LoadComments(_postId);
+            SocialMediaLogic.LoadComments(Comments,_postId);
             InitializeComponent();
-            DataContext = _comments;
-        }
-        
-        private void LoadComments(int postId)
-        {
-            foreach (string comment in Services.GetComments(CurrentUserInformation.CurrentUserId.Value, postId))
-            {
-                _comments.Add(new CurrentCommentInformation()
-                {
-                    Comment = comment
-                }); 
-            }
+            CommentsList.ItemsSource = Comments;
         }
 
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Comment.TextBox.Text is null)
-                return;
-
-            Services.Comment(CurrentUserInformation.CurrentUserId.Value, _postId, Comment.TextBox.Text);
+            SocialMediaLogic.Comment(Comment.TextBox.Text, _postId);
+            Comments = new ObservableCollection<CurrentCommentInformation>();
+            SocialMediaLogic.LoadComments(Comments, _postId);
+            CommentsList.ItemsSource = Comments;
 
             Comment.TextBox.Text = "";
         }

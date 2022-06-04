@@ -68,7 +68,7 @@ namespace DiabetesTracker.Views
         }
         private void FavoritesButton_Click(object sender, RoutedEventArgs e)
         {
-            FavouritesPage = new FavouritesPage();
+            FavouritesPage = new FavouritesPage(this);
             BlogsPage = null;
             FollowingPage = null;
             TagsPage = null;

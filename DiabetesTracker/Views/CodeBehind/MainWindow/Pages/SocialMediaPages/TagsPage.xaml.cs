@@ -38,7 +38,7 @@ namespace DiabetesTracker.Views
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             CurrentTagInformation tagInformation = (sender as ListBox).SelectedItem as CurrentTagInformation;
-            TagPostsPage tagPostsPage = new TagPostsPage(tagInformation.TagId);
+            TagPostsPage tagPostsPage = new TagPostsPage(tagInformation.TagId, _socialMediaPage);
 
             _socialMediaPage.ShowPage(tagPostsPage);
         }
