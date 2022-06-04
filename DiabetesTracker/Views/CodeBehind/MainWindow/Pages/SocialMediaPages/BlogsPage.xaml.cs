@@ -36,39 +36,6 @@ namespace DiabetesTracker.Views
             InitializeComponent();
             DataContext = this;
         }
-        private void LoadBlogsInformation()
-        {
-            List<BlogInformation> currentUserblogsInformation = Services.GetBlogs(CurrentUserInformation.CurrentUserId.Value);
-            foreach (BlogInformation currentUserblogInformation in currentUserblogsInformation)
-            {
-                YourBlogsInformation.Add(new CurrentBlogInformation() 
-                {
-                    BlogId = currentUserblogInformation.BlogId,
-                    BlogImage = PostsPage.ConvertByteArrayToBitMapImage(currentUserblogInformation.BlogImage),
-                    BlogName = currentUserblogInformation.BlogName,
-                    PostCount = currentUserblogInformation.PostCount,
-                    FollowingCount = currentUserblogInformation.FollowingCount,
-                    IsFollowed = currentUserblogInformation.IsFollowed,
-                });
-            }
-        }
-        private void LoadBlogsInformation(string blogName)
-        {
-            SearchBlogsInformation.Clear();
-            List<BlogInformation> searchBlogsInformation = Services.GetBlogs(CurrentUserInformation.CurrentUserId.Value,blogName);
-            foreach (BlogInformation searchBlogInformation in searchBlogsInformation)
-            {
-                SearchBlogsInformation.Add(new CurrentBlogInformation()
-                {
-                    BlogId = searchBlogInformation.BlogId,
-                    BlogImage = PostsPage.ConvertByteArrayToBitMapImage(searchBlogInformation.BlogImage),
-                    BlogName = searchBlogInformation.BlogName,
-                    PostCount = searchBlogInformation.PostCount,
-                    FollowingCount = searchBlogInformation.FollowingCount,
-                    IsFollowed = searchBlogInformation.IsFollowed,
-                });
-            }
-        }
 
         //Event handlers
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -87,16 +54,19 @@ namespace DiabetesTracker.Views
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             CurrentBlogInformation blogInformation = (sender as ListBox).SelectedItem as CurrentBlogInformation;
-            BlogContent blogContent = new BlogContent() 
-            {
-                BlogName = blogInformation.BlogName,
-                BlogImage = blogInformation.BlogImage,
-                BlogTotalFollowers = blogInformation.FollowingCount,
-                BlogTotalPosts = blogInformation.PostCount,
-                BelongsToUser = Services.BelongsToUser(CurrentUserInformation.CurrentUserId.Value, blogInformation.BlogId),
-                IsFollowed = blogInformation.IsFollowed
-            };
-            _socialMediaPage.ShowPage(new BlogTemplatePage(blogContent, _socialMediaPage, blogInformation.BlogId));
+            _socialMediaPage.ShowPage(new BlogTemplatePage(
+                new BlogContent()
+                {
+                    BlogName = blogInformation.BlogName,
+                    BlogImage = blogInformation.BlogImage,
+                    BlogTotalFollowers = blogInformation.FollowingCount,
+                    BlogTotalPosts = blogInformation.PostCount,
+                    BelongsToUser = Services.BelongsToUser(CurrentUserInformation.CurrentUserId.Value, blogInformation.BlogId),
+                    IsFollowed = blogInformation.IsFollowed
+                },
+                _socialMediaPage, 
+                blogInformation.BlogId
+            ));
         }
         private void CreateBlogButton_Click(object sender, RoutedEventArgs e)
         {

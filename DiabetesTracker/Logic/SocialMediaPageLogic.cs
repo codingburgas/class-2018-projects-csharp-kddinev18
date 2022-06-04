@@ -1,6 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using DiabetesTracker.Models;
+using Microsoft.Win32;
+using ServiceLayer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +13,7 @@ namespace DiabetesTracker.Logic
 {
     public static class SocialMediaPageLogic
     {
-        public static BitmapImage FilePickerDialog(ref string selectedImagePath)
+        public static BitmapImage ImagePickerDialog(ref string selectedImagePath)
         {
             // Create OpenFileDialog 
             OpenFileDialog dlg = new OpenFileDialog();
@@ -31,6 +34,39 @@ namespace DiabetesTracker.Logic
             }
             else
                 return null;
+        }
+        public static void LoadBlogsInformation(ObservableCollection<CurrentBlogInformation> YourBlogsInformation)
+        {
+            List<BlogInformation> currentUserblogsInformation = Services.GetBlogs(CurrentUserInformation.CurrentUserId.Value);
+            foreach (BlogInformation currentUserblogInformation in currentUserblogsInformation)
+            {
+                YourBlogsInformation.Add(new CurrentBlogInformation()
+                {
+                    BlogId = currentUserblogInformation.BlogId,
+                    BlogImage = PostsPage.ConvertByteArrayToBitMapImage(currentUserblogInformation.BlogImage),
+                    BlogName = currentUserblogInformation.BlogName,
+                    PostCount = currentUserblogInformation.PostCount,
+                    FollowingCount = currentUserblogInformation.FollowingCount,
+                    IsFollowed = currentUserblogInformation.IsFollowed,
+                });
+            }
+        }
+        public static void LoadBlogsInformation(string blogName, ObservableCollection<CurrentBlogInformation> SearchBlogsInformation)
+        {
+            SearchBlogsInformation.Clear();
+            List<BlogInformation> searchBlogsInformation = Services.GetBlogs(CurrentUserInformation.CurrentUserId.Value, blogName);
+            foreach (BlogInformation searchBlogInformation in searchBlogsInformation)
+            {
+                SearchBlogsInformation.Add(new CurrentBlogInformation()
+                {
+                    BlogId = searchBlogInformation.BlogId,
+                    BlogImage = PostsPage.ConvertByteArrayToBitMapImage(searchBlogInformation.BlogImage),
+                    BlogName = searchBlogInformation.BlogName,
+                    PostCount = searchBlogInformation.PostCount,
+                    FollowingCount = searchBlogInformation.FollowingCount,
+                    IsFollowed = searchBlogInformation.IsFollowed,
+                });
+            }
         }
     }
 }
