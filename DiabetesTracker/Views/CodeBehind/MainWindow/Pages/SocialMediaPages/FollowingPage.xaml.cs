@@ -31,7 +31,7 @@ namespace DiabetesTracker.Views
         public FollowingPage(SocialMediaPage socialMediaPage)
         {
             _socialMediaPage = socialMediaPage;
-            SocialMediaLogic.LoadBlogsInformation(FollowingBlogsInformation);
+            SocialMediaLogic.LoadFollowedBlogsInformation(FollowingBlogsInformation);
             InitializeComponent();
             DataContext = this;
         }

@@ -83,7 +83,22 @@ namespace DiabetesTracker.Logic
                 });
             }
         }
-
+        public static void LoadFollowedBlogsInformation(ObservableCollection<CurrentBlogInformation> FollowingBlogsInformation)
+        {
+            List<BlogInformation> followingblogsInformation = Services.GetFollowingBlogs(CurrentUserInformation.CurrentUserId.Value);
+            foreach (BlogInformation followingblogInformation in followingblogsInformation)
+            {
+                FollowingBlogsInformation.Add(new CurrentBlogInformation()
+                {
+                    BlogId = followingblogInformation.BlogId,
+                    BlogImage = ConvertByteArrayToBitMapImage(followingblogInformation.BlogImage),
+                    BlogName = followingblogInformation.BlogName,
+                    PostCount = followingblogInformation.PostCount,
+                    FollowingCount = followingblogInformation.FollowingCount,
+                    IsFollowed = followingblogInformation.IsFollowed,
+                });
+            }
+        }
 
         public static (SolidColorBrush, SolidColorBrush) SetPost(ref List<PostInformation> postsInformation, ref BlogContent blogContent, int index, int pagingCount)
         {
