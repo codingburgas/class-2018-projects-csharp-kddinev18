@@ -1,4 +1,5 @@
-﻿using DiabetesTracker.Models;
+﻿using DiabetesTracker.Logic;
+using DiabetesTracker.Models;
 using Microsoft.Win32;
 using ServiceLayer;
 using System;
@@ -37,7 +38,7 @@ namespace DiabetesTracker.Views
         {
             string blogName = BlogName.TextBox.Text;
 
-            if (_selectedImagePath == String.Empty)
+            if (!HandleUserInput.GeneralHandler(blogName))
                 return;
 
             string image = string.Join(';', File.ReadAllBytes(_selectedImagePath));
