@@ -85,7 +85,33 @@ namespace DiabetesTracker.Logic
         }
 
 
-        
+        public static (SolidColorBrush, SolidColorBrush) SetPost(ref List<PostInformation> postsInformation, ref BlogContent blogContent, int index, int pagingCount)
+        {
+            (SolidColorBrush likeIconColor, SolidColorBrush favouriteIconColor) iconColors;
+            if (postsInformation[index % pagingCount].IsPostLiked == true)
+            {
+                iconColors.likeIconColor = new SolidColorBrush(Colors.DeepSkyBlue);
+            }
+            else
+            {
+                iconColors.likeIconColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
+            }
+
+            if (postsInformation[index % pagingCount].IsPostFavourited == true)
+            {
+                iconColors.favouriteIconColor = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                iconColors.favouriteIconColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
+            }
+
+            blogContent.PostContent = postsInformation[index % pagingCount].PostContent;
+            blogContent.PostImage = SocialMediaPageLogic.ConvertByteArrayToBitMapImage(postsInformation[index % pagingCount].PostImage);
+
+            return iconColors;
+        }
+
         public static SolidColorBrush LikePost(ref List<PostInformation> postsInformation, int index, int pagingCount)
         {
             if (postsInformation[index % pagingCount].IsPostLiked == false)
@@ -115,6 +141,20 @@ namespace DiabetesTracker.Logic
                 Services.Unfavourite(postsInformation[index % pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
                 postsInformation[index % pagingCount].IsPostFavourited = false;
                 return (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
+            }
+        }
+
+        public static void FollowBlog(ref BlogContent blogContent, int blogId)
+        {
+            if (blogContent.IsFollowed == false)
+            {
+                Services.Follow(CurrentUserInformation.CurrentUserId.Value, blogId);
+                blogContent.IsFollowed = true;
+            }
+            else
+            {
+                Services.Unfollow(CurrentUserInformation.CurrentUserId.Value, blogId);
+                blogContent.IsFollowed = false;
             }
         }
     }

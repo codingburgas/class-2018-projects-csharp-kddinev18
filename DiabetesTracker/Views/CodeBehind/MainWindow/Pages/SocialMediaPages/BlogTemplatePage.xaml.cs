@@ -40,7 +40,7 @@ namespace DiabetesTracker.Views
             try
             {
                 _blogPostsInformation = Services.GetBlogPosts(CurrentUserInformation.CurrentUserId.Value, 0, _blogId);
-                SetPost(_index);
+                SocialMediaPageLogic.SetPost(ref _blogPostsInformation, ref _blogContent, 0, _pagingCount);
             }
             catch (Exception)
             {
@@ -53,30 +53,6 @@ namespace DiabetesTracker.Views
 
             FollowButton.IsEnabled = !_blogContent.BelongsToUser;
             PostButton.IsEnabled = _blogContent.BelongsToUser;
-        }
-
-        public void SetPost(int index)
-        {
-            if(_blogPostsInformation[_index % _pagingCount].IsPostLiked == true)
-            {
-                LikeIcon.Foreground = new SolidColorBrush(Colors.DeepSkyBlue);
-            }
-            else
-            {
-                LikeIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-            }
-
-            if (_blogPostsInformation[_index % _pagingCount].IsPostFavourited == true)
-            {
-                FavouriteIcon.Foreground = new SolidColorBrush(Colors.Red);
-            }
-            else
-            {
-                FavouriteIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-            }
-
-            _blogContent.PostContent = _blogPostsInformation[index % _pagingCount].PostContent;
-            _blogContent.PostImage = SocialMediaPageLogic.ConvertByteArrayToBitMapImage(_blogPostsInformation[index % _pagingCount].PostImage);
         }
 
         //Event handlers
@@ -92,7 +68,7 @@ namespace DiabetesTracker.Views
             }
             NextButton.IsEnabled = true;
             _index--;
-            SetPost(_index % _pagingCount);
+            SocialMediaPageLogic.SetPost(ref _blogPostsInformation, ref _blogContent, _index, _pagingCount);
         }
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
@@ -109,7 +85,7 @@ namespace DiabetesTracker.Views
                 }
             }
             _index++;
-            SetPost(_index % _pagingCount);
+            SocialMediaPageLogic.SetPost(ref _blogPostsInformation, ref _blogContent, _index, _pagingCount);
         }
         private void LikeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -119,26 +95,17 @@ namespace DiabetesTracker.Views
         {
             FavouriteIcon.Foreground = SocialMediaPageLogic.FavouritePost(ref _blogPostsInformation, _index, _pagingCount);
         }
-        private void CommentButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
         private void FollowButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_blogContent.IsFollowed == false)
-            {
-                Services.Follow(CurrentUserInformation.CurrentUserId.Value, _blogId);
-                _blogContent.IsFollowed = true;
-            }
-            else
-            {
-                Services.Unfollow(CurrentUserInformation.CurrentUserId.Value, _blogId);
-                _blogContent.IsFollowed = false;
-            }
+            SocialMediaPageLogic.FollowBlog(ref _blogContent, _blogId);
         }
         private void PostButton_Click(object sender, RoutedEventArgs e)
         {
             _socialMediaPage.ShowPage(new PostPostingPage(_socialMediaPage,_blogId));
+        }
+        private void CommentButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
