@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DiabetesTracker.Logic;
 using DiabetesTracker.Models;
 using ServiceLayer;
 
@@ -54,7 +55,7 @@ namespace DiabetesTracker.Views
             PostButton.IsEnabled = _blogContent.BelongsToUser;
         }
 
-        private void SetPost(int index)
+        public void SetPost(int index)
         {
             if(_blogPostsInformation[_index % _pagingCount].IsPostLiked == true)
             {
@@ -75,7 +76,7 @@ namespace DiabetesTracker.Views
             }
 
             _blogContent.PostContent = _blogPostsInformation[index % _pagingCount].PostContent;
-            _blogContent.PostImage = PostsPage.ConvertByteArrayToBitMapImage(_blogPostsInformation[index % _pagingCount].PostImage);
+            _blogContent.PostImage = SocialMediaPageLogic.ConvertByteArrayToBitMapImage(_blogPostsInformation[index % _pagingCount].PostImage);
         }
 
         //Event handlers
@@ -112,33 +113,11 @@ namespace DiabetesTracker.Views
         }
         private void LikeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_blogPostsInformation[_index % _pagingCount].IsPostLiked == false)
-            {
-                Services.Like(_blogPostsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
-                LikeIcon.Foreground = new SolidColorBrush(Colors.DeepSkyBlue);
-                _blogPostsInformation[_index % _pagingCount].IsPostLiked = true;
-            }
-            else
-            {
-                Services.Unlike(_blogPostsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
-                LikeIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-                _blogPostsInformation[_index % _pagingCount].IsPostLiked = false;
-            }
+            LikeIcon.Foreground = SocialMediaPageLogic.LikePost(ref _blogPostsInformation, _index, _pagingCount);
         }
         private void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_blogPostsInformation[_index % _pagingCount].IsPostFavourited == false)
-            {
-                Services.Favourite(_blogPostsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
-                FavouriteIcon.Foreground = new SolidColorBrush(Colors.Red);
-                _blogPostsInformation[_index % _pagingCount].IsPostFavourited = true;
-            }
-            else
-            {
-                Services.Unfavourite(_blogPostsInformation[_index % _pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
-                FavouriteIcon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
-                _blogPostsInformation[_index % _pagingCount].IsPostFavourited = false;
-            }
+            FavouriteIcon.Foreground = SocialMediaPageLogic.FavouritePost(ref _blogPostsInformation, _index, _pagingCount);
         }
         private void CommentButton_Click(object sender, RoutedEventArgs e)
         {

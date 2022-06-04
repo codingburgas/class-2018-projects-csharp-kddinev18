@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace DiabetesTracker.Logic
@@ -80,6 +81,40 @@ namespace DiabetesTracker.Logic
                     FollowingCount = searchBlogInformation.FollowingCount,
                     IsFollowed = searchBlogInformation.IsFollowed,
                 });
+            }
+        }
+
+
+        
+        public static SolidColorBrush LikePost(ref List<PostInformation> postsInformation, int index, int pagingCount)
+        {
+            if (postsInformation[index % pagingCount].IsPostLiked == false)
+            {
+                Services.Like(postsInformation[index % pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
+                postsInformation[index % pagingCount].IsPostLiked = true;
+                return new SolidColorBrush(Colors.DeepSkyBlue);
+            }
+            else
+            {
+                Services.Unlike(postsInformation[index % pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
+                postsInformation[index % pagingCount].IsPostLiked = false;
+                return (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
+            }
+        }
+
+        public static SolidColorBrush FavouritePost(ref List<PostInformation> postsInformation, int index, int pagingCount)
+        {
+            if (postsInformation[index % pagingCount].IsPostFavourited == false)
+            {
+                Services.Favourite(postsInformation[index % pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
+                postsInformation[index % pagingCount].IsPostFavourited = true;
+                return new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                Services.Unfavourite(postsInformation[index % pagingCount].PostId, CurrentUserInformation.CurrentUserId.Value);
+                postsInformation[index % pagingCount].IsPostFavourited = false;
+                return (SolidColorBrush)new BrushConverter().ConvertFrom("#2b2b2b");
             }
         }
     }
