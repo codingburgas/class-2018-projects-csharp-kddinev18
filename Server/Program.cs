@@ -8,10 +8,16 @@ namespace Server
         static void Main(string[] args)
         {
             Server server = new Server(5400);
+            string userInput = String.Empty;
 
             server.ServerSertUp();
 
-            Console.Read();
+            while(true)
+            {
+                userInput = Console.ReadLine();
+
+
+            }
 
             server.ServerShutDown();
         }
