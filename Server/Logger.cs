@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    public static class Logger
+    public class Logger
     {
-        private static string _logsPath;
-        public static int? SeverityToLog { get; set; } = null;
+        private string _logsPath;
+        private string _workingDirectory = @$"{Directory.GetCurrentDirectory()}\Logs\";
+        public int? SeverityToLog { get; set; } = null;
 
-        public static void  ConfigureLogger(int severityToLog)
+        public Logger(int severityToLog)
         {
             SeverityToLog = severityToLog;
-            _logsPath = @$"{Directory.GetCurrentDirectory()}/Logs/{DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm")}.txt";
+            _logsPath = $"{_workingDirectory + DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm")}.txt";
             File.Create(_logsPath);
         }
 
-        public static void WriteData(int severity, string category, string message)
+        public void WriteData(int severity, string category, string message)
         {
             if (SeverityToLog is null)
                 return;
@@ -28,6 +29,12 @@ namespace Server
                 File.AppendAllText(_logsPath, $"{DateTime.UtcNow.ToString("hh:mm")}|{severity}|{category}|{message}\n\r");
         }
 
-        
+        public void ClearLogs()
+        {
+            foreach (string logName in Directory.GetFiles($@"{Directory.GetCurrentDirectory()}\Logs"))
+            {
+                File.Delete(_workingDirectory + logName);
+            }
+        }
     }
 }
