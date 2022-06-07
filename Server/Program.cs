@@ -7,7 +7,8 @@ namespace Server
     {
         static void Main(string[] args)
         {
-            Server server = new Server(5400);
+            Console.WriteLine(DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm"));
+            /*Server server = new Server(5400);
             string userInput = String.Empty;
 
             server.ServerSertUp();
@@ -19,7 +20,7 @@ namespace Server
 
             }
 
-            server.ServerShutDown();
+            server.ServerShutDown();*/
         }
     }
 }
