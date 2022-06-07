@@ -18,7 +18,6 @@ namespace Server
             SeverityToLog = severityToLog;
             _logsPath = $"{_workingDirectory + DateTime.UtcNow.ToString("yyyy-MM-dd_hh-mm")}.txt";
             Directory.CreateDirectory(_workingDirectory);
-            File.Create(_logsPath);
         }
 
         public static void WriteData(int severity, string category, string message)
@@ -27,7 +26,7 @@ namespace Server
                 return;
 
             if (SeverityToLog.Value == severity)
-                File.AppendAllText(_logsPath, $"{DateTime.UtcNow.ToString("hh:mm")}|{severity}|{category}|{message}\n\r");
+                File.AppendAllText(_logsPath, $"{DateTime.UtcNow.ToString("hh:mm")}|{severity}|{category}|{message}\n");
         }
 
         public static void ClearLogs()

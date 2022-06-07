@@ -9,11 +9,11 @@ namespace Server
         {
             Server server = new Server(5400);
             string userInput = String.Empty;
-            
+            bool exit = false;
 
             server.ServerSertUp();
 
-            while(true)
+            while(!exit)
             {
                 userInput = Console.ReadLine();
                 switch (userInput.Split('|')[0])
@@ -24,7 +24,7 @@ namespace Server
                             int parameter = int.Parse(userInput.Split('|')[1]);
                             Logger.ConfigLogger(parameter);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             Console.WriteLine("Wrong input. Input format must be: log|parameter");
                         }
@@ -44,6 +44,7 @@ namespace Server
                         Console.WriteLine("    quit");
                         break;
                     case "quit":
+                        exit = true;
                         break;
                     default:
                         Console.WriteLine("Wrong input. Input format must be: command|parameter");
