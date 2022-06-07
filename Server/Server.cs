@@ -58,6 +58,13 @@ namespace Server
             _tcpListener.BeginAcceptTcpClient(new AsyncCallback(AcceptClients), null);
         }
 
+        public void ServerShutDown()
+        {
+            Master.CloseConnection();
+            _tcpListener.Stop();
+            _tcpListener = null;
+        }
+
         public static void AcceptClients(IAsyncResult asyncResult)
         {
             TcpClient client;

@@ -12,6 +12,8 @@ namespace Server
             server.ServerSertUp();
 
             Console.Read();
+
+            server.ServerShutDown();
         }
     }
 }
