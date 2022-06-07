@@ -24,7 +24,7 @@ namespace Server
                             int parameter = int.Parse(userInput.Split('|')[1]);
                             Logger.ConfigLogger(parameter);
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
                             Console.WriteLine("Wrong input. Input format must be: log|parameter");
                         }
@@ -33,9 +33,15 @@ namespace Server
                         Logger.SeverityToLog = null;
                         break;
                     case "clear":
-
+                        Logger.ClearLogs();
                         break;
                     case "help":
+                        Console.WriteLine("Command list:");
+                        Console.WriteLine("    log|parameter");
+                        Console.WriteLine("    stoplog");
+                        Console.WriteLine("    clear");
+                        Console.WriteLine("    help");
+                        Console.WriteLine("    quit");
                         break;
                     case "quit":
                         break;

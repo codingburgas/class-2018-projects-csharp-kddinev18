@@ -16,7 +16,8 @@ namespace Server
         public static void ConfigLogger(int severityToLog)
         {
             SeverityToLog = severityToLog;
-            _logsPath = $"{_workingDirectory + DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm")}.txt";
+            _logsPath = $"{_workingDirectory + DateTime.UtcNow.ToString("yyyy-MM-dd_hh-mm")}.txt";
+            Directory.CreateDirectory(_workingDirectory);
             File.Create(_logsPath);
         }
 
@@ -32,14 +33,6 @@ namespace Server
         public static void ClearLogs()
         {
             foreach (string logName in Directory.GetFiles($@"{Directory.GetCurrentDirectory()}\Logs"))
-            {
-                File.Delete(_workingDirectory + logName);
-            }
-        }
-
-        public static void ClearLogs(DateTime dateTime)
-        {
-            foreach (string logName in Directory.GetFiles($@"{Directory.GetCurrentDirectory()}\Logs", dateTime.ToString("yyyy-MM-dd hh:mm")+"*"))
             {
                 File.Delete(_workingDirectory + logName);
             }
