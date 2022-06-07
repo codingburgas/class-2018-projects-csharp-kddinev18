@@ -18,5 +18,16 @@ namespace Server
             _logsPath = @$"{Directory.GetCurrentDirectory()}/Logs/{DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm")}.txt";
             File.Create(_logsPath);
         }
+
+        public static void WriteData(int severity, string category, string message)
+        {
+            if (SeverityToLog is null)
+                return;
+
+            if (SeverityToLog.Value == severity)
+                File.AppendAllText(_logsPath, $"{DateTime.UtcNow.ToString("hh:mm")}|{severity}|{category}|{message}\n\r");
+        }
+
+        
     }
 }
