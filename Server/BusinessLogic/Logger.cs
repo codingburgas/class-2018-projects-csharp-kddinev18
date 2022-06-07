@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    public class Logger
+    public static class Logger
     {
-        private string _logsPath;
-        private string _workingDirectory = @$"{Directory.GetCurrentDirectory()}\Logs\";
-        public int? SeverityToLog { get; set; } = null;
+        private static string _logsPath;
+        private static string _workingDirectory = @$"{Directory.GetCurrentDirectory()}\Logs\";
+        public static int? SeverityToLog { get; set; } = null;
 
-        public Logger(int severityToLog)
+        public static void ConfigLogger(int severityToLog)
         {
             SeverityToLog = severityToLog;
             _logsPath = $"{_workingDirectory + DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm")}.txt";
             File.Create(_logsPath);
         }
 
-        public void WriteData(int severity, string category, string message)
+        public static void WriteData(int severity, string category, string message)
         {
             if (SeverityToLog is null)
                 return;
@@ -29,7 +29,7 @@ namespace Server
                 File.AppendAllText(_logsPath, $"{DateTime.UtcNow.ToString("hh:mm")}|{severity}|{category}|{message}\n\r");
         }
 
-        public void ClearLogs()
+        public static void ClearLogs()
         {
             foreach (string logName in Directory.GetFiles($@"{Directory.GetCurrentDirectory()}\Logs"))
             {
@@ -37,7 +37,7 @@ namespace Server
             }
         }
 
-        public void ClearLogs(DateTime dateTime)
+        public static void ClearLogs(DateTime dateTime)
         {
             foreach (string logName in Directory.GetFiles($@"{Directory.GetCurrentDirectory()}\Logs", dateTime.ToString("yyyy-MM-dd hh:mm")+"*"))
             {

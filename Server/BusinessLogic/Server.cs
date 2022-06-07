@@ -84,6 +84,7 @@ namespace Server
             catch (Exception ex)
             {
                 string response = $"{_error}|{ex.Message}";
+                Logger.WriteData(1, "Error", ex.Message);
                 client.Client.Send(Encoding.ASCII.GetBytes(response));
             }
             client.Client.BeginReceive(_data, 0, _data.Length, SocketFlags.None, new AsyncCallback(ReciveUserInput), client);
@@ -170,7 +171,7 @@ namespace Server
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.CheckIfBlogBelongsToUser:
-                    response = $"{_success}|{Operations.BelogsToUSer(int.Parse(args[0]), int.Parse(args[1]))}";
+                    response = $"{_success}|{Operations.BelogsToUser(int.Parse(args[0]), int.Parse(args[1]))}";
                     client.Client.Send(Encoding.UTF8.GetBytes(response));
                     break;
                 case UserOperation.Follow:

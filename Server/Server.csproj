@@ -9,4 +9,8 @@
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PresentationLayer\" />
+  </ItemGroup>
+
 </Project>
