@@ -36,5 +36,13 @@ namespace Server
                 File.Delete(_workingDirectory + logName);
             }
         }
+
+        public void ClearLogs(DateTime dateTime)
+        {
+            foreach (string logName in Directory.GetFiles($@"{Directory.GetCurrentDirectory()}\Logs", dateTime.ToString("yyyy-MM-dd hh:mm")+"*"))
+            {
+                File.Delete(_workingDirectory + logName);
+            }
+        }
     }
 }
