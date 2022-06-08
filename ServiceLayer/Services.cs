@@ -16,12 +16,17 @@ namespace ServiceLayer
         private readonly static string _userCredentialsPath = @$"{Directory.GetCurrentDirectory()}/DiabetesTrackerCredentials.txt";
         public static void SetUpConnection()
         {
-            _tcpClient = new TcpClient("127.0.0.1", 5400);
+            if(_tcpClient == null)
+                _tcpClient = new TcpClient("127.0.0.1", 5400);
         }
         public static void RemoveConnection()
         {
-            _tcpClient.Client.Shutdown(SocketShutdown.Both);
-            _tcpClient.Close();
+            if(_tcpClient != null)
+            {
+                _tcpClient.Client.Shutdown(SocketShutdown.Both);
+                _tcpClient.Close();
+                _tcpClient = null;
+            }
         }
         public static string FormatData()
         {

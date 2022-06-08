@@ -24,9 +24,14 @@ namespace DiabetesTracker.Views
         public SocialMediaPage SocialMediaPage { get; set; }
         public MainWindow()
         {
+            Services.SetUpConnection();
             SocialMediaPage = new SocialMediaPage(this);
             InitializeComponent();
             ShowPage(SocialMediaPage);
+        }
+        ~MainWindow()
+        {
+            Services.RemoveConnection();
         }
 
         public void ShowPage(Page page)

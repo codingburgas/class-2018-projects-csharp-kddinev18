@@ -33,6 +33,10 @@ namespace DiabetesTracker.Views
             ShowPage(LogInPage);
         }
 
+        ~UserAuthenticationWindow()
+        {
+            Services.RemoveConnection();
+        }
         public void ShowPage(Page page)
         {
             Forms.Content = page;
