@@ -79,13 +79,16 @@ namespace Server
                     args = null;
                 }
                 SendCorrenspodingResponse(client, int.Parse(data.Split('|')[0]), args);
-                FlushBuffer();
             }
             catch (Exception ex)
             {
                 string response = $"{_error}|{ex.Message}";
                 Logger.WriteData(1, "Error", ex.Message);
                 client.Client.Send(Encoding.ASCII.GetBytes(response));
+            }
+            finally
+            {
+                FlushBuffer();
             }
             client.Client.BeginReceive(_data, 0, _data.Length, SocketFlags.None, new AsyncCallback(ReciveUserInput), client);
         }
