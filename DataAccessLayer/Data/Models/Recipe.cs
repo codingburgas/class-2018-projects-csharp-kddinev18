@@ -12,7 +12,7 @@ namespace DataAccessLayer.Data.Models
         public int UserId { get; set; }
         public string Name { get; set; }
         public string Content { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public virtual User User { get; set; }
         public virtual ICollection<MenuRecipe> MenuRecipes { get; set; } = new List<MenuRecipe>();

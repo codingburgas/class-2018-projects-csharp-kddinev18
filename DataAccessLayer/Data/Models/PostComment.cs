@@ -11,7 +11,7 @@ namespace DataAccessLayer.Data.Models
         public int UserId { get; set; }
         public int PostId { get; set; }
         public string CommentContend { get; set; }
-        public DateTime CommentedOn { get; set; }
+        public DateTime CommentedOn { get; set; } = DateTime.Now;
 
         public virtual Post Post { get; set; }
         public virtual User User { get; set; }
