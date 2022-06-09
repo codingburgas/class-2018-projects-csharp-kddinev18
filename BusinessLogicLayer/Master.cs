@@ -9,7 +9,7 @@ namespace BusinessLogicLayer
 {
     public static class Master
     {
-        public static void OpenConnection()
+        public static DiabetesTrackerDbContext OpenConnection()
         {
             DiabetesTrackerDbContext dbContext = new DiabetesTrackerDbContext();
             BlogLogic.DbContext = dbContext;
@@ -25,6 +25,7 @@ namespace BusinessLogicLayer
             TagLogic.DbContext = dbContext;
             UserLogic.DbContext = dbContext;
             UserProfileLogic.DbContext = dbContext;
+            return dbContext;
         }
 
         public static void CloseConnection()
