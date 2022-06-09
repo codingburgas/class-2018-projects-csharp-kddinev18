@@ -63,5 +63,41 @@ namespace DiabetesTracker_Tests
             _dBContext.SaveChanges();
             Master.CloseConnection();
         }
+
+        [Test]
+        public void Test_FavouritePostLogic_Favourite_Unfavourite()
+        {
+            FavouritePostLogic.Favourite(_testPost.PostId, _testUser.UserId);
+
+            FavouritePost favouritePost = _dBContext.FavouritePosts.Where(favouritePost => favouritePost.PostId == _testPost.PostId && favouritePost.UserId == _testUser.UserId).First();
+
+            Assert.IsNotNull(favouritePost);
+
+            FavouritePostLogic.Unfavourite(_testPost.PostId, _testUser.UserId);
+
+        }
+
+        [Test]
+        public void Test_FavouritePostLogic_IsCurrentUserFavourited_Favourited()
+        {
+            FavouritePostLogic.Favourite(_testPost.PostId, _testUser.UserId);
+
+            Assert.That(FavouritePostLogic.IsCurrentUserFavourited(_testPost.PostId, _testUser.UserId) == true);
+
+            FavouritePostLogic.Unfavourite(_testPost.PostId, _testUser.UserId);
+
+        }
+
+        [Test]
+        public void Test_FavouritePostLogic_IsCurrentUserFavourited_NotFavourited()
+        {
+            Assert.That(FavouritePostLogic.IsCurrentUserFavourited(_testPost.PostId, _testUser.UserId) == false);
+        }
+
+        [Test]
+        public void Test_FavouritePostLogic_GetFavouritePosts_NoFavouritedPosts()
+        {
+            Assert.That(FavouritePostLogic.GetFavouritePosts(_testPost.PostId, _testUser.UserId).Count == 0);
+        }
     }
 }

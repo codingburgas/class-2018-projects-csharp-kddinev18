@@ -75,7 +75,7 @@ namespace DiabetesTracker_Tests
             Master.OpenConnection();
             Master.CloseConnection();
 
-            Assert.That(BlogLogic.DbContext is null);
+            Assert.IsNull(BlogLogic.DbContext);
         }
 
 
