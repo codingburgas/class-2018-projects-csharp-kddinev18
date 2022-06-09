@@ -17,8 +17,7 @@ namespace BusinessLogicLayer
             DbContext.FavouritePosts.Add(new FavouritePost()
             {
                 UserId = userId,
-                PostId = postId,
-                SavedOn = DateTime.Now,
+                PostId = postId
             });
 
             DbContext.SaveChanges();

@@ -29,8 +29,7 @@ namespace BusinessLogicLayer
                 UserId = userId,
                 BlogId = blogId,
                 Content = content,
-                Image = image,
-                PublishedOn = DateTime.Now
+                Image = image
             };
             DbContext.Posts.Add(newPost);
             DbContext.SaveChanges();
