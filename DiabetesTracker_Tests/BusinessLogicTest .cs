@@ -4,6 +4,7 @@ using DataAccessLayer.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DiabetesTracker_Tests
@@ -40,10 +41,11 @@ namespace DiabetesTracker_Tests
             _dBContext.SaveChanges();
         }
         [TearDown]
-        public void TearDown() 
+        public void TearDown()
         {
             _dBContext.Blogs.Remove(_testBlog);
             _dBContext.Users.Remove(_testUser);
+            _dBContext.SaveChanges();
             Master.CloseConnection();
         }
 
@@ -66,9 +68,9 @@ namespace DiabetesTracker_Tests
         [Test]
         public void Test_BlogLogic_CreateBlog()
         {
-            Blog blogFromDatabase = _dBContext.Blogs.Where(blog => blog.BlogId == _testBlog.BlogId).First();
+            Blog blog = _dBContext.Blogs.Where(blog => blog.BlogId == _testBlog.BlogId).First();
 
-            Assert.That(_testBlog.BlogId == blogFromDatabase.BlogId && _testBlog.Name == blogFromDatabase.Name);
+            Assert.That(_testBlog.BlogId == blog.BlogId && _testBlog.Name == blog.Name);
         }
 
         [Test]
@@ -77,7 +79,13 @@ namespace DiabetesTracker_Tests
             Assert.That(BlogLogic.BelogsToUser(_testUser.UserId, _testBlog.BlogId) == true);
         }
 
+        [TestCase("TestBlogName")]
+        public void Test_BlogLogic_GetBlogsByName(string name)
+        {
+            List<Blog> blogs = BlogLogic.GetBlogsByName(name);
 
-        
+            Assert.That(blogs.Count >= 1);
+        }
+
     }
 }
