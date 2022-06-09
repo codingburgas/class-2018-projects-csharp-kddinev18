@@ -16,6 +16,8 @@ using DiabetesTracker.Logic;
 using DiabetesTracker.Models;
 using ServiceLayer;
 
+#nullable disable
+
 namespace DiabetesTracker.Views
 {
     /// <summary>
