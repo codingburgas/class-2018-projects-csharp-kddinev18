@@ -36,7 +36,7 @@ namespace DiabetesTracker_Tests
         }
 
         [Test]
-        public void MasterOpenConnectionTest()
+        public void Test_Master_OpenConnection()
         {
             Master.OpenConnection();
 
@@ -44,7 +44,7 @@ namespace DiabetesTracker_Tests
         }
 
         [Test]
-        public void MasterCloseConnectionTest()
+        public void Test_Master_CloseConnection()
         {
             Master.OpenConnection();
             Master.CloseConnection();
@@ -54,16 +54,24 @@ namespace DiabetesTracker_Tests
 
 
         [TestCase("TestBlogName", new byte[] { 2, 4, 8, 16 })]
-        public void BlogLogicCreateBlogTest(string name, byte[] image)
+        public void Test_BlogLogic_CreateBlog(string name, byte[] image)
         {
-            DiabetesTrackerDbContext dBContext = Master.OpenConnection();
-
             Blog testBlog = BlogLogic.CreateBlog(_testUser.UserId, name, image);
             Blog blogFromDatabase = _dBContext.Blogs.Where(blog => blog.BlogId == testBlog.BlogId).First();
 
             Assert.That(testBlog.BlogId == blogFromDatabase.BlogId && testBlog.Name == blogFromDatabase.Name);
 
             _dBContext.Remove(blogFromDatabase);
+        }
+
+        [TestCase("TestBlogName", new byte[] { 2, 4, 8, 16 })]
+        public void Test_BlogLogic_BelongsToUser(string name, byte[] image)
+        {
+            Blog testBlog = BlogLogic.CreateBlog(_testUser.UserId, name, image);
+
+            Assert.That(BlogLogic.BelogsToUser(_testUser.UserId, testBlog.BlogId) == true);
+
+            _dBContext.Remove(testBlog);
         }
     }
 }
