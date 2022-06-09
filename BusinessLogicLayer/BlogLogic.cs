@@ -28,7 +28,6 @@ namespace BusinessLogicLayer
                 UserId = userId,
                 Name = name,
                 Image = image,
-                CreatedOn = DateTime.Now
             };
 
             DbContext.Blogs.Add(newBlog);

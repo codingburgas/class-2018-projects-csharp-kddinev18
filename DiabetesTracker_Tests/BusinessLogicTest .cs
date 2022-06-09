@@ -8,10 +8,11 @@ using System.Linq;
 
 namespace DiabetesTracker_Tests
 {
-    public class BusinessLogicTest
+    public class BlogLogicTests
     {
         private DiabetesTrackerDbContext _dBContext;
         private User _testUser;
+        private Blog _testBlog;
         [SetUp]
         public void Setup()
         {
@@ -27,20 +28,29 @@ namespace DiabetesTracker_Tests
             };
             _dBContext.Users.Add(_testUser);
             _dBContext.SaveChanges();
+
+            _testBlog = new Blog()
+            {
+                UserId = _testUser.UserId,
+                Name = "TestBlogName",
+                Image = new byte[] { 2, 4, 8, 16 },
+                FollowingCount = 1,
+            };
+            _dBContext.Blogs.Add(_testBlog);
+            _dBContext.SaveChanges();
         }
         [TearDown]
         public void TearDown() 
         {
-            _dBContext.Remove(_testUser);
+            _dBContext.Blogs.Remove(_testBlog);
+            _dBContext.Users.Remove(_testUser);
             Master.CloseConnection();
         }
 
         [Test]
         public void Test_Master_OpenConnection()
         {
-            Master.OpenConnection();
-
-            Assert.That(BlogLogic.DbContext is not null);
+            Assert.That(_dBContext is not null);
         }
 
         [Test]
@@ -53,25 +63,21 @@ namespace DiabetesTracker_Tests
         }
 
 
-        [TestCase("TestBlogName", new byte[] { 2, 4, 8, 16 })]
-        public void Test_BlogLogic_CreateBlog(string name, byte[] image)
+        [Test]
+        public void Test_BlogLogic_CreateBlog()
         {
-            Blog testBlog = BlogLogic.CreateBlog(_testUser.UserId, name, image);
-            Blog blogFromDatabase = _dBContext.Blogs.Where(blog => blog.BlogId == testBlog.BlogId).First();
+            Blog blogFromDatabase = _dBContext.Blogs.Where(blog => blog.BlogId == _testBlog.BlogId).First();
 
-            Assert.That(testBlog.BlogId == blogFromDatabase.BlogId && testBlog.Name == blogFromDatabase.Name);
-
-            _dBContext.Remove(blogFromDatabase);
+            Assert.That(_testBlog.BlogId == blogFromDatabase.BlogId && _testBlog.Name == blogFromDatabase.Name);
         }
 
-        [TestCase("TestBlogName", new byte[] { 2, 4, 8, 16 })]
-        public void Test_BlogLogic_BelongsToUser(string name, byte[] image)
+        [Test]
+        public void Test_BlogLogic_BelongsToUser()
         {
-            Blog testBlog = BlogLogic.CreateBlog(_testUser.UserId, name, image);
-
-            Assert.That(BlogLogic.BelogsToUser(_testUser.UserId, testBlog.BlogId) == true);
-
-            _dBContext.Remove(testBlog);
+            Assert.That(BlogLogic.BelogsToUser(_testUser.UserId, _testBlog.BlogId) == true);
         }
+
+
+        
     }
 }

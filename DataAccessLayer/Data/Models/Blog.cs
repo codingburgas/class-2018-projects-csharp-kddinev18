@@ -14,7 +14,7 @@ namespace DataAccessLayer.Data.Models
         public string Name { get; set; }
         public byte[] Image { get; set; }
         public int FollowingCount { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public virtual User User { get; set; }
         public virtual ICollection<FollowingBlog> FollowingBlogs { get; set; } = new List<FollowingBlog>();
