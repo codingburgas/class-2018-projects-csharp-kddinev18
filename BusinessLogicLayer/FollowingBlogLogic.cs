@@ -24,7 +24,7 @@ namespace BusinessLogicLayer
 
             DbContext.SaveChanges();
         }
-        public static void Unfollow(int blogId, int userId)
+        public static void Unfollow(int userId, int blogId)
         {
             DbContext.FollowingBlogs.Remove(DbContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == blogId && followingBlog.UserId == userId).First());
 

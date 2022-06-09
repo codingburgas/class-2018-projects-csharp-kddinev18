@@ -10,12 +10,11 @@ using System.Threading.Tasks;
 
 namespace DiabetesTracker_Tests
 {
-    public class FavouritePostLogicTest
+    public class FollowingBlogLogicTests
     {
         private DiabetesTrackerDbContext _dBContext;
         private User _testUser;
         private Blog _testBlog;
-        private Post _testPost;
         [SetUp]
         public void Setup()
         {
@@ -41,23 +40,10 @@ namespace DiabetesTracker_Tests
             };
             _dBContext.Blogs.Add(_testBlog);
             _dBContext.SaveChanges();
-
-            _testPost = new Post()
-            {
-                UserId = _testUser.UserId,
-                BlogId = _testBlog.BlogId,
-                Content = "TestPostContent",
-                Image = new byte[] { 2, 4, 8, 16 },
-                LikeCount = 1,
-                CommentCount = 1
-            };
-            _dBContext.Posts.Add(_testPost);
-            _dBContext.SaveChanges();
         }
         [TearDown]
         public void TearDown()
         {
-            _dBContext.Posts.Remove(_testPost);
             _dBContext.Blogs.Remove(_testBlog);
             _dBContext.Users.Remove(_testUser);
             _dBContext.SaveChanges();
@@ -65,39 +51,39 @@ namespace DiabetesTracker_Tests
         }
 
         [Test]
-        public void Test_FavouritePostLogic_Favourite_Unfavourite()
+        public void Test_FollowingBlogLogic_Follow_Unfollow()
         {
-            FavouritePostLogic.Favourite(_testPost.PostId, _testUser.UserId);
+            FollowingBlogLogic.Follow(_testUser.UserId, _testBlog.BlogId);
+            _dBContext.SaveChanges();
 
-            FavouritePost favouritePost = _dBContext.FavouritePosts.Where(favouritePost => favouritePost.PostId == _testPost.PostId && favouritePost.UserId == _testUser.UserId).First();
+            FollowingBlog followingBlog = _dBContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == _testBlog.BlogId && followingBlog.UserId == _testUser.UserId).First();
 
-            Assert.IsNotNull(favouritePost);
+            Assert.IsNotNull(followingBlog);
 
-            FavouritePostLogic.Unfavourite(_testPost.PostId, _testUser.UserId);
-
+            FollowingBlogLogic.Unfollow(_testUser.UserId, _testBlog.BlogId);
         }
 
         [Test]
-        public void Test_FavouritePostLogic_IsCurrentUserFavourited_Favourited()
+        public void Test_FollowingBlogLogic_IsCurrentUserFollowed_Followed()
         {
-            FavouritePostLogic.Favourite(_testPost.PostId, _testUser.UserId);
+            FollowingBlogLogic.Follow(_testUser.UserId, _testBlog.BlogId);
+            _dBContext.SaveChanges();
 
-            Assert.That(FavouritePostLogic.IsCurrentUserFavourited(_testPost.PostId, _testUser.UserId) == true);
+            Assert.That(FollowingBlogLogic.IsCurrentUserFollowed(_testUser.UserId, _testBlog.BlogId));
 
-            FavouritePostLogic.Unfavourite(_testPost.PostId, _testUser.UserId);
-
+            FollowingBlogLogic.Unfollow(_testUser.UserId, _testBlog.BlogId);
         }
 
         [Test]
         public void Test_FavouritePostLogic_IsCurrentUserFavourited_NotFavourited()
         {
-            Assert.That(FavouritePostLogic.IsCurrentUserFavourited(_testPost.PostId, _testUser.UserId) == false);
+            Assert.That(FollowingBlogLogic.IsCurrentUserFollowed(_testUser.UserId, _testBlog.BlogId) == false);
         }
 
         [Test]
         public void Test_FavouritePostLogic_GetFavouritePosts_NoFavouritedPosts()
         {
-            Assert.That(FavouritePostLogic.GetFavouritePosts(_testPost.PostId, _testUser.UserId).Count == 0);
+            Assert.That(FollowingBlogLogic.GetFollowingBlogs(_testUser.UserId).Count == 0);
         }
     }
 }
