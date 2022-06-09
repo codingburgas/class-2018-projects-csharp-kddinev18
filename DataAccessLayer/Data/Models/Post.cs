@@ -12,7 +12,7 @@ namespace DataAccessLayer.Data.Models
         public int BlogId { get; set; }
         public string Content { get; set; }
         public byte[] Image { get; set; }
-        public DateTime PublishedOn { get; set; }
+        public DateTime PublishedOn { get; set; } = DateTime.Now;
         public int LikeCount { get; set; }
         public int CommentCount { get; set; }
 

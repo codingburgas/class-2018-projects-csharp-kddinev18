@@ -14,6 +14,7 @@ namespace DiabetesTracker_Tests
         private DiabetesTrackerDbContext _dBContext;
         private User _testUser;
         private Blog _testBlog;
+        private Post _testPost;
         [SetUp]
         public void Setup()
         {
@@ -39,10 +40,23 @@ namespace DiabetesTracker_Tests
             };
             _dBContext.Blogs.Add(_testBlog);
             _dBContext.SaveChanges();
+
+            _testPost = new Post()
+            {
+                UserId = _testUser.UserId,
+                BlogId = _testBlog.BlogId,
+                Content = "TestPostContent",
+                Image = new byte[] { 2, 4, 8, 16 },
+                LikeCount = 1,
+                CommentCount = 1
+            };
+            _dBContext.Posts.Add(_testPost);
+            _dBContext.SaveChanges();
         }
         [TearDown]
         public void TearDown()
         {
+            _dBContext.Posts.Remove(_testPost);
             _dBContext.Blogs.Remove(_testBlog);
             _dBContext.Users.Remove(_testUser);
             _dBContext.SaveChanges();
@@ -87,5 +101,52 @@ namespace DiabetesTracker_Tests
             Assert.That(blogs.Count >= 1);
         }
 
+        [Test]
+        public void Test_BlogLogic_GetCurrentUserBlogs()
+        {
+            List<Blog> blogs = BlogLogic.GetCurrentUserBlogs(_testUser.UserId);
+
+            Assert.That(blogs.Count == 1);
+        }
+
+        [Test]
+        public void Test_BlogLogic_GetBlogPostsCount()
+        {
+            int postCount = BlogLogic.GetBlogPostsCount(_testBlog.BlogId);
+
+            Assert.That(postCount == 1);
+        }
+
+        [Test]
+        public void Test_BlogLogic_GetBlogFollowingCount()
+        {
+            int followingCount = BlogLogic.GetBlogFollowingCount(_testUser.UserId);
+
+            Assert.That(followingCount == 1);
+        }
+
+        [Test]
+        public void Test_BlogLogic_GetAllPosts()
+        {
+            List<Post> posts = BlogLogic.GetAllPosts(_testBlog.BlogId);
+
+            Assert.That(posts.Count == 1);
+        }
+
+        [Test]
+        public void Test_BlogLogic_LoadBlogInformation()
+        {
+            BlogInformation blogInformation = BlogLogic.LoadBlogInformation(new List<Blog>() { _testBlog },_testUser.UserId).First();
+
+            Assert.That(blogInformation.BlogName == _testBlog.Name && blogInformation.BlogId == _testBlog.BlogId);
+        }
+
+        [Test]
+        public void Test_BlogLogic_GetLeastFollowedBlod()
+        {
+            string blogName = BlogLogic.GetLeastFollowedBlod(_testUser.UserId);
+
+            Assert.That(blogName == _testBlog.Name);
+        }
     }
 }

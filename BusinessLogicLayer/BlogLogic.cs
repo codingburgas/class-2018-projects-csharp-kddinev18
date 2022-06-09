@@ -57,12 +57,12 @@ namespace BusinessLogicLayer
         {
             return DbContext.Blogs.Where(blog => blog.UserId == userId).Sum(blog => blog.FollowingCount);
         }
-        public static ICollection<Post> GetAllPosts(int blogId)
+        public static List<Post> GetAllPosts(int blogId)
         {
             return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == blogId).Select(blog => blog.Posts).First().ToList();
         }
 
-        private static List<BlogInformation> LoadBlogInformation(List<Blog> Blogs, int userId)
+        public static List<BlogInformation> LoadBlogInformation(List<Blog> Blogs, int userId)
         {
             List<BlogInformation> BlogsInformation = new List<BlogInformation>();
             foreach (Blog Blog in Blogs)
@@ -103,12 +103,20 @@ namespace BusinessLogicLayer
 
         public static string GetLeastFollowedBlod(int userId)
         {
-            return DbContext.Blogs.Where(blog=>blog.UserId == userId).OrderByDescending(blog => blog.FollowingCount).FirstOrDefault().Name;
+            Blog blog = DbContext.Blogs.Where(blog=>blog.UserId == userId).OrderByDescending(blog => blog.FollowingCount).FirstOrDefault();
+            if (blog == null)
+                return "None";
+
+            return blog.Name;
         }
 
         public static string GetMostFollowedBlod(int userId)
         {
-            return DbContext.Blogs.Where(blog => blog.UserId == userId).OrderBy(blog => blog.FollowingCount).FirstOrDefault().Name;
+            Blog blog = DbContext.Blogs.Where(blog => blog.UserId == userId).OrderBy(blog => blog.FollowingCount).FirstOrDefault();
+            if (blog == null)
+                return "None";
+
+            return blog.Name;
         }
     }
 }
