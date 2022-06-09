@@ -36,7 +36,7 @@ namespace BusinessLogicLayer
             DbContext.SaveChanges();
 
             return newBlog;
-        }
+         }
         public static bool BelogsToUser(int userId, int blogId)
         {
             return DbContext.Blogs.Where(blog => blog.BlogId == blogId).First().UserId == userId;
