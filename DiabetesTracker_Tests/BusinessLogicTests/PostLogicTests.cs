@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace DiabetesTracker_Tests
 {
-    public class FollowingBlogLogicTests
+    public class PostLogicTests
     {
         private DiabetesTrackerDbContext _dBContext;
         private User _testUser;
         private Blog _testBlog;
+        private Post _testPost;
         [SetUp]
         public void Setup()
         {
@@ -40,50 +41,29 @@ namespace DiabetesTracker_Tests
             };
             _dBContext.Blogs.Add(_testBlog);
             _dBContext.SaveChanges();
+
+            _testPost = new Post()
+            {
+                UserId = _testUser.UserId,
+                BlogId = _testBlog.BlogId,
+                Content = "TestPostContent",
+                Image = new byte[] { 2, 4, 8, 16 },
+                LikeCount = 1,
+                CommentCount = 1
+            };
+            _dBContext.Posts.Add(_testPost);
+            _dBContext.SaveChanges();
         }
         [TearDown]
         public void TearDown()
         {
+            _dBContext.Posts.Remove(_testPost);
             _dBContext.Blogs.Remove(_testBlog);
             _dBContext.Users.Remove(_testUser);
             _dBContext.SaveChanges();
             Master.CloseConnection();
         }
 
-        [Test]
-        public void Test_FollowingBlogLogic_Follow_Unfollow()
-        {
-            FollowingBlogLogic.Follow(_testUser.UserId, _testBlog.BlogId);
-            _dBContext.SaveChanges();
-
-            FollowingBlog followingBlog = _dBContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == _testBlog.BlogId && followingBlog.UserId == _testUser.UserId).First();
-
-            Assert.IsNotNull(followingBlog);
-
-            FollowingBlogLogic.Unfollow(_testUser.UserId, _testBlog.BlogId);
-        }
-
-        [Test]
-        public void Test_FollowingBlogLogic_IsCurrentUserFollowed_Followed()
-        {
-            FollowingBlogLogic.Follow(_testUser.UserId, _testBlog.BlogId);
-            _dBContext.SaveChanges();
-
-            Assert.That(FollowingBlogLogic.IsCurrentUserFollowed(_testUser.UserId, _testBlog.BlogId));
-
-            FollowingBlogLogic.Unfollow(_testUser.UserId, _testBlog.BlogId);
-        }
-
-        [Test]
-        public void Test_FavouritePostLogic_IsCurrentUserFavourited_NotFavourited()
-        {
-            Assert.That(FollowingBlogLogic.IsCurrentUserFollowed(_testUser.UserId, _testBlog.BlogId) == false);
-        }
-
-        [Test]
-        public void Test_FavouritePostLogic_GetFavouritePosts_NoFavouritedPosts()
-        {
-            Assert.That(FollowingBlogLogic.GetFollowingBlogs(_testUser.UserId).Count == 0);
-        }
+        public void Test_
     }
 }

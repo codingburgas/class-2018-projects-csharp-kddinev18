@@ -148,5 +148,41 @@ namespace DiabetesTracker_Tests
 
             Assert.That(blogName == _testBlog.Name);
         }
+
+        [Test]
+        public void Test_FollowingBlogLogic_Follow_Unfollow()
+        {
+            FollowingBlogLogic.Follow(_testUser.UserId, _testBlog.BlogId);
+            _dBContext.SaveChanges();
+
+            FollowingBlog followingBlog = _dBContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == _testBlog.BlogId && followingBlog.UserId == _testUser.UserId).First();
+
+            Assert.IsNotNull(followingBlog);
+
+            FollowingBlogLogic.Unfollow(_testUser.UserId, _testBlog.BlogId);
+        }
+
+        [Test]
+        public void Test_FollowingBlogLogic_IsCurrentUserFollowed_Followed()
+        {
+            FollowingBlogLogic.Follow(_testUser.UserId, _testBlog.BlogId);
+            _dBContext.SaveChanges();
+
+            Assert.That(FollowingBlogLogic.IsCurrentUserFollowed(_testUser.UserId, _testBlog.BlogId));
+
+            FollowingBlogLogic.Unfollow(_testUser.UserId, _testBlog.BlogId);
+        }
+
+        [Test]
+        public void Test_FavouritePostLogic_IsCurrentUserFavourited_NotFavourited()
+        {
+            Assert.That(FollowingBlogLogic.IsCurrentUserFollowed(_testUser.UserId, _testBlog.BlogId) == false);
+        }
+
+        [Test]
+        public void Test_FavouritePostLogic_GetFavouritePosts_NoFavouritedPosts()
+        {
+            Assert.That(FollowingBlogLogic.GetFollowingBlogs(_testUser.UserId).Count == 0);
+        }
     }
 }
