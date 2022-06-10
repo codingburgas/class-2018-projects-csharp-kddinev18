@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DiabetesTracker_Tests
 {
-    public class SocialMediaTests
+    public class SocialMediaLogicTests
     {
         private DiabetesTrackerDbContext _dBContext;
         private User _testUser;
@@ -327,6 +327,26 @@ namespace DiabetesTracker_Tests
             Assert.That(postsCount >= 1);
         }
 
+        [Test]
+        public void Test_TagLogic_AddTag()
+        {
+            Tag tag = TagLogic.AddTag("TestTagName");
+            _dBContext.Tags.Remove(tag);
+
+            Assert.IsNotNull(tag);
+        }
+
+        [Test]
+        public void Test_TagLogic_ArraingeTags()
+        {
+            Tag tag = TagLogic.AddTag("TestTagName");
+            List<TagInformation> tags = TagLogic.ArraingeTags();
+            _dBContext.Tags.Remove(tag);
+
+            Assert.IsNotNull(tags);
+        }
+
+        [Test]
 
     }
 }

@@ -11,16 +11,20 @@ namespace BusinessLogicLayer
     public static class PostTagLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
-        public static void AddPostTag(Post post, Tag tag)
+        public static PostTag AddPostTag(Post post, Tag tag)
         {
             if (post == null || tag == null)
-                return;
+                return null;
 
-            DbContext.PostTags.Add(new PostTag() 
+            PostTag postTag = new PostTag()
             {
                 PostId = post.PostId,
                 TagId = tag.TagId,
-            });
+            };
+
+            DbContext.PostTags.Add(postTag);
+
+            return postTag;
         }
         public static int GetTagPostCount(int tagId)
         {
