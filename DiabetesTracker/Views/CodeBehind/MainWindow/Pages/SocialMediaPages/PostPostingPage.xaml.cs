@@ -39,7 +39,8 @@ namespace DiabetesTracker.Views
 
         private void PostButton_Click(object sender, RoutedEventArgs e)
         {
-            string tags = Tags.TextBox.Text;
+
+            string tags = Tags.TextBox.Text is null ? "null" : Tags.TextBox.Text;
             string content = Content.TextBox.Text;
 
             if (_selectedImagePath == String.Empty)

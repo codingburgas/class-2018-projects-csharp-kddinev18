@@ -134,14 +134,6 @@ namespace DiabetesTracker_Tests
         }
 
         [Test]
-        public void Test_BlogLogic_LoadBlogInformation()
-        {
-            BlogInformation blogInformation = BlogLogic.LoadBlogInformation(new List<Blog>() { _testBlog },_testUser.UserId).First();
-
-            Assert.That(blogInformation.BlogName == _testBlog.Name && blogInformation.BlogId == _testBlog.BlogId);
-        }
-
-        [Test]
         public void Test_BlogLogic_GetLeastFollowedBlod()
         {
             string blogName = BlogLogic.GetLeastFollowedBlod(_testUser.UserId);

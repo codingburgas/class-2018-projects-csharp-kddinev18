@@ -162,9 +162,66 @@ namespace DiabetesTracker_Tests
             int result = PostLikeLogic.LikeCount(_testUser.UserId);
             PostLikeLogic.Unlike(_testPost.PostId, _testUser.UserId);
 
-            Assert.IsNotNull(result == 1);
+            Assert.That(result >= 1);
         }
 
+        [Test]
+        public void Test_PostLogic_AddPost()
+        {
+            Post post = PostLogic.AddPost(_testBlog.BlogId, null, "TestContent", new byte[] { 2, 4, 8, 16 }, _testUser.UserId);
 
+            Assert.IsNotNull(post);
+        }
+
+        [Test]
+        public void Test_PostLogic_GetPostBlogName()
+        {
+            string blogName = PostLogic.GetPostBlogName(_testPost.PostId);
+
+            Assert.That(blogName == "TestBlogName");
+        }
+
+        [Test]
+        public void Test_PostLogic_ArrangePosts()
+        {
+            List<PostInformation> posts = PostLogic.ArrangePosts(_testUser.UserId, 0);
+
+            Assert.That(posts.Count >= 1);
+        }
+
+        [Test]
+        public void Test_PostLogic_ArrangeFavouritePosts_NoFavouritePosts()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => {
+                    List<PostInformation> posts = PostLogic.ArrangeFavouritePosts(_testUser.UserId, 0);
+                });
+        }
+
+        [Test]
+        public void Test_PostLogic_ArrangeFavouritePosts_WithFavouritePosts()
+        {
+            FavouritePostLogic.Favourite(_testPost.PostId, _testUser.UserId);
+            List<PostInformation> posts = PostLogic.ArrangeFavouritePosts(_testUser.UserId, 0);
+            FavouritePostLogic.Unfavourite(_testPost.PostId, _testUser.UserId);
+
+            Assert.That(posts.Count >= 1);
+        }
+
+        [Test]
+        public void Test_PostLogic_GetPagedBlogPosts()
+        {
+            List<PostInformation> posts = PostLogic.ArrangeBlogPosts(_testUser.UserId, 0, _testBlog.BlogId);
+
+            Assert.That(posts.Count >= 1);
+        }
+
+        [Test]
+        public void Test_PostLogic_GetPostCount()
+        {
+            int postsCount = PostLogic.GetPostCount(_testUser.UserId);
+
+            Assert.That(postsCount >= 1);
+        }
     }
 }

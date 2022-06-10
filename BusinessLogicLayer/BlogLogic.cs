@@ -62,7 +62,7 @@ namespace BusinessLogicLayer
             return DbContext.Blogs.Include(blog => blog.Posts).Where(blog => blog.BlogId == blogId).Select(blog => blog.Posts).First().ToList();
         }
 
-        public static List<BlogInformation> LoadBlogInformation(List<Blog> Blogs, int userId)
+        private static List<BlogInformation> LoadBlogInformation(List<Blog> Blogs, int userId)
         {
             List<BlogInformation> BlogsInformation = new List<BlogInformation>();
             foreach (Blog Blog in Blogs)

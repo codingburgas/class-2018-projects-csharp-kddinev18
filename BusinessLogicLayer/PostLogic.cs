@@ -36,11 +36,14 @@ namespace BusinessLogicLayer
 
             List<Tag> tags = new List<Tag>();
 
-            foreach (string tag in tagNames)
-	        {
-                tags.Add(TagLogic.AddTag(tag));
-	        }
-            DbContext.SaveChanges();
+            if (tagNames is not null)
+            {
+                foreach (string tag in tagNames)
+                {
+                    tags.Add(TagLogic.AddTag(tag));
+                }
+                DbContext.SaveChanges();
+            }
 
             foreach (Tag tag in tags)
             {
