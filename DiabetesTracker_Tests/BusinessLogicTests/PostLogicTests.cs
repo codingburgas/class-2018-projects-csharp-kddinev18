@@ -64,6 +64,14 @@ namespace DiabetesTracker_Tests
             Master.CloseConnection();
         }
 
-        public void Test_
+        [Test]
+        public void Test_PostCommentLogic_Comment_GetComments()
+        {
+            PostCommentLogic.Comment(_testUser.UserId, _testPost.PostId, "TestComment");
+
+            string comment = PostCommentLogic.GetComments(_testUser.UserId, _testPost.PostId).First();
+
+            Assert.That(comment == "TestComment");
+        }
     }
 }

@@ -17,8 +17,7 @@ namespace BusinessLogicLayer
             {
                 UserId = userId,
                 PostId = postId,
-                CommentContend = comment,
-                CommentedOn = DateTime.Now,
+                CommentContend = comment
             });
 
             DbContext.SaveChanges();
