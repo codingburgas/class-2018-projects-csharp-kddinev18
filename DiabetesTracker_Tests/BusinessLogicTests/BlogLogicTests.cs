@@ -167,9 +167,11 @@ namespace DiabetesTracker_Tests
             FollowingBlogLogic.Follow(_testUser.UserId, _testBlog.BlogId);
             _dBContext.SaveChanges();
 
-            Assert.That(FollowingBlogLogic.IsCurrentUserFollowed(_testUser.UserId, _testBlog.BlogId));
-
+            bool result = FollowingBlogLogic.IsCurrentUserFollowed(_testUser.UserId, _testBlog.BlogId);
             FollowingBlogLogic.Unfollow(_testUser.UserId, _testBlog.BlogId);
+
+            Assert.That(result);
+
         }
 
         [Test]

@@ -132,6 +132,39 @@ namespace DiabetesTracker_Tests
                 });
         }
 
+        [Test]
+        public void Test_PostLikeLogic_Like_Unlike()
+        {
+            PostLikeLogic.Like(_testPost.PostId, _testUser.UserId);
+
+            PostLike postLike = _dBContext.PostLikes.Where(postLike => postLike.PostId == _testPost.PostId && postLike.UserId == _testUser.UserId).First();
+            PostLikeLogic.Unlike(_testPost.PostId, _testUser.UserId);
+
+            Assert.IsNotNull(postLike);
+        }
+
+        [Test]
+        public void Test_PostLikeLogic_IsCurrentUserLiked()
+        {
+            PostLikeLogic.Like(_testPost.PostId, _testUser.UserId);
+
+            bool result = PostLikeLogic.IsCurrentUserLiked(_testPost.PostId, _testUser.UserId);
+            PostLikeLogic.Unlike(_testPost.PostId, _testUser.UserId);
+
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void Test_PostLikeLogic_LikeCount()
+        {
+            PostLikeLogic.Like(_testPost.PostId, _testUser.UserId);
+
+            int result = PostLikeLogic.LikeCount(_testUser.UserId);
+            PostLikeLogic.Unlike(_testPost.PostId, _testUser.UserId);
+
+            Assert.IsNotNull(result == 1);
+        }
+
 
     }
 }
