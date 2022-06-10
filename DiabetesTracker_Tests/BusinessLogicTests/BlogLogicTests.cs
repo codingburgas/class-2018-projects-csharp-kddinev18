@@ -156,10 +156,9 @@ namespace DiabetesTracker_Tests
             _dBContext.SaveChanges();
 
             FollowingBlog followingBlog = _dBContext.FollowingBlogs.Where(followingBlog => followingBlog.BlogId == _testBlog.BlogId && followingBlog.UserId == _testUser.UserId).First();
+            FollowingBlogLogic.Unfollow(_testUser.UserId, _testBlog.BlogId);
 
             Assert.IsNotNull(followingBlog);
-
-            FollowingBlogLogic.Unfollow(_testUser.UserId, _testBlog.BlogId);
         }
 
         [Test]

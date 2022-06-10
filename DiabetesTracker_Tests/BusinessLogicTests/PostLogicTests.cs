@@ -65,13 +65,73 @@ namespace DiabetesTracker_Tests
         }
 
         [Test]
-        public void Test_PostCommentLogic_Comment_GetComments()
+        public void Test_FavouritePostLogic_Favourite_Unfavourite()
         {
-            PostCommentLogic.Comment(_testUser.UserId, _testPost.PostId, "TestComment");
+            FavouritePostLogic.Favourite(_testPost.PostId, _testUser.UserId);
 
-            string comment = PostCommentLogic.GetComments(_testUser.UserId, _testPost.PostId).First();
+            FavouritePost favouritePost = _dBContext.FavouritePosts.Where(favouritePost => favouritePost.PostId == _testPost.PostId && favouritePost.UserId == _testUser.UserId).First();
+
+            Assert.IsNotNull(favouritePost);
+
+            FavouritePostLogic.Unfavourite(_testPost.PostId, _testUser.UserId);
+
+        }
+
+        [Test]
+        public void Test_FavouritePostLogic_IsCurrentUserFavourited_Favourited()
+        {
+            FavouritePostLogic.Favourite(_testPost.PostId, _testUser.UserId);
+
+            Assert.That(FavouritePostLogic.IsCurrentUserFavourited(_testPost.PostId, _testUser.UserId) == true);
+
+            FavouritePostLogic.Unfavourite(_testPost.PostId, _testUser.UserId);
+
+        }
+
+        [Test]
+        public void Test_FavouritePostLogic_IsCurrentUserFavourited_NotFavourited()
+        {
+            Assert.That(FavouritePostLogic.IsCurrentUserFavourited(_testPost.PostId, _testUser.UserId) == false);
+        }
+
+        [Test]
+        public void Test_FavouritePostLogic_GetFavouritePosts_NoFavouritedPosts()
+        {
+            Assert.That(FavouritePostLogic.GetFavouritePosts(_testPost.PostId, _testUser.UserId).Count == 0);
+        }
+
+        [Test]
+        public void Test_PostCommentLogic_Comment()
+        {
+            int commentId = PostCommentLogic.Comment(_testUser.UserId, _testPost.PostId, "TestComment");
+            string comment = _dBContext.PostComments.Where(postComment => postComment.PostCommentsId == commentId).First().CommentContend;
+            _dBContext.PostComments.Remove(_dBContext.PostComments.Where(postComment => postComment.PostCommentsId == commentId).First());
 
             Assert.That(comment == "TestComment");
         }
+
+        [Test]
+        public void Test_PostCommentLogic_GetComments()
+        {
+            int commentId = PostCommentLogic.Comment(_testUser.UserId, _testPost.PostId, "TestComment");
+            string comment = PostCommentLogic.GetComments(_testUser.UserId, _testPost.PostId).First();
+            _dBContext.PostComments.Remove(_dBContext.PostComments.Where(postComment => postComment.PostCommentsId == commentId).First());
+
+            Assert.That(comment == "TestComment");
+        }
+
+        [Test]
+        public void Test_PostCommentLogic_RemoveComment()
+        {
+            int commentId = PostCommentLogic.Comment(_testUser.UserId, _testPost.PostId, "TestComment");
+            PostCommentLogic.RemoveComment(commentId);
+
+            Assert.Throws<InvalidOperationException>(
+                () => {
+                    string comment = _dBContext.PostComments.Where(postComment => postComment.PostCommentsId == commentId).First().CommentContend;
+                });
+        }
+
+
     }
 }
