@@ -356,16 +356,5 @@ namespace DiabetesTracker_Tests
 
             Assert.IsNotNull(postTag);
         }
-
-        public void Test_PostTagLogic_AddPostTag_WithExistingTag()
-        {
-            Tag tag = TagLogic.AddTag("TestTagName");
-            PostTagLogic.AddPostTag(_testPost, tag);
-            PostTag postTag = PostTagLogic.AddPostTag(_testPost, tag);
-            _dBContext.Tags.Remove(tag);
-            _dBContext.PostTags.Remove(postTag);
-
-            Assert.IsNull(postTag);
-        }
     }
 }
