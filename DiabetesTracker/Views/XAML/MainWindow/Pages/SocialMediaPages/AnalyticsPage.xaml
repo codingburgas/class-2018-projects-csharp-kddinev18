@@ -1,0 +1,31 @@
+﻿<Page x:Class="DiabetesTracker.Views.AnalyticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DiabetesTracker"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:userControls="clr-namespace:DiabetesTracker.ViewModels.UserControls"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1135"
+      Title="AnalyticsPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
+        <userControls:InfoCard Margin="20" Grid.Column="0" Grid.Row="0" InfoCardIcon="Post" InfoCardText="{Binding Path=PostCount}" InfoCardTitle="Post count"/>
+        <userControls:InfoCard Margin="20" Grid.Column="1" Grid.Row="0" InfoCardIcon="ThumbUp" InfoCardText="{Binding Path=Likes}" InfoCardTitle="Likes"/>
+        <userControls:InfoCard Margin="20" Grid.Column="2" Grid.Row="0" InfoCardIcon="Eye" InfoCardText="{Binding Path=Followers}" InfoCardTitle="Followers"/>
+        <userControls:InfoCard Margin="20" Grid.Column="0" Grid.Row="1" InfoCardIcon="ViewAgenda" InfoCardText="{Binding Path=BlogCount}" InfoCardTitle="Blog count"/>
+        <userControls:InfoCard Margin="20" Grid.Column="1" Grid.Row="1" InfoCardIcon="ViewAgenda" InfoCardText="{Binding Path=MostFollowedBlog}" InfoCardTitle="Most followed blog"/>
+        <userControls:InfoCard Margin="20" Grid.Column="2" Grid.Row="1" InfoCardIcon="ViewAgenda" InfoCardText="{Binding Path=LeastFollowedBlog}" InfoCardTitle="Least followed blog"/>
+    </Grid>
+</Page>

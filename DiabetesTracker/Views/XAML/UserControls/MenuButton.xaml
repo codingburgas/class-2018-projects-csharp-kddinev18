@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="DiabetesTracker.ViewModels.UserControls.MenuButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DiabetesTracker.ViewModels.UserControls"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignWidth="100"
+             Name="menuButton">
+    <Button x:Name="Button" Style="{StaticResource menuButton}">
+        <StackPanel>
+            <Icon:PackIconMaterial Kind="{Binding ElementName=menuButton,Path=MenuButtonIcon}" Style="{StaticResource menuButtonIcon}"/>
+            <TextBlock Text="{Binding ElementName=menuButton,Path=MenuButtonText}"/>
+        </StackPanel>
+    </Button>
+</UserControl>

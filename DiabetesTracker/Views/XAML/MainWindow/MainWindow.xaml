@@ -1,0 +1,56 @@
+﻿<Window x:Class="DiabetesTracker.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:DiabetesTracker"
+        xmlns:userControls="clr-namespace:DiabetesTracker.ViewModels.UserControls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1280" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    <Grid MouseDown="Border_MouseDown">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="#FDFDFD" Grid.Column="0" Grid.Row="1" BorderThickness="1" BorderBrush="#DBDBDB" Width="145" CornerRadius=" 15 0 0 15">
+            <StackPanel>
+
+                <userControls:MenuButton MenuButtonIcon="Home" MenuButtonText="Home"/>
+                <userControls:MenuButton MenuButtonIcon="BloodBag" MenuButtonText="BoolSugar"/>
+                <userControls:MenuButton MenuButtonIcon="Reminder" MenuButtonText="Reminders"/>
+                <userControls:MenuButton MenuButtonIcon="Receipt" MenuButtonText="Menus"/>
+                <userControls:MenuButton MenuButtonIcon="Network" MenuButtonText="SocialMedia"/>
+                <userControls:MenuButton MouseDoubleClick="LogOutButton_MouseDoubleClick" MenuButtonIcon="Logout" MenuButtonText="LogOut"/>
+                <userControls:MenuButton MouseDoubleClick="ExitButton_MouseDoubleClick" MenuButtonIcon="ExitRun" MenuButtonText="Exit"/> 
+                <!--
+
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="MediaNetwork" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="SocialMedia" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}" Click="SignOutButton_Click">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="SignOut" Style="{StaticResource menuButtonIcon}" />
+                        <TextBlock Text="SignOut" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>-->
+
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" CornerRadius="0 15 15 0" MouseDown="Border_MouseDown">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#358c57" Offset="0"/>
+                    <GradientStop Color="#FF33AA7C" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Frame x:Name="MainWindowFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+        </Border>
+    </Grid>
+</Window>
