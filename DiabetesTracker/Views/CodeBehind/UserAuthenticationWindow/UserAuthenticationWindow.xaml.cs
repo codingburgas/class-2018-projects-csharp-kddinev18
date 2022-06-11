@@ -25,13 +25,21 @@ namespace DiabetesTracker.Views
         public FinishRegistrationPage FinishRegistrationPage { get; set; }
         public UserAuthenticationWindow()
         {
-            Services.SetUpConnection();
-            LogInPage = new LogInPage(this);
-            RegistrationPage = new RegistrationPage(this);
-            FinishRegistrationPage = new FinishRegistrationPage(this);
-            InitializeComponent();
-            // Show LogInPage
-            ShowPage(LogInPage);
+            try
+            {
+                Services.SetUpConnection();
+                LogInPage = new LogInPage(this);
+                RegistrationPage = new RegistrationPage(this);
+                FinishRegistrationPage = new FinishRegistrationPage(this);
+                InitializeComponent();
+                // Show LogInPage
+                ShowPage(LogInPage);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The server is currently down. Plase excuse us.", "Connection error");
+                Application.Current.Shutdown();
+            }
         }
 
         ~UserAuthenticationWindow()
