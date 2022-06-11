@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace BusinessLogicLayer
 {
+    // POCO class
     public class AnalyticsInformation
     {
         public int PostCount { get; set; }
@@ -19,11 +20,15 @@ namespace BusinessLogicLayer
     public static class UserProfileLogic
     {
         public static DiabetesTrackerDbContext DbContext { get; set; }
+        
+        // Add user profile data
         public static void ConfigureUserProfile(int userId, char gender, string about, string country, string city)
         {
+            // If some of the arguments are null throw an excpetion
             if(gender == ' ' || about == String.Empty || country == String.Empty || city == String.Empty)
                 throw new ArgumentNullException("You nust fill all of the boxes");
 
+            // Add new instace of a UserProfile into the current context
             DbContext.UserProfiles.Add(new UserProfile()
             {
                 UserId = userId,
@@ -34,8 +39,11 @@ namespace BusinessLogicLayer
                 City = city
             });
 
+            // Add the newly added user into the current context
             DbContext.SaveChanges();
         }
+
+        // Arranges the anlytics information into AnalyticsInformation
         public static AnalyticsInformation ArrangeAnalyticsInformation(int userId)
         {
             return new AnalyticsInformation() {
