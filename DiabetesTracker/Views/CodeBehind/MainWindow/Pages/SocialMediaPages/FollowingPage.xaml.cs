@@ -25,21 +25,27 @@ namespace DiabetesTracker.Views
     /// </summary>
     public partial class FollowingPage : Page
     {
+        // Data binding property for the followed blogs information
         public ObservableCollection<CurrentBlogInformation> FollowingBlogsInformation { get; set; } = new ObservableCollection<CurrentBlogInformation>();
+        // Data binding property for the selected blog information
         public CurrentBlogInformation SelectedBlogInformation { get; set; } = new CurrentBlogInformation();
 
         private SocialMediaPage _socialMediaPage;
         public FollowingPage(SocialMediaPage socialMediaPage)
         {
             _socialMediaPage = socialMediaPage;
+            // Load followed blog information into the data binding property FollowingBlogsInformation
             SocialMediaLogic.LoadFollowedBlogsInformation(FollowingBlogsInformation);
             InitializeComponent();
+            // Set the DataContext to this class
             DataContext = this;
         }
 
         private void OnBlog_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
+            // Get the selected blog
             CurrentBlogInformation blogInformation = (sender as ListBox).SelectedItem as CurrentBlogInformation;
+            // Show BlogTemplatePage
             _socialMediaPage.ShowPage(new BlogTemplatePage(
                 new BlogContent()
                 {

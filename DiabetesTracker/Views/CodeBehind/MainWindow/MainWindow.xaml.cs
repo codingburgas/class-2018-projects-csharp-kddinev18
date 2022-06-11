@@ -24,13 +24,16 @@ namespace DiabetesTracker.Views
         public SocialMediaPage SocialMediaPage { get; set; }
         public MainWindow()
         {
+            // Start up the server connection
             Services.SetUpConnection();
             SocialMediaPage = new SocialMediaPage(this);
             InitializeComponent();
+            // Show SocialMediaPage
             ShowPage(SocialMediaPage);
         }
         ~MainWindow()
         {
+            // Remove the server connection
             Services.RemoveConnection();
         }
 
@@ -42,18 +45,25 @@ namespace DiabetesTracker.Views
         //Event handlers
         private void LogOutButton_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            // Remove user credentials file 
             Services.RemoveCookies();
+            // Remove the server connection
             Services.RemoveConnection();
+            // Show new UserAuthenticationWindow
             new UserAuthenticationWindow().Show();
+            // Close this window
             this.Close();
         }
         private void ExitButton_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            // Remove the server connection
             Services.RemoveConnection();
+            // Shutdown the application
             Application.Current.Shutdown();
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            // Drag the window of the button is hold
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }

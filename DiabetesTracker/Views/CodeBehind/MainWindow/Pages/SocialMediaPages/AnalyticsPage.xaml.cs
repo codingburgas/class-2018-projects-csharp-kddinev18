@@ -23,17 +23,24 @@ namespace DiabetesTracker.Views
     /// </summary>
     public partial class AnalyticsPage : Page
     {
+        // Property used for data binding
         public CurrentAnalyticsInformation CurrentAnalyticsInformation { get; set; }
         public AnalyticsPage()
         {
             InitializeComponent();
             SetUpAnalyticsData();
+
+            // Set the DataContext to the data binding property
             DataContext = CurrentAnalyticsInformation;
         }
 
+        // Loads the data binding property with analytics information
         public void SetUpAnalyticsData()
         {
+            // Get the analytics information
             AnalyticsInformation analyticsInformation = Services.GetAnalyticsInformation(CurrentUserInformation.CurrentUserId.Value);
+
+            // Load the data binding property
             CurrentAnalyticsInformation = new CurrentAnalyticsInformation() { 
                 PostCount = analyticsInformation.PostCount,
                 Likes = analyticsInformation.Likes,

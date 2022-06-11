@@ -37,19 +37,25 @@ namespace DiabetesTracker.Views
 
         private void CreateBlogButton_Click(object sender, RoutedEventArgs e)
         {
+            // Get the blog name from BlogName text box
             string blogName = BlogName.TextBox.Text;
 
+            // Checks the blogname
             if (!HandleUserInput.GeneralHandler(blogName))
                 return;
 
+            // Gets the bytes of the selected image
             string image = string.Join(';', File.ReadAllBytes(_selectedImagePath));
 
+            // Created a blog
             Services.CreateBlog(CurrentUserInformation.CurrentUserId.Value, image, blogName);
 
+            // Shows BlogsPage
             _socialMediaPage.ShowPage(new BlogsPage(_socialMediaPage));
         }
         private void ImagePicker_Click(object sender, RoutedEventArgs e)
         {
+            // Show a preview of the selcted image
             Preview.Source = SocialMediaLogic.ImagePickerDialog(ref _selectedImagePath);
         }
     }

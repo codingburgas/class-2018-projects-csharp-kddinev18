@@ -39,21 +39,26 @@ namespace DiabetesTracker.Views
 
         private void PostButton_Click(object sender, RoutedEventArgs e)
         {
-
+            // Get tags and content from the etxt boxes
             string tags = Tags.TextBox.Text is null ? "null" : Tags.TextBox.Text;
             string content = Content.TextBox.Text;
 
+            // Ckecks if the image file path is null
             if (_selectedImagePath == String.Empty)
                 return;
 
+            // Gets the bytes of the selected image
             string image = string.Join(';', File.ReadAllBytes(_selectedImagePath));
 
+            // Add a post
             Services.Post(CurrentUserInformation.CurrentUserId.Value, _blogId, tags, content, image);
 
+            // Shows PostsPage
             _socialMediaPage.ShowPage(new PostsPage(_socialMediaPage));
         }
         private void ImagePicker_Click(object sender, RoutedEventArgs e)
         {
+            // Set preview for the selected image
             Preview.Source = SocialMediaLogic.ImagePickerDialog(ref _selectedImagePath);
         }
     }
