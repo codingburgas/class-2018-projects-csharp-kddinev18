@@ -42,13 +42,21 @@ namespace DiabetesTracker.Views
             // Get tags and content from the etxt boxes
             string tags = Tags.TextBox.Text is null ? "null" : Tags.TextBox.Text;
             string content = Content.TextBox.Text;
+            string image = String.Empty;
 
             // Ckecks if the image file path is null
             if (_selectedImagePath == String.Empty)
                 return;
 
             // Gets the bytes of the selected image
-            string image = string.Join(';', File.ReadAllBytes(_selectedImagePath));
+            try
+            {
+                image = string.Join(';', File.ReadAllBytes(_selectedImagePath));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Can't have a blog without an image");
+            }
 
             // Add a post
             Services.Post(CurrentUserInformation.CurrentUserId.Value, _blogId, tags, content, image);

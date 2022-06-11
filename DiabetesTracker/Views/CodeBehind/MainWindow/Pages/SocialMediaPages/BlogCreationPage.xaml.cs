@@ -39,13 +39,21 @@ namespace DiabetesTracker.Views
         {
             // Get the blog name from BlogName text box
             string blogName = BlogName.TextBox.Text;
+            string image = String.Empty;
 
             // Checks the blogname
             if (!HandleUserInput.GeneralHandler(blogName))
                 return;
 
             // Gets the bytes of the selected image
-            string image = string.Join(';', File.ReadAllBytes(_selectedImagePath));
+            try
+            {
+                image = string.Join(';', File.ReadAllBytes(_selectedImagePath));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Can't have a blog without an image");
+            }
 
             // Created a blog
             Services.CreateBlog(CurrentUserInformation.CurrentUserId.Value, image, blogName);
