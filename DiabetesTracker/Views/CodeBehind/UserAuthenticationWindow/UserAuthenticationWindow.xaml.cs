@@ -30,11 +30,13 @@ namespace DiabetesTracker.Views
             RegistrationPage = new RegistrationPage(this);
             FinishRegistrationPage = new FinishRegistrationPage(this);
             InitializeComponent();
+            // Show LogInPage
             ShowPage(LogInPage);
         }
 
         ~UserAuthenticationWindow()
         {
+            // Remove the server connection
             Services.RemoveConnection();
         }
         public void ShowPage(Page page)
@@ -44,19 +46,24 @@ namespace DiabetesTracker.Views
         public void OpenMainWindow()
         {
             MainWindow mainWindow = new MainWindow();
+            // Show MainWindow
             mainWindow.Show();
+            // Close this window
             this.Close();
         }
 
         //Event handlers
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            // Drag the window of the button is hold
             if(e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
+            // Remove the server connection
             Services.RemoveConnection();
+            // Shutdown the application
             Application.Current.Shutdown();
         }
     }

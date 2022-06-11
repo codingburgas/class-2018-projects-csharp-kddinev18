@@ -33,10 +33,12 @@ namespace DiabetesTracker.Views
 
         private void OpenLogInFormButton_Click(object sender, RoutedEventArgs e)
         {
+            // Show LogInPage
             _userAuthentication.ShowPage(_userAuthentication.LogInPage);
         }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
+            // Register and ser the CurrentUserId
             UserAuthentocationLogic.Register(_userAuthentication, UserName.TextBox.Text, Email.TextBox.Text, PasswordTextBox.Password);
         }
     }

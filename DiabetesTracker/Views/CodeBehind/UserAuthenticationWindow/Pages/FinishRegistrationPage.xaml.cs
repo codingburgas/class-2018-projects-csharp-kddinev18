@@ -29,8 +29,11 @@ namespace DiabetesTracker.Views
             _userAuthentication = userAuthentication;
             InitializeComponent();
         }
+
+        // Event handlers
         private void FinishRegistrationButton_Click(object sender, RoutedEventArgs e)
         {
+            // Add user profile
             UserAuthentocationLogic.FinishRegistration(_userAuthentication,Country.TextBox.Text, City.TextBox.Text, About.TextBox.Text, MeleCheckBox.IsChecked == true ? 'M' : 'F');
         }
         private void MeleCheckBox_Ckecked(object sender, RoutedEventArgs e)

@@ -30,7 +30,9 @@ namespace DiabetesTracker.Views
         public LogInPage(UserAuthenticationWindow userAuthentication)
         {
             _userAuthentication = userAuthentication;
+            // Logs with user credentials txt file
             CurrentUserInformation.CurrentUserId = Services.LogInWithCookies();
+            // If CurrentUserId is nut null open MainWindow
             if (CurrentUserInformation.CurrentUserId is not null)
             {
                 _userAuthentication.OpenMainWindow();
@@ -41,10 +43,12 @@ namespace DiabetesTracker.Views
         //Event handlers
         private void OpenRegistrationFormButton_Click(object sender, RoutedEventArgs e)
         {
+            // Shows RegistrationPage
             _userAuthentication.ShowPage(_userAuthentication.RegistrationPage);
         }
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
+            // Log in and sets CurrentUserId to the logged user id
             UserAuthentocationLogic.LogIn(_userAuthentication, UserName.TextBox.Text, PasswordTextBox.Password, RememberMeCheckBox.IsChecked == true ? true : false);
         }
     }
