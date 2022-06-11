@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace DiabetesTracker.Models
 {
+    // POCO class used for data binding
     public class CurrentPostInformation : INotifyPropertyChanged
     {
         private string _blogName;
@@ -82,10 +83,12 @@ namespace DiabetesTracker.Models
             }
         }
 
+        // Event that will be invoked every time a property changes value
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
+            // if the PropertyChanged is not null invoke it
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

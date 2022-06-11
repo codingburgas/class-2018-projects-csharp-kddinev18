@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DiabetesTracker.Models
 {
+    // POCO class used for data binding
     public class CurrentCommentInformation
     {
         public string Comment { get; set; }

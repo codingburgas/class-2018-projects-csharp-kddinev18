@@ -71,6 +71,7 @@ namespace DiabetesTracker.Logic
             }
             catch (Exception exception)
             {
+                // Show error message box
                 MessageBox.Show(exception.Message, "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }

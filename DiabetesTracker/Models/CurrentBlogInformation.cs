@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace DiabetesTracker.Models
 {
+    // POCO class used for data binding
     public class CurrentBlogInformation
     {
         public int BlogId { get; set; }
