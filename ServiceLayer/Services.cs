@@ -14,11 +14,15 @@ namespace ServiceLayer
         private static byte[] _data = new byte[16777216];
         private static TcpClient _tcpClient;
         private readonly static string _userCredentialsPath = @$"{Directory.GetCurrentDirectory()}/DiabetesTrackerCredentials.txt";
+
+        // Connect to the server
         public static void SetUpConnection()
         {
             if(_tcpClient == null)
                 _tcpClient = new TcpClient("127.0.0.1", 5400);
         }
+
+        // Diconenct from the servet
         public static void RemoveConnection()
         {
             if(_tcpClient != null)
@@ -28,24 +32,37 @@ namespace ServiceLayer
                 _tcpClient = null;
             }
         }
+
+        // Convert the byte into a string
         public static string FormatData()
         {
             return Encoding.ASCII.GetString(_data).Replace("\0", String.Empty);
         }
+
+        // Clear the data buffer
         public static void FlushBuffer()
         {
             Array.Clear(_data, 0, _data.Length);
         }
+
+        // Communication with the server
         private static string ClientToServerComunication(string message)
         {
+            // Clear the data buffer
             FlushBuffer();
 
+            // Send message to the server
             _tcpClient.Client.Send(Encoding.UTF8.GetBytes(message));
+            // Wait until a response is recieved
             _tcpClient.Client.Receive(_data);
 
+            // Format tha data
             string serialisedData = FormatData();
+            // If the first argument is '0' throw exception
             if (serialisedData.Split('|')[0] == "1")
                 throw new Exception(serialisedData.Split('|')[1]);
+
+            // Else return the data
             return serialisedData;
         }
 
@@ -60,54 +77,66 @@ namespace ServiceLayer
         }
         public static void FinishRegistration(int userId, char gender, string about, string country, string city)
         {
-            string serialisedData = ClientToServerComunication($"{(int)UserOperation.FinishRegistration}|{userId}, {gender}, {about}, {country}, {city}");
+            ClientToServerComunication($"{(int)UserOperation.FinishRegistration}|{userId}, {gender}, {about}, {country}, {city}");
         }
         public static int LogIn(string userName, string password, bool doRememberMe)
         {
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.LogIn}|{userName}, {password}");
 
+            // Deserialize the data
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(serialisedData.Split('|')[1]);
 
+            // If the remember me checkbox is checked add user credentials txt file
             if (doRememberMe == true)
                 AddCookies(userCredentials);
             else
                 RemoveCookies();
 
+            // Return the user id
             return userCredentials.Id;
         }
 
         public static int? CheckCookies()
         {
+            // If there isn't a text user credential file return null
             if (!File.Exists(_userCredentialsPath))
                 return null;
 
+            // Log with the credentials from the file otherwise
             string credentials = File.ReadAllText(_userCredentialsPath);
             UserCredentials userCredentials = JsonSerializer.Deserialize<UserCredentials>(credentials);
             string serialisedData = ClientToServerComunication($"{(int)UserOperation.LogInWithCookies}|{userCredentials.UserName}, {userCredentials.HashedPassword}");
+            // If the ids doesn't match throw an exception
             if (int.Parse(serialisedData.Split('|')[1]) != userCredentials.Id)
                 throw new Exception("Fatal error");
 
+            // Returns the user id
             return userCredentials.Id;
         }
         public static void RemoveCookies()
         {
+            // Checks if the file is already deleted
             if (!File.Exists(_userCredentialsPath))
                 return;
 
+            // Delete the file otherwise
             File.Delete(_userCredentialsPath);
         }
         public static int? LogInWithCookies()
         {
+            // If there isn't a text user credential file return null
             int? userId = CheckCookies();
             if (userId is null)
             {
                 return null;
             }
 
+            // Return the user id of the logged user
             return userId.Value;
         }
         public static void AddCookies(UserCredentials userCredentials)
         {
+            // Cerates a file and writes the user credential in it
             File.WriteAllText(_userCredentialsPath, JsonSerializer.Serialize(new UserCredentials() { Id = userCredentials.Id, UserName = userCredentials.UserName, HashedPassword = userCredentials.HashedPassword }));
         }
 
