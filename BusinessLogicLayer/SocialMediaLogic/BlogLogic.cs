@@ -92,7 +92,7 @@ namespace BusinessLogicLayer
                 .Count();
         }
 
-        // Returns the amount of users following a certain users blogs
+        // Returns the amount of users following a certain user's blogs
         public static int GetBlogFollowingCount(int userId)
         {
             return DbContext.Blogs

@@ -28,13 +28,16 @@ namespace Server
         {
             Master.OpenConnection();
             _tcpListener = new TcpListener(IPAddress.Any, _port);
+            // Starts the server
             _tcpListener.Start();
+            // Starts accepting clients
             _tcpListener.BeginAcceptTcpClient(new AsyncCallback(AcceptClients), null);
         }
 
         public void ServerShutDown()
         {
             Master.CloseConnection();
+            // Stops the server
             _tcpListener.Stop();
             _tcpListener = null;
         }

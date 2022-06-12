@@ -41,18 +41,14 @@ namespace DiabetesTracker.Views
                 Application.Current.Shutdown();
             }
         }
-
-        ~UserAuthenticationWindow()
-        {
-            // Remove the server connection
-            Services.RemoveConnection();
-        }
         public void ShowPage(Page page)
         {
             Forms.Content = page;
         }
         public void OpenMainWindow()
         {
+            Services.RemoveConnection();
+
             MainWindow mainWindow = new MainWindow();
             // Show MainWindow
             mainWindow.Show();

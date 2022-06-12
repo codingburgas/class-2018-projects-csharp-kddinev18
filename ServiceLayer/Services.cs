@@ -33,7 +33,7 @@ namespace ServiceLayer
             }
         }
 
-        // Convert the byte into a string
+        // Convert the bytes into a string
         public static string FormatData()
         {
             return Encoding.ASCII.GetString(_data).Replace("\0", String.Empty);
@@ -204,21 +204,21 @@ namespace ServiceLayer
 
 
 
-        public static void Like(int userId, int PostId)
+        public static void Like(int userId, int postId)
         {
-            ClientToServerComunication($"{(int)UserOperation.Like}|{userId}, {PostId}");
+            ClientToServerComunication($"{(int)UserOperation.Like}|{userId}, {postId}");
         }
-        public static void Unlike(int userId, int PostId)
+        public static void Unlike(int userId, int postId)
         {
-            ClientToServerComunication($"{(int)UserOperation.Unlike}|{userId}, {PostId}");
+            ClientToServerComunication($"{(int)UserOperation.Unlike}|{userId}, {postId}");
         }
-        public static void Favourite(int userId, int PostId)
+        public static void Favourite(int userId, int postId)
         {
-            ClientToServerComunication($"{(int)UserOperation.Favourite}|{userId}, {PostId}");
+            ClientToServerComunication($"{(int)UserOperation.Favourite}|{userId}, {postId}");
         }
-        public static void Unfavourite(int userId, int PostId)
+        public static void Unfavourite(int userId, int postId)
         {
-            ClientToServerComunication($"{(int)UserOperation.Unfavourite}|{userId}, {PostId}");
+            ClientToServerComunication($"{(int)UserOperation.Unfavourite}|{userId}, {postId}");
         }
         public static void Follow(int userId, int blogId)
         {

@@ -171,7 +171,7 @@ namespace BusinessLogicLayer
             throw new ArgumentException("Your password or username is incorrect");
         }
 
-        // Check is the given user has entered his user profile data
+        // Check if the given user has entered his user profile data
         public static bool CheckUserProfile(int userId)
         {
             return DbContext.UserProfiles
