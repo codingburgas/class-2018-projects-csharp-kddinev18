@@ -31,11 +31,6 @@ namespace DiabetesTracker.Views
             // Show SocialMediaPage
             ShowPage(SocialMediaPage);
         }
-        ~MainWindow()
-        {
-            // Remove the server connection
-            Services.RemoveConnection();
-        }
 
         public void ShowPage(Page page)
         {
